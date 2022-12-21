@@ -6,9 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // fontFamily: {
-      //   libre: ['"Inter"', sans-serif]
-      // }
+      fontFamily: { },
+      fontFamily:{
+        abc:["Unbounded" ,"cursive"]
+      }
     },
   },
   plugins: [],
