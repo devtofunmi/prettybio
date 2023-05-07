@@ -49,6 +49,7 @@ const DashboardTabs = () => {
           </div>
         ))}
       </div>
+      {/* <div className="w-96 h-1 bg-yellow-700"></div> */}
       <div>
         {activeTab === 1 && <Links />}
         {activeTab === 2 && <Analytics />}
