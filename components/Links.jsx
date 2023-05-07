@@ -26,8 +26,8 @@ const Links = () => {
       </div>
 
       <div className="mt-5 ">
-        {LinkDisplay.map((data) => (
-          <div className="bg-gray-200 my-5 p-6">
+        {LinkDisplay.map((data,k) => (
+          <div className="bg-gray-200 my-5 p-6" key={k}>
             <h1>{data.linkName}</h1>
             <p>{data.linkUrl}</p>
           </div>
