@@ -13,7 +13,7 @@ const DashBoardNav = () => {
 
       <GradientBorder>
         <div className="w-10 h-10 rounded-full">
-          <img src={"./assets/jay.png"} alt="features image" />
+          <img src={"./assets/blur.png"} alt="features image" />
         </div>
       </GradientBorder>
     </div>
