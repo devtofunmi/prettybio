@@ -10,7 +10,7 @@ const FeaturesCard = () => {
             card.isInverted
               ? "flex-row-reverse lg:flex-row-reverse"
               : "flex-row"
-          }`}
+          }`} key={i}
         >
           <div className="flex flex-col mt-28 w-full lg:w-5/6">
             <div className="text-5xl lg:text-6xl">{card.heading}</div>
