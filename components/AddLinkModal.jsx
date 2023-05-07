@@ -29,7 +29,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
           showModal ? "flex" : "hidden"
         }`}
       >
-        <div className="w-4/5 md:w-2/4   lg:w-2/5  rounded-xl bg-white  m-auto p-14  mt-40">
+        <div className="w-4/5 md:w-2/4   lg:w-[35%]  rounded-xl bg-white  m-auto p-8  mt-40">
           <div className="flex justify-between items-center text-base lg:text-xl md:text-sm">
             <h1>Add Link</h1>
             <div>
