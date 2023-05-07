@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import GradientBorder from "./GradientBorder";
+import Image from "next/image";
 
 const DashBoardNav = () => {
   return (
@@ -13,7 +14,12 @@ const DashBoardNav = () => {
 
       <GradientBorder>
         <div className="w-10 h-10 rounded-full">
-          <img src={"./assets/blur.png"} alt="features image" />
+          <Image
+            src={"/assets/blur.png"}
+            alt="features image"
+            width={500}
+            height={500}
+          />
         </div>
       </GradientBorder>
     </div>
