@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ProfileLinks from '../components/ProfileLinks';
 import GradientBorder from '../components/GradientBorder';
 import ShareLinkModal from '../components/ShareLinkModal';
-import { CiShare1 } from "react-icons/ci";
+import { GrShare } from "react-icons/gr";
 import Image from 'next/image';
 
 const Profile = () => {
@@ -23,7 +23,7 @@ const Profile = () => {
           }}
         >
           <div>
-            <CiShare1 className="text-[20px] md:text-[30px] hover:bg-gray-200 " />
+            <GrShare className="text-[15px] md:text-[20px] hover:bg-gray-200 " />
           </div>
         </button>
       </div>
