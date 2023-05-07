@@ -13,6 +13,17 @@
   background-color: #98cad3;
 }
 
+/* ::-webkit-scrollbar-horizontal {
+  width:0px;
+  background-color: "transparent";
+} */
+/* ::-webkit-scrollbar {
+  width:0px;
+  background-color: "transparent";
+ 
+} */
+
+
 body{
     background-color: rgb(247, 248, 252);
 }
