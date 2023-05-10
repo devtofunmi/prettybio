@@ -1,20 +1,82 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import GradientBorder from "../components/GradientBorder";
 import Navbar from "../components/Navbar";
+import { supabase } from "../supabaseClient";
+import { useRouter } from "next/router";
 
 const Signup = () => {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const SignUp = async () => {
+    if (!supabase) {
+      console.error("Supabase client is not defined.");
+      return;
+    }
+
+    let { data, error } = await supabase.auth.signUp({
+      username: username,
+      password: password,
+      confirmPassword: confirmPassword,
+     
+    });
+
+    console.log(data, error);
+
+    setLoading(true);
+    setTimeout(() => {
+      if (!username) {
+        setError("Please enter your username");
+      } else if (!password) {
+        setError("Please enter your password");
+      } else if (!confirmPassword) {
+        setError("Please confirm your password");
+      }  else if (error) {
+        setError(error.message);
+      } else if (data.error) {
+        setError(data.error.message);
+      } else {
+        router.push("/Login");
+        setError("Login succesful");
+      }
+      setLoading(false);
+    }, 1000);
+  };
+
+  function handleSubmit() {
+    setError("");
+    SignUp();
+  }
   return (
     <div className="font-abc">
       <Navbar />
       <h1 className="text-black text-3xl  flex justify-center">Sign up</h1>
 
+      {error && (
+        <div className="fixed top-0 left-0 right-0 bg-red-500 text-white p-4 w-[200px]">
+          <p>{error}</p>
+          <button
+            className="absolute top-0 right-0 px-2 py-1"
+            onClick={() => setError("")}
+          >
+            X
+          </button>
+        </div>
+      )}
+
       <div className=" w-5/6 md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
         <div className="flex flex-col mt-3 justify-center ">
           <input
-            type="email"
+            type="username"
             class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full "
-            placeholder="Email"
+            placeholder="Username"
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
           />
 
           <div className="mt-5">
@@ -22,6 +84,9 @@ const Signup = () => {
               type="password"
               class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
               placeholder="Password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </div>
 
@@ -30,17 +95,23 @@ const Signup = () => {
               type="password"
               class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
               placeholder="confirm Password"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
             />
           </div>
         </div>
         <div className="mt-5 justify-center items-center flex ">
-          <Link href="/Otp">
+         
             <GradientBorder>
-              <button className=" px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full ">
-                SIGN UP
+              <button
+                className=" px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full "
+                onClick={handleSubmit}
+              >
+                {loading ? <p>loading...</p> : <p>SIGN UP </p>}
               </button>
             </GradientBorder>
-          </Link>
+         
         </div>
       </div>
     </div>
