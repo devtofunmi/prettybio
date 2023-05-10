@@ -12,6 +12,7 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const SignUp = async () => {
     if (!supabase) {
       console.error("Supabase client is not defined.");
@@ -57,14 +58,16 @@ const Signup = () => {
       <h1 className="text-black text-3xl  flex justify-center">Sign up</h1>
 
       {error && (
-        <div className="fixed top-0 left-0 right-0 bg-red-500 text-white p-4 w-[200px]">
+        <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4 ">
+          <div className="flex justify-between">
           <p>{error}</p>
           <button
-            className="absolute top-0 right-0 px-2 py-1"
+            className=" px-2 py-1"
             onClick={() => setError("")}
           >
             X
           </button>
+          </div>
         </div>
       )}
 
