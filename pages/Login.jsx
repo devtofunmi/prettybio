@@ -12,9 +12,9 @@ const Login = () => {
       <div className=" w-5/6 md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
         <div className="flex flex-col mt-3 ">
           <input
-            type="email"
+            type="username"
             class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full"
-            placeholder="Email"
+            placeholder="Username"
           />
 
           <div className="mt-5">
