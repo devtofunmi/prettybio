@@ -40,8 +40,6 @@ const Setup = () => {
             setError("Enter your link");
           } else if (!bio) {
             setError("Enter your bio");
-          } else if (data.error) {
-            setError(data.error.message);
           } else {
             setSuccess("Setup succesful");
             router.push("/Dashboard");
@@ -98,7 +96,7 @@ const Setup = () => {
           </div>
           <div className="flex flex-col mt-7 text-sm ">
             <input
-              type="password"
+              type="text"
               class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full"
               placeholder="Name"
               onChange={(e) => {
@@ -119,7 +117,7 @@ const Setup = () => {
 
             <div className="mt-5">
               <input
-                type="password"
+                type="text"
                 class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full"
                 placeholder="Bio"
                 onChange={(e) => {
