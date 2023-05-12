@@ -29,7 +29,12 @@ const Setup = () => {
     
       const { data, error } = await supabase
        .from("setup")
-       .insert([{ name: name }, { link: link }, { bio: bio}]);
+       .insert({
+          name: name,
+          link: link,
+          bio: bio,
+          user_id: (await supabase.auth.getUser()).data.user.id,
+        })
         console.log(data, error);
 
         setLoading(true);
