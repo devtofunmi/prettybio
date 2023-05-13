@@ -15,12 +15,12 @@ const [success, setSuccess] = useState("");
 
 const logIn = async () => {
 
-    let { data, error } = await supabase.auth.signInWithPassword({
+    let { user, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
 
-    console.log(data, error);
+    console.log(user, error);
 
     setLoading(true)
     setTimeout(() => {
@@ -28,8 +28,8 @@ const logIn = async () => {
         setError("Enter your email");
       } else if (!password) {
         setError("Enter your password");
-      } else if (data.error) {
-        setError(data.error.message);
+      } else if (error) {
+        setError(error.message);
       }else{
          setSuccess("Login succesful");
          router.push("/Setup");
