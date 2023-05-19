@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import { useRouter } from "next/router";
 
 const Login = () => {
-const [email, setUserName] = useState("");
+const [username, setUserName] = useState("");
 const [password, setPassword] = useState("");
 const [loading, setLoading] = useState(false);
 const router = useRouter();
@@ -15,25 +15,38 @@ const [success, setSuccess] = useState("");
 
 const logIn = async () => {
 
-    let { user, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
+  const { data, error } = await supabase
+    .from("users")
+    .select()
+    .eq("username", username)
+    .eq("password", password);
 
-    console.log(user, error);
-
-    setLoading(true)
+  setLoading(true);
     setTimeout(() => {
-      if (!email) {
+      if (!username) {
         setError("Enter your email");
       } else if (!password) {
         setError("Enter your password");
       } else if (error) {
         setError(error.message);
-      }else{
-         setSuccess("Login succesful");
-         router.push("/Setup");
+      }else if (data.length === 0) {
+        setError("incorrect username or password");
+
+        console.log("No matching user found");
       }
+       else if (data.length === 1) {
+        const user = data[0];
+        console.log("User data:", user);
+        setSuccess("Login succesful");
+        router.push("/Setup");
+      }
+       else {
+         console.log(
+           "Multiple users found with the same username and password"
+         );
+       
+      }
+      
       setLoading(false);
 
     },1000)
@@ -72,7 +85,7 @@ function handleSubmit() {
       <div className=" w-5/6 md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
         <div className="flex flex-col mt-3 ">
           <input
-            type="username"
+            type="text"
             class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full"
             placeholder="Username"
             onChange={(e) => {

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React, { useState } from "react";
 import GradientBorder from "../components/GradientBorder";
 import Navbar from "../components/Navbar";
@@ -6,7 +5,8 @@ import { supabase } from "../supabaseClient";
 import { useRouter } from "next/router";
 
 const Signup = () => {
-  const [email, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,35 +19,61 @@ const Signup = () => {
       return;
     }
 
-    let { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-     
-    });
+    const { data, error } = await supabase
+  .from('users')
+  .select()
+  .or('username.eq.' + username, 'email.eq.' + email);
 
-    console.log(data, error);
+setLoading(true);
+setTimeout(async () => {
+  if (!email) {
+    setError("Please enter your email");
+  } else if (!username) {
+    setError("Please enter your username");
+  } else if (!password) {
+    setError("Please enter your password");
+  } else if (!confirmPassword) {
+    setError("Please confirm your password");
+  } else if (password !== confirmPassword) {
+    setError("Password does not match the confirmed password");
+  } else {
+    try {
+      const { data: existingUsernames, error: existingUsernamesError } =
+        await supabase.from("users").select().eq("username", username);
 
-    setLoading(true);
-    setTimeout(() => {
-      if (!email) {
-        setError("Please enter your username");
-      } else if (!password) {
-        setError("Please enter your password");
-      } else if (!confirmPassword) {
-        setError("Please confirm your password");
-      }  else if (error) {
-        setError(error.message);
-      }  else if (password != confirmPassword) {
-        setError("password is not the same with confirm password");
-      } else if (data.error) {
-        setError(data.error.message);
+      const { data: existingEmails, error: existingEmailsError } =
+        await supabase.from("users").select().eq("email", email);
+
+      if (existingUsernamesError || existingEmailsError) {
+        setError("Error checking existing usernames and emails");
+      } else if (existingUsernames.length > 0) {
+        setError("Username is already registered");
+      } else if (existingEmails.length > 0) {
+        setError("Email is already registered");
       } else {
-        setSuccess("Login succesful");
-        router.push("/Login");
+        const { data: insertedData, error: insertError } = await supabase
+          .from("users")
+          .insert({
+            email: email,
+            username: username,
+            password: password,
+            confirmpassword: confirmPassword,
+          });
+
+        if (insertError) {
+          setError(insertError.message);
+        } else {
+          setSuccess("Signup successful");
+          router.push("/Login");
+        }
       }
-      setLoading(false);
-    }, 1000);
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  setLoading(false);
+}, 1000);
   };
 
   function handleSubmit() {
@@ -83,11 +109,22 @@ const Signup = () => {
           <input
             type="email"
             class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full "
-            placeholder="Username"
+            placeholder="email"
             onChange={(e) => {
-              setUserName(e.target.value);
+              setEmail(e.target.value);
             }}
           />
+
+           <div className="mt-5">
+            <input
+              type="text"
+              class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
+              placeholder="username"
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+            />
+          </div>
 
           <div className="mt-5">
             <input
