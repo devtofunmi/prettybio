@@ -28,12 +28,11 @@ const Setup = () => {
   const setUp = async () => {
     
       const { data, error } = await supabase
-       .from("setup")
+       .from("users")
        .insert({
           name: name,
           link: link,
           bio: bio,
-          user_id: (await supabase.auth.getUser()).data.user.id,
         })
         console.log(data, error);
 
