@@ -57,8 +57,8 @@ const Profile = () => {
       </div>
 
       <div>
-        <a href="prettybio.com">
-          <h1 className="text-center mt-10">PreetyBio</h1>
+        <a href="http://prettybio.com">
+          <h1 className="text-center mt-10">PrettyBio</h1>
         </a>
       </div>
     </div>
