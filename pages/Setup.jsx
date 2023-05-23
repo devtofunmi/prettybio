@@ -17,41 +17,114 @@ const Setup = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // function uploadImage(e) {
+  //   setImage(e.target.files[0]);
+  //   console.log(e.target.files);
+  // }
+
+  // function uploadImage(e) {
+  //   setImage(e.target.files[0]);
+  // }
+
   function uploadImage(e) {
-    setImage(e.target.files[0]);
-    console.log(e.target.files);
+    const file = e.target.files[0];
+
+    // Create a FileReader to read the image file
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImage(reader.result); // Set the image URL to the result of FileReader
+    };
+
+    reader.readAsDataURL(file);
+
+    console.log("Selected file:", file);
+    console.log("File reader result:", reader.result);
   }
+
+
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
 
-  const setUp = async () => {
+  // const setUp = async () => {
     
-      const { data, error } = await supabase
+  //     const { data, error } = await supabase
+  //      .from("users")
+  //      .insert({
+  //         name: name,
+  //         link: link,
+  //         bio: bio,
+  //       })
+  //       console.log(data, error);
+
+  //       setLoading(true);
+  //       setTimeout(() => {
+  //         if (!name) {
+  //           setError("Enter your name");
+  //         } else if (!link) {
+  //           setError("Enter your link");
+  //         } else if (!bio) {
+  //           setError("Enter your bio");
+  //         } else {
+  //           setSuccess("Setup succesful");
+  //           router.push("/Dashboard");
+  //         }
+  //         setLoading(false);
+  //       }, 1000);
+
+  // }
+
+
+ const setUp = async () => {
+   setLoading(true);
+
+   try {
+     // Upload image to Supabase Storage
+     const { data, error } = await supabase.storage
+       .from("users_avater")
+       .upload(`user_${name}_image`, image);
+
+     console.log("Upload response:", data, error);
+
+     if (error) {
+       setError("Error uploading image");
+       setLoading(false);
+       return;
+     }
+
+     // Retrieve the uploaded image URL from the response
+     const imageUrl = data.url;
+
+     // Store user information in the database, including the image URL
+     const { data: userData, error: userError } = await supabase
        .from("users")
        .insert({
-          name: name,
-          link: link,
-          bio: bio,
-        })
-        console.log(data, error);
+         name: name,
+         link: link,
+         bio: bio,
+         image_url: imageUrl, // Store the image URL in the database
+       });
 
-        setLoading(true);
-        setTimeout(() => {
-          if (!name) {
-            setError("Enter your name");
-          } else if (!link) {
-            setError("Enter your link");
-          } else if (!bio) {
-            setError("Enter your bio");
-          } else {
-            setSuccess("Setup succesful");
-            router.push("/Dashboard");
-          }
-          setLoading(false);
-        }, 1000);
+     console.log("User data response:", userData, userError);
 
-  }
+     if (userError) {
+       console.error("Error setting up user:", userError.message);
+       setError("Error setting up user");
+     } else {
+       setSuccess("Setup successful");
+       router.push("/Dashboard");
+     }
+   } catch (error) {
+     console.error("Error during setup:", error);
+     setError("Error during setup");
+   }
+
+   setLoading(false);
+ };
+
+
+
 
 
   function handleSubmit() {
@@ -85,15 +158,30 @@ const Setup = () => {
         </div>
       )}
 
-
       <div className=" w-11/12 md:w-2/4   lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
         <div className="flex flex-col mt-3 justify-center">
-          <div className=" w-28 h-28 m-auto border-8 border-pink-500  border-dotted rounded-full flex justify-center">
+          {/* <div className=" w-28 h-28 m-auto border-8 border-pink-500  border-dotted rounded-full flex justify-center">
             <div className=" text-3xl  flex justify-center">
               <button className="cursor-pointer" onClick={handleButtonClick}>
                 <BsCamera />
               </button>
             </div>
+            <div className="hidden">
+              <input type="file" ref={fileInputRef} onChange={uploadImage} />
+            </div>
+          </div> */}
+          <div className=" w-28 h-28 m-auto border-8 border-pink-500  border-dotted rounded-full flex justify-center">
+            {image ? (
+              <img
+                src={image}
+                alt="User's uploaded image"
+                className="w-full h-full rounded-full"
+              />
+            ) : (
+              <button className="cursor-pointer" onClick={handleButtonClick}>
+                <BsCamera />
+              </button>
+            )}
             <div className="hidden">
               <input type="file" ref={fileInputRef} onChange={uploadImage} />
             </div>
