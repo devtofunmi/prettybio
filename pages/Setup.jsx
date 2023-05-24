@@ -103,7 +103,7 @@ const Setup = () => {
          name: name,
          link: link,
          bio: bio,
-         image_url: imageUrl, // Store the image URL in the database
+         image: imageUrl, // Store the image URL in the database
        });
 
      console.log("User data response:", userData, userError);
