@@ -15,7 +15,6 @@ const Setup = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const CLOUDINARY_UPLOAD_PRESET = "profile_image";
 
   function uploadImage(e) {
     const file = e.target.files[0];
@@ -38,11 +37,11 @@ const Setup = () => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "profile_image"); // Replace with your Cloudinary upload preset
+    formData.append("upload_preset", "profile_image"); 
 
     try {
       const response = await fetch(
-        "https://api.cloudinary.com/v1_1/phantom1245/image/upload", // Replace with your Cloudinary cloud name
+        "https://api.cloudinary.com/v1_1/phantom1245/image/upload", 
         {
           method: "POST",
           body: formData,

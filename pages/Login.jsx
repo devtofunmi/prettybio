@@ -38,6 +38,7 @@ const logIn = async () => {
         const user = data[0];
         console.log("User data:", user);
         setSuccess("Login succesful");
+        setUserIdentifier(user.email);
         router.push("/Setup");
       }
        else {
