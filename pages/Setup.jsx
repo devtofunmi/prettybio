@@ -1,11 +1,10 @@
-import Link from "next/link";
-import React, { useRef, useState } from "react";
-
+import { useState, useRef } from "react";
 import { BsCamera } from "react-icons/bs";
-import DashBoardNav from "../components/DashBoardNav";
-import GradientBorder from "../components/GradientBorder";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import GradientBorder from "../components/GradientBorder";
 import { supabase } from "../supabaseClient";
+
 const Setup = () => {
   const [image, setImage] = useState("");
   const fileInputRef = useRef(null);
@@ -16,20 +15,10 @@ const Setup = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
-  // function uploadImage(e) {
-  //   setImage(e.target.files[0]);
-  //   console.log(e.target.files);
-  // }
-
-  // function uploadImage(e) {
-  //   setImage(e.target.files[0]);
-  // }
+  const CLOUDINARY_UPLOAD_PRESET = "profile_image";
 
   function uploadImage(e) {
     const file = e.target.files[0];
-
-    // Create a FileReader to read the image file
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -42,94 +31,73 @@ const Setup = () => {
     console.log("File reader result:", reader.result);
   }
 
-
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
 
-  // const setUp = async () => {
-    
-  //     const { data, error } = await supabase
-  //      .from("users")
-  //      .insert({
-  //         name: name,
-  //         link: link,
-  //         bio: bio,
-  //       })
-  //       console.log(data, error);
+  const uploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "profile_image"); // Replace with your Cloudinary upload preset
 
-  //       setLoading(true);
-  //       setTimeout(() => {
-  //         if (!name) {
-  //           setError("Enter your name");
-  //         } else if (!link) {
-  //           setError("Enter your link");
-  //         } else if (!bio) {
-  //           setError("Enter your bio");
-  //         } else {
-  //           setSuccess("Setup succesful");
-  //           router.push("/Dashboard");
-  //         }
-  //         setLoading(false);
-  //       }, 1000);
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/phantom1245/image/upload", // Replace with your Cloudinary cloud name
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-  // }
+      const data = await response.json();
+      console.log("Cloudinary upload response:", data);
 
+      if (response.ok) {
+        return data.secure_url; // Return the secure URL of the uploaded image
+      } else {
+        throw new Error(data.error.message);
+      }
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+      throw error;
+    }
+  };
 
- const setUp = async () => {
-   setLoading(true);
+  const setUp = async () => {
+    setLoading(true);
 
-   try {
-     // Upload image to Supabase Storage
-     const { data, error } = await supabase.storage
-       .from("users_avater")
-       .upload(`user_${name}_image`, image);
+    try {
+      const imageUrl = await uploadToCloudinary(image);
 
-     console.log("Upload response:", data, error);
+      // Store user information in the database, including the image URL
+      const { data, error } = await supabase.from("users").insert({
+        name: name,
+        link: link,
+        bio: bio,
+        image: imageUrl, // Store the image URL in the database
+      });
 
-     if (error) {
-       setError("Error uploading image");
-       setLoading(false);
-       return;
-     }
+      console.log("User data response:", data, error);
 
-     // Retrieve the uploaded image URL from the response
-     const imageUrl = data.url;
+      if (error) {
+        console.error("Error setting up user:", error.message);
+        setError("Error setting up user");
+      } else {
+        setSuccess("Setup successful");
+        router.push("/Dashboard");
+      }
+    } catch (error) {
+      console.error("Error during setup:", error);
+      setError("Error during setup");
+    }
 
-     // Store user information in the database, including the image URL
-     const { data: userData, error: userError } = await supabase
-       .from("users")
-       .insert({
-         name: name,
-         link: link,
-         bio: bio,
-         image: imageUrl, // Store the image URL in the database
-       });
-
-     console.log("User data response:", userData, userError);
-
-     if (userError) {
-       console.error("Error setting up user:", userError.message);
-       setError("Error setting up user");
-     } else {
-       setSuccess("Setup successful");
-       router.push("/Dashboard");
-     }
-   } catch (error) {
-     console.error("Error during setup:", error);
-     setError("Error during setup");
-   }
-
-   setLoading(false);
- };
-
-
-
-
+    setLoading(false);
+  };
 
   function handleSubmit() {
     setUp();
   }
+
   return (
     <div className="font-abc">
       <Link href="/">
@@ -143,7 +111,7 @@ const Setup = () => {
         <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4 ">
           <div className="flex justify-between">
             <p>{error}</p>
-            <button className=" px-2 py-1" onClick={() => setError("")}>
+            <button className="px-2 py-1" onClick={() => setError("")}>
               X
             </button>
           </div>
@@ -158,19 +126,9 @@ const Setup = () => {
         </div>
       )}
 
-      <div className=" w-11/12 md:w-2/4   lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
+      <div className="w-11/12 md:w-2/4 lg:w-4/12 rounded-xl m-auto p-14 mt-2">
         <div className="flex flex-col mt-3 justify-center">
-          {/* <div className=" w-28 h-28 m-auto border-8 border-pink-500  border-dotted rounded-full flex justify-center">
-            <div className=" text-3xl  flex justify-center">
-              <button className="cursor-pointer" onClick={handleButtonClick}>
-                <BsCamera />
-              </button>
-            </div>
-            <div className="hidden">
-              <input type="file" ref={fileInputRef} onChange={uploadImage} />
-            </div>
-          </div> */}
-          <div className=" w-28 h-28 m-auto border-8 border-pink-500  border-dotted rounded-full flex justify-center">
+          <div className="w-28 h-28 m-auto border-8 border-pink-500 border-dotted rounded-full flex justify-center">
             {image ? (
               <img
                 src={image}
@@ -186,21 +144,21 @@ const Setup = () => {
               <input type="file" ref={fileInputRef} onChange={uploadImage} />
             </div>
           </div>
-          <div className="flex flex-col mt-7 text-sm ">
+          <div className="flex flex-col mt-7 text-sm">
             <input
               type="text"
-              class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full"
+              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
               placeholder="Name"
               onChange={(e) => {
                 setName(e.target.value);
               }}
             />
-            <div className="flex text-sm items-center text-black bg-white mt-5 border pl-4 rounded-md ">
+            <div className="flex text-sm items-center text-black bg-white mt-5 border pl-4 rounded-md">
               <p>prettybio.com/</p>
               <input
                 type="text"
                 placeholder="your name"
-                className="py-2 bg-transparent outline-none "
+                className="py-2 bg-transparent outline-none"
                 onChange={(e) => {
                   setLink(e.target.value);
                 }}
@@ -210,7 +168,7 @@ const Setup = () => {
             <div className="mt-5">
               <input
                 type="text"
-                class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full"
+                className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
                 placeholder="Bio"
                 onChange={(e) => {
                   setBio(e.target.value);
@@ -218,10 +176,10 @@ const Setup = () => {
               />
             </div>
           </div>
-          <div className="mt-5 justify-center items-center flex ">
+          <div className="mt-5 justify-center items-center flex">
             <GradientBorder>
               <button
-                className=" px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full "
+                className="px-14 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full"
                 onClick={handleSubmit}
               >
                 {loading ? <p>loading...</p> : <p>Continue</p>}
