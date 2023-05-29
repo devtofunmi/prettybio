@@ -32,6 +32,8 @@ setTimeout(async () => {
     setError("Please enter your username");
   } else if (!password) {
     setError("Please enter your password");
+  } else if (password.length < 6) {
+    setError("Password must be at least 6 characters long");
   } else if (!confirmPassword) {
     setError("Please confirm your password");
   } else if (password !== confirmPassword) {
