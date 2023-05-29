@@ -4,7 +4,7 @@ import GradientBorder from "./GradientBorder";
 
 const UserInput = () => {
   return (
-    <div className="flex items-center text-black justify-center w-full  md:w-4/5 lg:w-1/2  mx-auto my-auto text-sm  lg:text-lg rounded-md mt-10">
+    <div className="flex items-center text-black justify-center w-full  md:w-[500px] lg:w-1/2  mx-auto my-auto text-sm  lg:text-lg rounded-md mt-10">
       <GradientBorder>
         <div className="flex items-center bg-white ml-1 pl-2  text-sm rounded-full">
           <p>prettybio.com/</p>

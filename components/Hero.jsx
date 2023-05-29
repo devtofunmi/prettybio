@@ -8,7 +8,7 @@ const Hero = () => {
         Plenty links <br /> is s*#t
       </h1>
       <UserInput />
-      <p className="text-lg mt-6 text-center">
+      <p className="px-[30px] text-[18px] md:text-lg mt-6 text-center">
         Effortlessly share all your online links in one place
       </p>
     </div>
