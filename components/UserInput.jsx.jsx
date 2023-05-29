@@ -11,16 +11,13 @@ const UserInput = () => {
           <input
             type="text"
             placeholder="your name"
-            className="py-2 bg-transparent outline-none"
+            className="py-2 px-2 bg-transparent outline-none w-[100px] md:w-[150px]"
           />
         </div>
         <Link href="/Signup">
           <button
             className="py-2 h-full px-2 text-white  rounded-full text-sm lg:text-base"
-            //   style={{
-            //     background:
-            //       "linear-gradient(275.79deg,#06ffa8 5.39%,#ffeb3c 31.4%,#febb3f 70.92%,#c95afd 99.68%)",
-            //   }}
+          
           >
             Claim my bio
           </button>
