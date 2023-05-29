@@ -82,11 +82,11 @@ function handleSubmit() {
         </div>
       )}
 
-      <div className=" w-5/6 md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
+      <div className=" w-[450px] md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
         <div className="flex flex-col mt-3 ">
           <input
             type="text"
-            class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full"
+            class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full"
             placeholder="Username"
             onChange={(e) => {
               setUserName(e.target.value);
@@ -96,7 +96,7 @@ function handleSubmit() {
           <div className="mt-5">
             <input
               type="password"
-              class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
+              class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
               placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -108,7 +108,7 @@ function handleSubmit() {
           
             <GradientBorder>
               <button
-                className=" px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full "
+                className=" px-14  lg:px-32 md:px-20 py-3 bg-transparent  text-white text-base rounded-full "
                 onClick={handleSubmit}
               >
                 {loading ? <p>loading...</p> : <p>LOG IN </p>}

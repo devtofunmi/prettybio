@@ -104,11 +104,11 @@ setTimeout(async () => {
         </div>
       )}
 
-      <div className=" w-5/6 md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
+      <div className=" w-[450px] md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
         <div className="flex flex-col mt-3 justify-center ">
           <input
             type="email"
-            class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full "
+            className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full "
             placeholder="email"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -118,7 +118,7 @@ setTimeout(async () => {
            <div className="mt-5">
             <input
               type="text"
-              class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
+              className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
               placeholder="username"
               onChange={(e) => {
                 setUserName(e.target.value);
@@ -129,7 +129,7 @@ setTimeout(async () => {
           <div className="mt-5">
             <input
               type="password"
-              class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
+              className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
               placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -140,7 +140,7 @@ setTimeout(async () => {
           <div className="mt-5">
             <input
               type="password"
-              class="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
+              className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
               placeholder="confirm Password"
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
