@@ -15,6 +15,7 @@ const Setup = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  
 
   function uploadImage(e) {
     const file = e.target.files[0];
@@ -67,14 +68,16 @@ const Setup = () => {
 
     try {
       const imageUrl = await uploadToCloudinary(image);
-
+      const storedData = localStorage.getItem("data");
+      const dataArray = JSON.parse(storedData);
+      const userId = dataArray[0]?.id;
       // Store user information in the database, including the image URL
-      const { data, error } = await supabase.from("users").insert({
+      const { data, error } = await supabase.from("users").update({
         name: name,
         link: link,
         bio: bio,
         image: imageUrl, // Store the image URL in the database
-      });
+      }).eq("id", userId);
 
       console.log("User data response:", data, error);
 
@@ -83,6 +86,9 @@ const Setup = () => {
         setError("Error setting up user");
       } else {
         setSuccess("Setup successful");
+         setTimeout(() => {
+           setSuccess("");
+         }, 2000);
         router.push("/Dashboard");
       }
     } catch (error) {
@@ -125,7 +131,7 @@ const Setup = () => {
         </div>
       )}
 
-      <div className="w-11/12 md:w-2/4 lg:w-4/12 rounded-xl m-auto p-14 mt-2">
+      <div className=" w-[450px] md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
         <div className="flex flex-col mt-3 justify-center">
           <div className="w-28 h-28 m-auto border-8 border-pink-500 border-dotted rounded-full flex justify-center">
             {image ? (
@@ -146,7 +152,7 @@ const Setup = () => {
           <div className="flex flex-col mt-7 text-sm">
             <input
               type="text"
-              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
+              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full"
               placeholder="Name"
               onChange={(e) => {
                 setName(e.target.value);
@@ -157,7 +163,7 @@ const Setup = () => {
               <input
                 type="text"
                 placeholder="your name"
-                className="py-2 bg-transparent outline-none"
+                className="py-3 bg-transparent outline-none"
                 onChange={(e) => {
                   setLink(e.target.value);
                 }}
@@ -167,7 +173,7 @@ const Setup = () => {
             <div className="mt-5">
               <input
                 type="text"
-                className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
+                className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full"
                 placeholder="Bio"
                 onChange={(e) => {
                   setBio(e.target.value);
