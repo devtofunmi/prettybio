@@ -1,22 +1,23 @@
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import GradientBorder from "./GradientBorder";
-import dynamic from "next/dynamic";
 import { supabase } from "../supabaseClient";
+import Link from "next/link";
+// import Image from "next/image";
 
 const DashBoardNav = () => {
   const [userImage, setUserImage] = useState(null);
-  const Image = dynamic(() => import("next/image"), { ssr: false });
 
   useEffect(() => {
     async function fetchUserData() {
-      const currentUser = supabase.auth.user();
+      const storedData = localStorage.getItem("data");
+      const dataArray = JSON.parse(storedData);
+      const userId = dataArray[0]?.id;
 
-      if (currentUser) {
+      if (userId) {
         const { data, error } = await supabase
           .from("users")
           .select("image")
-          .eq("username", currentUser.username)
+          .eq("id", userId)
           .single();
 
         if (error) {
@@ -44,7 +45,13 @@ const DashBoardNav = () => {
       <GradientBorder>
         <div className="w-10 h-10 rounded-full">
           {userImage && (
-            <Image src={userImage} alt="User Image" width={40} height={40} />
+            <img
+              src={userImage}
+              alt="User Image"
+              width={40}
+              height={40}
+              crossOrigin="anonymous"
+            />
           )}
         </div>
       </GradientBorder>
