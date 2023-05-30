@@ -59,13 +59,15 @@ setTimeout(async () => {
             email: email,
             username: username,
             password: password,
-            confirmpassword: confirmPassword,
           });
 
         if (insertError) {
           setError(insertError.message);
         } else {
           setSuccess("Signup successful");
+           setTimeout(() => {
+             setSuccess("");
+           }, 2000);
           router.push("/Login");
         }
       }
