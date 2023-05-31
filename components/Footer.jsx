@@ -14,13 +14,13 @@ const Footer = () => {
 
       <div className=" mt-20">
         <div className="flex items-center justify-center py-20 ">
-          <div class="flex lg:w-2/5 w-11/12 h-20 rounded-full items-center">
-            <div class="bg-[#1DA1F2] text-white w-1/4 h-full flex items-center justify-center rounded-tl-full rounded-bl-full">
-              <p class="text-5xl">
+          <div className="flex lg:w-2/5 w-11/12 h-20 rounded-full items-center">
+            <div className="bg-[#1DA1F2] text-white w-1/4 h-full flex items-center justify-center rounded-tl-full rounded-bl-full">
+              <p className="text-5xl">
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   role="img"
                   viewBox="0 0 24 24"
                   height="1em"
@@ -32,8 +32,8 @@ const Footer = () => {
                 </svg>
               </p>
             </div>
-            <div class="bg-white h-full w-9/12 rounded-tr-full rounded-br-full  px-5 flex items-start flex-col justify-center">
-              <h1 class="font-semibold text-lg lg:text-2xl text-[#1c1c1c]">
+            <div className="bg-white h-full w-9/12 rounded-tr-full rounded-br-full  px-5 flex items-start flex-col justify-center">
+              <h1 className="font-semibold text-lg lg:text-2xl text-[#1c1c1c]">
                 Follow us on Twitter
               </h1>
               {/* <p class="my-1 font-medium text-[#6e6e6e]">
@@ -44,7 +44,7 @@ const Footer = () => {
                 href="http://twitter.com/codebrea_er"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-[#1c1c1c] font-medium text-lg"
+                className="text-[#1c1c1c] font-medium text-lg"
               >
                 Follow @PrettyBio
               </a>
