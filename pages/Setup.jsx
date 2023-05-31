@@ -10,7 +10,7 @@ const Setup = () => {
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
-  const [link, setLink] = useState("");
+  const [userLinkName, setUserLinkName] = useState("");
   const [bio, setBio] = useState("");
   const router = useRouter();
   const [error, setError] = useState("");
@@ -74,7 +74,7 @@ const Setup = () => {
       // Store user information in the database, including the image URL
       const { data, error } = await supabase.from("users").update({
         name: name,
-        link: link,
+        userlink_name: userLinkName,
         bio: bio,
         image: imageUrl, // Store the image URL in the database
       }).eq("id", userId);
@@ -165,7 +165,7 @@ const Setup = () => {
                 placeholder="your name"
                 className="py-3 bg-transparent outline-none"
                 onChange={(e) => {
-                  setLink(e.target.value);
+                  setUserLinkName(e.target.value);
                 }}
               />
             </div>
