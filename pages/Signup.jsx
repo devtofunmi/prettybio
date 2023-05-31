@@ -19,10 +19,6 @@ const Signup = () => {
       return;
     }
 
-    const { data, error } = await supabase
-  .from('users')
-  .select()
-  .or('username.eq.' + username, 'email.eq.' + email);
 
 setLoading(true);
 setTimeout(async () => {
