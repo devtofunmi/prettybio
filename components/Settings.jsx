@@ -3,12 +3,12 @@ import GradientBorder from "./GradientBorder";
 import { supabase } from "../supabaseClient";
 
 const Settings = () => {
-  const [link, setLink] = useState("");
+  const [userLinkName, setUserLinkName] = useState("");
   const [gmail, setGmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-const [error, setError] = useState("");
-const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
  const save = async () => {
    setLoading(true);
 
@@ -22,7 +22,7 @@ const [success, setSuccess] = useState("");
        .update({
          email: gmail,
          password: password,
-         link: link,
+         userlink_name: userLinkName,
        })
        .eq("id", userId);
 
@@ -79,7 +79,7 @@ const [success, setSuccess] = useState("");
               placeholder="your name"
               className="py-2 bg-transparent outline-none"
               onChange={(e) => {
-                setLink(e.target.value);
+                setUserLinkName(e.target.value);
               }}
             />
           </div>
