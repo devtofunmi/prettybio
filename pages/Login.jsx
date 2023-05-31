@@ -15,7 +15,7 @@ const Login = () => {
   const logIn = async () => {
     const { data, error } = await supabase
       .from("users")
-      .select("id, image, link, username, bio, setup_complete")
+      .select("id, image, userlink_name, username, bio, setup_complete")
       .eq("username", username)
       .eq("password", password);
 
@@ -31,11 +31,11 @@ const Login = () => {
         setError("Incorrect username or password");
       } else if (data.length === 1) {
         const user = data[0];
-        console.log("User data:", user);
+        // console.log("User data:", user);
         setSuccess("Login successful");
-         setTimeout(() => {
-           setSuccess("");
-         }, 2000);
+        setTimeout(() => {
+          setSuccess("");
+        }, 2000);
 
         const setupComplete = user.setup_complete;
 
