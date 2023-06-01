@@ -53,7 +53,7 @@ const save = async () => {
     if (error) {
       console.error("Error setting up user:", error.message);
       setError("Settings not successful");
-    } else if (password.length < 6) {
+    } else if (password !== "" && password.length < 6) {
       setError("Password must be at least 6 characters long");
     } else {
       setSuccess("Settings saved successfully");
@@ -131,7 +131,7 @@ const save = async () => {
             }}
           />
         </div>
-
+ <div className="mt-5 justify-center items-center flex ">
           <GradientBorder>
             <button
               className="px-16 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full"
@@ -140,6 +140,7 @@ const save = async () => {
               {loading ? <LoadingSpinner /> : <p>Save</p>}
             </button>
           </GradientBorder>
+          </div>
         </div>
       </div>
        );
