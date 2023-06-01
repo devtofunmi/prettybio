@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import GradientBorder from "../components/GradientBorder";
 import { supabase } from "../supabaseClient";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Setup = () => {
   const [image, setImage] = useState("");
@@ -187,7 +188,7 @@ const Setup = () => {
                 className="px-14 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full"
                 onClick={handleSubmit}
               >
-                {loading ? <p>loading...</p> : <p>Continue</p>}
+                {loading ? <LoadingSpinner /> : <p>Continue</p>}
               </button>
             </GradientBorder>
           </div>
