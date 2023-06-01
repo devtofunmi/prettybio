@@ -3,6 +3,7 @@ import { supabase } from "../supabaseClient";
 import GradientBorder from "../components/GradientBorder";
 import AddLinkModal from "./AddLinkModal";
 import { AiOutlineDelete } from "react-icons/ai";
+import LinkLoadingSpinner from "./LinkLoadingSpinner";
 
 const Links = () => {
   const [showModal, setShowModal] = useState(false);
@@ -110,9 +111,9 @@ const Links = () => {
 
       <div className="mt-5">
         {isLoading ? (
-          <p>Loading...</p>
+          <LinkLoadingSpinner  />
         ) : links.length === 0 ? (
-          <p>Link is empty</p>
+          <p className="text-center">Link is empty</p>
         ) : (
           links.map((link) => (
             <div key={link.id}>
@@ -124,7 +125,9 @@ const Links = () => {
                   </a>
                 </div>
                 <div>
-                  <button onClick={() => deleteLink(link.id)}><AiOutlineDelete className="text-[18px] md:text-[20px] " /></button>
+                  <button onClick={() => deleteLink(link.id)}>
+                    <AiOutlineDelete className="text-[18px] md:text-[20px] " />
+                  </button>
                 </div>
               </div>
             </div>
