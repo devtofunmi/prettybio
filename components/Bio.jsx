@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import GradientBorder from "./GradientBorder";
 import { BsCamera } from "react-icons/bs";
 import { supabase } from "../supabaseClient";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Bio = () => {
   const [image, setImage] = useState("");
@@ -10,96 +11,109 @@ const Bio = () => {
 
   const fileInputRef = useRef(null);
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+ const save = async () => {
+   setLoading(true);
 
-   const [loading, setLoading] = useState(false);
-   const [error, setError] = useState("");
-   const [success, setSuccess] = useState("");
-   const save = async () => {
-     setLoading(true);
+   const updates = {};
 
-     try {
-       const storedData = localStorage.getItem("data");
-       const dataArray = JSON.parse(storedData);
-       const userId = dataArray[0]?.id;
-       // Store user information in the database, including the image URL
-       const { data, error } = await supabase
-         .from("users")
-         .update({
-           image: image,
-           name: name,
-           bio: bio,
-         })
-         .eq("id", userId);
+   if (image !== "") {
+     updates.image = image;
+   }
+   if (name !== "") {
+     updates.name = name;
+   }
+   if (bio !== "") {
+     updates.bio = bio;
+   }
 
-       console.log("User data response:", data, error);
-
-       if (error) {
-         console.error("Error setting up user:", error.message);
-         setError("settings not successful");
-       } else {
-         setSuccess("Settings successful");
-          setTimeout(() => {
-            setSuccess(""); 
-          }, 2000);
-       }
-     } catch (error) {
-       console.error("Error during setup:", error);
-       setError("Error during setup");
-     }
-
+   if (Object.keys(updates).length === 0) {
+     setError("Please fill at least one field");
      setLoading(false);
-   };
-
-   function handleSubmit() {
-     save();
+     return;
    }
 
-   function uploadImage(e) {
-     const file = e.target.files[0];
-     const reader = new FileReader();
+   try {
+     const storedData = localStorage.getItem("data");
+     const dataArray = JSON.parse(storedData);
+     const userId = dataArray[0]?.id;
+     // Store user information in the database, including the image URL
+     const { data, error } = await supabase
+       .from("users")
+       .update(updates)
+       .eq("id", userId);
 
-     reader.onloadend = () => {
-       setImage(reader.result); // Set the image URL to the result of FileReader
-     };
+     console.log("User data response:", data, error);
 
-     reader.readAsDataURL(file);
-
-     console.log("Selected file:", file);
-     console.log("File reader result:", reader.result);
+     if (error) {
+       console.error("Error setting up user:", error.message);
+       setError("Settings not successful");
+     } else {
+       setSuccess("Settings successful");
+       setTimeout(() => {
+         setSuccess("");
+       }, 2000);
+     }
+   } catch (error) {
+     console.error("Error during setup:", error);
+     setError("Error during setup");
    }
 
-     const handleButtonClick = () => {
-       fileInputRef.current.click();
-     };
+   setLoading(false);
+ };
 
-     const uploadToCloudinary = async (file) => {
-       const formData = new FormData();
-       formData.append("file", file);
-       formData.append("upload_preset", "profile_image");
+  function handleSubmit() {
+    save();
+  }
 
-       try {
-         const response = await fetch(
-           "https://api.cloudinary.com/v1_1/phantom1245/image/upload",
-           {
-             method: "POST",
-             body: formData,
-           }
-         );
+  function uploadImage(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-         const data = await response.json();
-         console.log("Cloudinary upload response:", data);
+    reader.onloadend = () => {
+      setImage(reader.result); // Set the image URL to the result of FileReader
+    };
 
-         if (response.ok) {
-           return data.secure_url; // Return the secure URL of the uploaded image
-         } else {
-           throw new Error(data.error.message);
-         }
-       } catch (error) {
-         console.error("Error uploading image to Cloudinary:", error);
-         throw error;
-       }
-     };
-  
+    reader.readAsDataURL(file);
+
+    console.log("Selected file:", file);
+    console.log("File reader result:", reader.result);
+  }
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const uploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "profile_image");
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/phantom1245/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      console.log("Cloudinary upload response:", data);
+
+      if (response.ok) {
+        return data.secure_url; // Return the secure URL of the uploaded image
+      } else {
+        throw new Error(data.error.message);
+      }
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+      throw error;
+    }
+  };
+
   return (
     <div className="w-full ">
       {error && (
@@ -120,7 +134,7 @@ const Bio = () => {
           </div>
         </div>
       )}
-      <div className="lg:w-4/6 w-11/12 md:w-5/6 rounded-xl    p-14  mt-2">
+      <div className="lg:w-4/6 w-11/12 md:w-5/6 rounded-xl p-5 md:p-10  mt-2">
         <div>
           <h1>Bio</h1>
           <div className=" w-28 h-28 m-auto border-8 border-pink-500  border-dotted rounded-full flex justify-center">
@@ -140,7 +154,6 @@ const Bio = () => {
                 <input type="file" ref={fileInputRef} onChange={uploadImage} />
               </div>
             </div>
-          
           </div>
           <input
             type="text"
@@ -169,7 +182,7 @@ const Bio = () => {
               className=" px-16  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full "
               onClick={handleSubmit}
             >
-              {loading ? <p>loading...</p> : <p>Save</p>}
+              {loading ? <LoadingSpinner /> : <p>Save</p>}
             </button>
           </GradientBorder>
         </div>
