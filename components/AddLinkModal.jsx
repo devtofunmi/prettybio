@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { MdOutlineClose } from "react-icons/md";
 import GradientBorder from "./GradientBorder";
+import LoadingSpinner from "./LoadingSpinner";
+
 
 const AddLinkModal = ({ showModal, closeModal }) => {
   const [linkName, setLinkName] = useState("");
@@ -128,7 +130,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
                 onClick={handleSubmit}
                 className="px-20 lg:px-32 md:px-20 py-2 text-center justify-center text-white text-xl rounded-full focus:border-blue-700"
               >
-                {loading ? <p>Loading...</p> : <p>SAVE</p>}
+                {loading ? <LoadingSpinner /> : <p>SAVE</p>}
               </button>
             </GradientBorder>
           </div>
