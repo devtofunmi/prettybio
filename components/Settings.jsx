@@ -1,55 +1,80 @@
 import React, { useState } from "react";
 import GradientBorder from "./GradientBorder";
 import { supabase } from "../supabaseClient";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Settings = () => {
   const [userLinkName, setUserLinkName] = useState("");
-  const [gmail, setGmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
- const save = async () => {
-   setLoading(true);
 
-   try {
-     const storedData = localStorage.getItem("data");
-     const dataArray = JSON.parse(storedData);
-     const userId = dataArray[0]?.id;
-     // Store user information in the database, including the image URL
-     const { data, error } = await supabase
-       .from("users")
-       .update({
-         email: gmail,
-         password: password,
-         userlink_name: userLinkName,
-       })
-       .eq("id", userId);
+const save = async () => {
+  if (email === "" && password === "" && userLinkName === "") {
+    setError("Please fill at least one field");
+    return;
+  }
 
-     console.log("User data response:", data, error);
+  setLoading(true);
 
-     if (error) {
-       console.error("Error setting up user:", error.message);
-       setError("settings not successful");
-     } else {
-       setSuccess("Settings successful");
-        setTimeout(() => {
-          setSuccess("");
-        }, 2000);
-     }
-   } catch (error) {
-     console.error("Error during setup:", error);
-     setError("Error during setup");
-   }
+  try {
+    const storedData = localStorage.getItem("data");
+    const dataArray = JSON.parse(storedData);
+    const userId = dataArray[0]?.id;
 
-   setLoading(false);
- };
+    const updates = {};
+
+    if (email !== "") {
+      updates.email = email;
+    }
+    if (password !== "") {
+      updates.password = password;
+    }
+    if (userLinkName !== "") {
+      updates.userlink_name = userLinkName;
+    }
+
+    if (Object.keys(updates).length === 0) {
+      setError("Please fill at least one field");
+      setLoading(false);
+      return;
+    }
+
+    // Store user information in the database, including the updated fields
+    const { data, error } = await supabase
+      .from("users")
+      .update(updates)
+      .eq("id", userId);
+
+    console.log("User data response:", data, error);
+
+    if (error) {
+      console.error("Error setting up user:", error.message);
+      setError("Settings not successful");
+    } else if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+    } else {
+      setSuccess("Settings saved successfully");
+      setTimeout(() => {
+        setSuccess("");
+      }, 2000);
+    }
+  } catch (error) {
+    console.error("Error during setup:", error);
+    setError("Error during setup");
+  }
+
+  setLoading(false);
+};
 
   function handleSubmit() {
     save();
   }
+
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {error && (
         <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4 ">
           <div className="flex justify-between">
@@ -69,7 +94,7 @@ const Settings = () => {
         </div>
       )}
 
-      <div className="lg:w-4/6 w-4/5 md:w-5/6 rounded-xl    p-14  mt-2">
+      <div className="lg:w-4/6 w-full md:w-5/6 rounded-xl p-5 md:p-10 mt-2">
         <div>
           <h1>Accounts</h1>
           <div className="flex items-center border bg-white pl-2 rounded-md mt-3">
@@ -77,7 +102,7 @@ const Settings = () => {
             <input
               type="text"
               placeholder="your name"
-              className="py-2 bg-transparent outline-none"
+              className="py-3 px-4 bg-transparent outline-none"
               onChange={(e) => {
                 setUserLinkName(e.target.value);
               }}
@@ -88,10 +113,10 @@ const Settings = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="placeholder-black focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
-            placeholder="change Gmail"
+            className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            placeholder="change email"
             onChange={(e) => {
-              setGmail(e.target.value);
+              setEmail(e.target.value);
             }}
           />
         </div>
@@ -99,7 +124,7 @@ const Settings = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="placeholder-black focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
+            className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
             placeholder="change password"
             onChange={(e) => {
               setPassword(e.target.value);
@@ -107,13 +132,13 @@ const Settings = () => {
           />
         </div>
 
-        <div className="mt-5 justify-center items-center flex ">
+        <div className="mt-5 justify-center items-center flex">
           <GradientBorder>
             <button
-              className=" px-16  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full "
+              className="px-16 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full"
               onClick={handleSubmit}
             >
-              {loading ? <p>loading...</p> : <p>Save</p>}
+              {loading ? <LoadingSpinner /> : <p>Save</p>}
             </button>
           </GradientBorder>
         </div>
