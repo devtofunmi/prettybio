@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import GradientBorder from "../components/GradientBorder";
 import AddLinkModal from "./AddLinkModal";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const Links = () => {
   const [showModal, setShowModal] = useState(false);
@@ -123,7 +124,7 @@ const Links = () => {
                   </a>
                 </div>
                 <div>
-                  <button onClick={() => deleteLink(link.id)}>Delete</button>
+                  <button onClick={() => deleteLink(link.id)}><AiOutlineDelete className="text-[18px] md:text-[20px] " /></button>
                 </div>
               </div>
             </div>
