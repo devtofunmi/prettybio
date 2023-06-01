@@ -123,7 +123,7 @@ const save = async () => {
 
         <div className="mt-4">
           <input
-            type="text"
+            type="password"
             className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
             placeholder="change password"
             onChange={(e) => {
@@ -132,7 +132,6 @@ const save = async () => {
           />
         </div>
 
-        <div className="mt-5 justify-center items-center flex">
           <GradientBorder>
             <button
               className="px-16 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full"
@@ -143,8 +142,7 @@ const save = async () => {
           </GradientBorder>
         </div>
       </div>
-    </div>
-  );
+       );
 };
 
 export default Settings;
