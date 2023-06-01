@@ -41,9 +41,7 @@ const Login = () => {
         const setupComplete = user.setup_complete;
 
         if (setupComplete === false) {
-          const storedData = localStorage.getItem("data");
-          const dataArray = JSON.parse(storedData);
-          const userId = dataArray[0]?.id;
+          const userId = user.id;
 
           const { data, error } = await supabase
             .from("users")
@@ -56,8 +54,17 @@ const Login = () => {
           }
 
           console.log("Setup status updated successfully");
+
+          // Store user data in localStorage
+          const userData = JSON.stringify([{ id: userId }]);
+          localStorage.setItem("data", userData);
+
           router.push("/Setup");
         } else if (setupComplete === true) {
+          // Store user data in localStorage
+          const userData = JSON.stringify([{ id: user.id }]);
+          localStorage.setItem("data", userData);
+
           router.push("/Dashboard");
         }
       } else {
