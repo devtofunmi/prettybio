@@ -57,9 +57,11 @@ const save = async () => {
       setError("Password must be at least 6 characters long");
     } else {
       setSuccess("Settings saved successfully");
-      setTimeout(() => {
-        setSuccess("");
-      }, 2000);
+     setTimeout(() => {
+       setSuccess("");
+       setPassword(""); // Clear password value
+       setUserLinkName(""); // Clear userLinkName value
+     }, 2000);
     }
   } catch (error) {
     console.error("Error during setup:", error);
