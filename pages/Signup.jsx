@@ -3,6 +3,7 @@ import GradientBorder from "../components/GradientBorder";
 import Navbar from "../components/Navbar";
 import { supabase } from "../supabaseClient";
 import { useRouter } from "next/router";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -99,7 +100,7 @@ setTimeout(async () => {
       {success && (
         <div className="fixed top-0 left-0 right-0 items-center bg-green-500 text-white p-4 ">
           <div className="text-center">
-          <p>{success}</p>
+            <p>{success}</p>
           </div>
         </div>
       )}
@@ -115,7 +116,7 @@ setTimeout(async () => {
             }}
           />
 
-           <div className="mt-5">
+          <div className="mt-5">
             <input
               type="text"
               className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
@@ -154,7 +155,7 @@ setTimeout(async () => {
               className=" px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full "
               onClick={handleSubmit}
             >
-              {loading ? <p>loading...</p> : <p>SIGN UP </p>}
+              {loading ? <LoadingSpinner /> : <p>SIGN UP </p>}
             </button>
           </GradientBorder>
         </div>
