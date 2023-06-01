@@ -3,6 +3,7 @@ import { supabase } from "../supabaseClient";
 import GradientBorder from "../components/GradientBorder";
 import Navbar from "../components/Navbar";
 import { useRouter } from "next/router";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Login = () => {
   const [username, setUserName] = useState("");
@@ -124,7 +125,7 @@ const Login = () => {
               className="px-14 lg:px-32 md:px-20 py-3 bg-transparent text-white text-base rounded-full"
               onClick={handleSubmit}
             >
-              {loading ? <p>loading...</p> : <p>LOG IN</p>}
+              {loading ? <LoadingSpinner /> : <p>LOG IN</p>}
             </button>
           </GradientBorder>
         </div>
