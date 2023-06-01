@@ -111,7 +111,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
             value={linkName}
             type="text"
             className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
-            placeholder="Link Name"
+            placeholder="LinkName"
           />
           <div className="mt-4">
             <input
@@ -119,7 +119,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
               value={linkUrl}
               type="text"
               className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
-              placeholder="Link URL (e.g., https://twitter.com/yourname)"
+              placeholder="LinkURL(e.g.,https://twitter.com/yourname)"
             />
           </div>
           <div className="mt-5 justify-center items-center flex">
