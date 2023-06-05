@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { supabase } from "../supabaseClient";
 import GradientBorder from "../components/GradientBorder";
-import Navbar from "../components/Navbar";
+import LoginNavbar from "../components/LoginNavbar";
 import { useRouter } from "next/router";
 import LoadingSpinner from "../components/LoadingSpinner";
 
@@ -82,7 +82,7 @@ const Login = () => {
 
   return (
     <div className="font-abc">
-      <Navbar />
+      <LoginNavbar />
       <h1 className="text-black text-3xl flex justify-center">Log in</h1>
 
       {error && (
