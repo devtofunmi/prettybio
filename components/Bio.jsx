@@ -14,55 +14,77 @@ const Bio = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
- const save = async () => {
-   setLoading(true);
 
-   const updates = {};
+  const save = async () => {
+    setLoading(true);
 
-   if (image !== "") {
-     updates.image = image;
-   }
-   if (name !== "") {
-     updates.name = name;
-   }
-   if (bio !== "") {
-     updates.bio = bio;
-   }
+    const updates = {};
 
-   if (Object.keys(updates).length === 0) {
-     setError("Please fill at least one field");
-     setLoading(false);
-     return;
-   }
+    if (image) {
+      updates.image = image;
+    }
+    if (name) {
+      updates.name = name;
+    }
+    if (bio) {
+      updates.bio = bio;
+    }
 
-   try {
-     const storedData = localStorage.getItem("data");
-     const dataArray = JSON.parse(storedData);
-     const userId = dataArray[0]?.id;
-     // Store user information in the database, including the image URL
-     const { data, error } = await supabase
-       .from("users")
-       .update(updates)
-       .eq("id", userId);
+    if (Object.keys(updates).length === 0) {
+      setError("Please fill at least one field");
+      setLoading(false);
+      return;
+    }
 
-     console.log("User data response:", data, error);
+    try {
+      const storedData = localStorage.getItem("data");
+      const dataArray = JSON.parse(storedData);
+      const userId = dataArray[0]?.id;
 
-     if (error) {
-       console.error("Error setting up user:", error.message);
-       setError("Settings not successful");
-     } else {
-       setSuccess("Settings successful");
-       setTimeout(() => {
-         setSuccess("");
-       }, 2000);
-     }
-   } catch (error) {
-     console.error("Error during setup:", error);
-     setError("Error during setup");
-   }
+      // Fetch the existing user data from the database
+      const { data: userData, error: userError } = await supabase
+        .from("users")
+        .select()
+        .eq("id", userId)
+        .single();
 
-   setLoading(false);
- };
+      if (userError) {
+        console.error("Error fetching user data:", userError.message);
+        setError("Settings not successful");
+        setLoading(false);
+        return;
+      }
+
+      // Merge the existing user data with the updates
+      const mergedData = { ...userData, ...updates };
+
+      // Store the merged data in the database
+      const { data, error } = await supabase
+        .from("users")
+        .update(mergedData)
+        .eq("id", userId);
+
+      console.log("User data response:", data, error);
+
+      if (error) {
+        console.error("Error setting up user:", error.message);
+        setError("Settings not successful");
+      } else {
+        setSuccess("Settings saved successfully");
+        setTimeout(() => {
+          setSuccess("");
+          setImage("");
+          setBio("");
+          setName("");
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Error during setup:", error);
+      setError("Error during setup");
+    }
+
+    setLoading(false);
+  };
 
   function handleSubmit() {
     save();
@@ -162,6 +184,7 @@ const Bio = () => {
             onChange={(e) => {
               setName(e.target.value);
             }}
+            value={name} // Add value prop to bind the input value
           />
         </div>
 
@@ -173,6 +196,7 @@ const Bio = () => {
             onChange={(e) => {
               setBio(e.target.value);
             }}
+            value={bio} // Add value prop to bind the input value
           />
         </div>
 
