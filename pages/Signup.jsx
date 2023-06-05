@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import GradientBorder from "../components/GradientBorder";
-import Navbar from "../components/Navbar";
 import { supabase } from "../supabaseClient";
 import { useRouter } from "next/router";
 import LoadingSpinner from "../components/LoadingSpinner";
+import SignupNavbar from "../components/SignupNavbar";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -83,7 +83,7 @@ setTimeout(async () => {
   }
   return (
     <div className="font-abc">
-      <Navbar />
+      <SignupNavbar />
       <h1 className="text-black text-3xl  flex justify-center">Sign up</h1>
 
       {error && (
