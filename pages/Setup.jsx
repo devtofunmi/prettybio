@@ -5,6 +5,16 @@ import { useRouter } from "next/router";
 import GradientBorder from "../components/GradientBorder";
 import { supabase } from "../supabaseClient";
 import LoadingSpinner from "../components/LoadingSpinner";
+import {
+  CloudinaryImage,
+  fill,
+  width,
+  height,
+  gravity,
+  focusOn,
+  roundCorners,
+  max,
+} from "@cloudinary/base";
 
 const Setup = () => {
   const [image, setImage] = useState("");
@@ -39,11 +49,11 @@ const Setup = () => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "profile_image"); 
+    formData.append("upload_preset", "profile_image");
 
     try {
       const response = await fetch(
-        "https://api.cloudinary.com/v1_1/phantom1245/image/upload", 
+        "https://api.cloudinary.com/v1_1/phantom1245/image/upload",
         {
           method: "POST",
           body: formData,
@@ -54,7 +64,14 @@ const Setup = () => {
       console.log("Cloudinary upload response:", data);
 
       if (response.ok) {
-        return data.secure_url; // Return the secure URL of the uploaded image
+        const imageUrl = new CloudinaryImage(data.public_id)
+          .resize(
+            fill().width(300).height(300).gravity(gravity().focusOn(face()))
+          )
+          .roundCorners(roundCorners().max())
+          .toURL();
+
+        return imageUrl; // Return the transformed image URL
       } else {
         throw new Error(data.error.message);
       }
@@ -63,7 +80,6 @@ const Setup = () => {
       throw error;
     }
   };
-
   const setUp = async () => {
     setLoading(true);
 
