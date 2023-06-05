@@ -11,65 +11,65 @@ const Settings = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-const save = async () => {
-  if (email === "" && password === "" && userLinkName === "") {
-    setError("Please fill at least one field");
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    const storedData = localStorage.getItem("data");
-    const dataArray = JSON.parse(storedData);
-    const userId = dataArray[0]?.id;
-
-    const updates = {};
-
-    if (email !== "") {
-      updates.email = email;
-    }
-    if (password !== "") {
-      updates.password = password;
-    }
-    if (userLinkName !== "") {
-      updates.userlink_name = userLinkName;
-    }
-
-    if (Object.keys(updates).length === 0) {
+  const save = async () => {
+    if (email === "" && password === "" && userLinkName === "") {
       setError("Please fill at least one field");
-      setLoading(false);
       return;
     }
 
-    // Store user information in the database, including the updated fields
-    const { data, error } = await supabase
-      .from("users")
-      .update(updates)
-      .eq("id", userId);
+    setLoading(true);
 
-    console.log("User data response:", data, error);
+    try {
+      const storedData = localStorage.getItem("data");
+      const dataArray = JSON.parse(storedData);
+      const userId = dataArray[0]?.id;
 
-    if (error) {
-      console.error("Error setting up user:", error.message);
-      setError("Settings not successful");
-    } else if (password !== "" && password.length < 6) {
-      setError("Password must be at least 6 characters long");
-    } else {
-      setSuccess("Settings saved successfully");
-     setTimeout(() => {
-       setSuccess("");
-       setPassword(""); // Clear password value
-       setUserLinkName(""); // Clear userLinkName value
-     }, 2000);
+      const updates = {};
+
+      if (email !== "") {
+        updates.email = email;
+      }
+      if (password !== "") {
+        updates.password = password;
+      }
+      if (userLinkName !== "") {
+        updates.userlink_name = userLinkName;
+      }
+
+      if (Object.keys(updates).length === 0) {
+        setError("Please fill at least one field");
+        setLoading(false);
+        return;
+      }
+
+      // Store user information in the database, including the updated fields
+      const { data, error } = await supabase
+        .from("users")
+        .update(updates)
+        .eq("id", userId);
+
+      console.log("User data response:", data, error);
+
+      if (error) {
+        console.error("Error setting up user:", error.message);
+        setError("Settings not successful");
+      } else if (password !== "" && password.length < 6) {
+        setError("Password must be at least 6 characters long");
+      } else {
+        setSuccess("Settings saved successfully");
+        setTimeout(() => {
+          setSuccess("");
+          setPassword(""); // Clear password value
+          setUserLinkName(""); // Clear userLinkName value
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Error during setup:", error);
+      setError("Error during setup");
     }
-  } catch (error) {
-    console.error("Error during setup:", error);
-    setError("Error during setup");
-  }
 
-  setLoading(false);
-};
+    setLoading(false);
+  };
 
   function handleSubmit() {
     save();
@@ -108,6 +108,7 @@ const save = async () => {
               onChange={(e) => {
                 setUserLinkName(e.target.value);
               }}
+              value={userLinkName} // Add value prop to bind the input value
             />
           </div>
         </div>
@@ -120,6 +121,7 @@ const save = async () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            value={email} // Add value prop to bind the input value
           />
         </div>
 
@@ -131,9 +133,11 @@ const save = async () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            value={password} // Add value prop to bind the input value
           />
         </div>
- <div className="mt-5 justify-center items-center flex ">
+
+        <div className="mt-5 justify-center items-center flex ">
           <GradientBorder>
             <button
               className="px-16 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full"
@@ -142,10 +146,10 @@ const save = async () => {
               {loading ? <LoadingSpinner /> : <p>Save</p>}
             </button>
           </GradientBorder>
-          </div>
         </div>
       </div>
-       );
+    </div>
+  );
 };
 
 export default Settings;
