@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ProfileLinks from "../components/ProfileLinks";
 import GradientBorder from "../components/GradientBorder";
 import ShareLinkModal from "../components/ShareLinkModal";
 import { GrShare } from "react-icons/gr";
@@ -15,31 +14,67 @@ const Profile = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [userImage, setUserImage] = useState(null);
+  const [userID, setUserId] = useState(null);
 
   const closeModal = () => {
     setShareModal(false);
   };
 
-  useEffect(() => {
-    setLoading(true);
-    // Fetch the user's data from the Link table
-    const fetchUserData = async () => {
-      try {
-        const pathname = window.location.pathname;
-        const userlinkname = pathname.replace("/", "");
-        console.log(userlinkname);
+ useEffect(() => {
+   setLoading(true);
+   // Fetch the user's data from the users table
+   const fetchUserData = async () => {
+     try {
+       const pathname = window.location.pathname;
+       const userlinkname = pathname.replace("/", "");
 
+       const { data, error } = await supabase
+         .from("users")
+         .select("userlink_name, name, bio, image, id")
+         .eq("userlink_name", userlinkname);
+
+       if (error) {
+         console.error("Error fetching links:", error.message);
+       }
+
+       if (data && data.length > 0) {
+         setUserImage(data[0].image);
+         setUserData(data);
+         setUserId(data[0].id);
+       } else {
+         console.log("Links fetched successfully:", data);
+         setUserData(data);
+         setUserImage(data.length > 0 ? data[0].image : null);
+         setUserId(data[0].user_id);
+       }
+     } catch (error) {
+       console.error("Error fetching links:", error.message);
+       setError(error.message);
+     } finally {
+       setLoading(false);
+     }
+   };
+
+   fetchUserData();
+ }, []);
+
+useEffect(() => {
+  if (userData && userData.length > 0) {
+    setLoading(true);
+    // Fetch the user's links from the Link table
+    const fetchLinks = async () => {
+      try {
         const { data, error } = await supabase
-          .from("users")
-          .select("userlink_name, name, bio, profile_image")
-          .eq("userlink_name", userlinkname);
+          .from("links")
+          .select("*")
+          .eq("user_id", userID);
 
         if (error) {
           console.error("Error fetching links:", error.message);
+          setError(error.message);
         } else {
           console.log("Links fetched successfully:", data);
-          setUserData(data);
-          setUserImage(data.length > 0 ? data[0].profile_image : null);
+          setUserLinks(data);
         }
       } catch (error) {
         console.error("Error fetching links:", error.message);
@@ -49,39 +84,9 @@ const Profile = () => {
       }
     };
 
-    fetchUserData();
-  }, []);
-
-  useEffect(() => {
-    if (userData.length > 0) {
-      setLoading(true);
-      // Fetch the user's links from the Link table
-      const fetchLinks = async () => {
-        try {
-          const userId = userData[0].user_id;
-          const { data, error } = await supabase
-            .from("links")
-            .select("*")
-            .eq("user_id", userId);
-
-          if (error) {
-            console.error("Error fetching links:", error.message);
-          } else {
-            console.log("Links fetched successfully:", data);
-            setUserLinks(data);
-          }
-        } catch (error) {
-          console.error("Error fetching links:", error.message);
-          setError(error.message);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchLinks();
-    }
-  }, [userData]);
-
+    fetchLinks();
+  }
+}, [userData, userID]);
   return (
     <div className="w-[80%] md:w-[60%] text-sm lg:w-[50%] rounded-xl m-auto p-8 mt-2 font-abc">
       <ShareLinkModal closeModal={closeModal} shareModal={shareModal} />
@@ -118,21 +123,23 @@ const Profile = () => {
       <div className="flex flex-col items-center mt-5 md:mt-0">
         <GradientBorder>
           <div className="w-20 h-20 md:w-28 md:h-28 rounded-full">
-            <img
-              src={userImage}
-              alt="user image"
-              width={500}
-              height={500}
-              crossOrigin="anonymous"
-            />
+            {userImage && (
+              <img
+                src={userImage}
+                alt="User Image"
+                width={500}
+                height={500}
+                crossOrigin="anonymous"
+              />
+            )}
           </div>
         </GradientBorder>
 
         <h1 className="text-[20px] my-2 md:my-3">
-          {userData.length > 0 ? userData[0].userlink_name : ""}
+          {userData && userData.length > 0 ? userData[0].userlink_name : ""}
         </h1>
         <p className="text-[15px]">
-          {userData.length > 0 ? userData[0].bio : ""}
+          {userData && userData.length > 0 ? userData[0].bio : ""}
         </p>
       </div>
 

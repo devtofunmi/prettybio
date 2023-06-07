@@ -13,6 +13,7 @@
     "@next/font": "13.0.7",
     "@supabase/supabase-js": "^2.21.0",
     "autoprefixer": "^10.4.13",
+    "caniuse-lite": "^1.0.30001495",
     "cloudinary-react": "^1.8.1",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.7",

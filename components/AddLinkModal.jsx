@@ -16,7 +16,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
   useEffect(() => {
     const storedData = localStorage.getItem("data");
     const dataArray = JSON.parse(storedData);
-    const userId = dataArray[0]?.id;
+    const userId = dataArray && dataArray.length > 0 ? dataArray[0]?.id : "";
     setUserId(userId);
   }, []);
 

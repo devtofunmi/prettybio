@@ -42,7 +42,7 @@ const Analytics = () => {
           </div>
         </div>
       </div>   */}
-      <p className="font-abc text-[20px] text-center">coming soon</p>
+      <p className="font-abc text-[20px] text-center mt-[20px]">coming soon</p>
     </div>
   );
 };
