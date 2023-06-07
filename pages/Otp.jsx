@@ -1,13 +1,13 @@
-import Link from "next/link";
+// import Link from "next/link";
 import React from "react";
-import GradientBorder from "../components/GradientBorder";
-import Otpp from "../components/Otpp";
-import Navbar from "../components/Navbar";
+// import GradientBorder from "../components/GradientBorder";
+// import Otpp from "../components/Otpp";
+// import Navbar from "../components/Navbar";
 
 const Otp = () => {
   return (
     <div className="font-abc">
-      <Navbar />
+      {/* <Navbar />
       <div className="text-black flex flex-col text-center justify-center">
         <h1 className=" text-3xl">ENTER YOUR OTP</h1>
         <p className="mt-2">Pls enter the otp we send to your email</p>
@@ -27,7 +27,7 @@ const Otp = () => {
           </Link>
           <p className="mt-3">Dont receive the OTP? RESEND</p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
