@@ -111,17 +111,17 @@ const Links = () => {
 
       <div className="mt-5">
         {isLoading ? (
-          <LinkLoadingSpinner  />
+          <LinkLoadingSpinner />
         ) : links.length === 0 ? (
           <p className="text-center">Link is empty</p>
         ) : (
           links.map((link) => (
             <div key={link.id}>
-              <div className="bg-gray-200 my-5 mx-5 p-6 hover:bg-pink-500 hover:text-white flex justify-between">
+              <div className="bg-gray-200  my-5 mx-5 p-6 hover:bg-pink-500 hover:text-white flex justify-between">
                 <div>
-                  <h1>{link.link_name}</h1>
+                  <h1 className="text-[13px] md:text-[15px]">{link.link_name}</h1>
                   <a href={link.link_url} target="_blank" rel="noreferrer">
-                    <p>{link.link_url}</p>
+                    <p className="text-[10px] md:text-[12px]"> {link.link_url}</p>
                   </a>
                 </div>
                 <div>
