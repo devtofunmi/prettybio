@@ -49,11 +49,11 @@ const Setup = () => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "profile_image");
+    formData.append("upload_preset", "users_avater");
 
     try {
       const response = await fetch(
-        "https://api.cloudinary.com/v1_1/phantom1245/image/upload",
+        "https://api.cloudinary.com/v1_1/drirsnp0c/image/upload",
         {
           method: "POST",
           body: formData,
@@ -148,7 +148,7 @@ const Setup = () => {
         </div>
       )}
 
-      <div className=" w-[450px] md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14  mt-2">
+      <div className=" w-full md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-10 md:p-[14]  mt-2">
         <div className="flex flex-col mt-3 justify-center">
           <div className="w-28 h-28 m-auto border-8 border-pink-500 border-dotted rounded-full flex justify-center">
             {image ? (
@@ -169,7 +169,7 @@ const Setup = () => {
           <div className="flex flex-col mt-7 text-sm">
             <input
               type="text"
-              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full"
+              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
               placeholder="Name"
               onChange={(e) => {
                 setName(e.target.value);
@@ -180,7 +180,7 @@ const Setup = () => {
               <input
                 type="text"
                 placeholder="your name"
-                className="py-3 bg-transparent outline-none"
+                className="py-4 bg-transparent outline-none"
                 onChange={(e) => {
                   setUserLinkName(e.target.value);
                 }}
@@ -190,7 +190,7 @@ const Setup = () => {
             <div className="mt-5">
               <input
                 type="text"
-                className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full"
+                className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
                 placeholder="Bio"
                 onChange={(e) => {
                   setBio(e.target.value);

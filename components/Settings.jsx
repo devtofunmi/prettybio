@@ -103,8 +103,8 @@ const Settings = () => {
             <p>prettybio.com/</p>
             <input
               type="text"
-              placeholder="your name"
-              className="py-3 px-4 bg-transparent outline-none"
+              placeholder="yourname"
+              className="py-3 px-0 w-[120px] bg-transparent outline-none"
               onChange={(e) => {
                 setUserLinkName(e.target.value);
               }}

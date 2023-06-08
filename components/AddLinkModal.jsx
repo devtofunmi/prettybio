@@ -80,7 +80,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
           showModal ? "flex" : "hidden"
         }`}
       >
-        <div className="w-4/5 md:w-2/4 lg:w-[35%] rounded-xl bg-white m-auto p-8 mt-40">
+        <div className="w-[90%] md:w-2/4 lg:w-[35%] rounded-xl bg-white m-auto p-8 mt-40">
           <div className="flex justify-between items-center text-base lg:text-xl md:text-sm">
             <h1>Add Link</h1>
             <div>
@@ -89,7 +89,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
               </button>
             </div>
           </div>
-          <div className="text-red-700">
+          <div>
             {error && (
               <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4">
                 <div className="flex justify-between">
@@ -112,7 +112,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
             onChange={(e) => setLinkName(e.target.value)}
             value={linkName}
             type="text"
-            className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
+            className="placeholder-black md:placeholder:text-sm placeholder:text-[10px] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
             placeholder="LinkName"
           />
           <div className="mt-4">
@@ -120,7 +120,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
               onChange={(e) => setLinkUrl(e.target.value)}
               value={linkUrl}
               type="text"
-              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
+              className="placeholder-black md:placeholder:text-sm placeholder:text-[10px] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
               placeholder="LinkURL(e.g.,https://twitter.com/yourname)"
             />
           </div>
@@ -128,13 +128,12 @@ const AddLinkModal = ({ showModal, closeModal }) => {
             <GradientBorder>
               <button
                 onClick={handleSubmit}
-                className="px-20 lg:px-32 md:px-20 py-2 text-center justify-center text-white text-xl rounded-full focus:border-blue-700"
+                className="w-[200px] py-2 text-center justify-center text-white text-xl rounded-full focus:border-blue-700"
               >
-                {loading ? <LoadingSpinner /> : <p>SAVE</p>}
+                {loading ? <LoadingSpinner /> : <p className="text-[15px] md:text-[20px]">SAVE</p>}
               </button>
             </GradientBorder>
           </div>
-         
         </div>
       </div>
     </>

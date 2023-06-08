@@ -104,11 +104,11 @@ const Login = () => {
         </div>
       )}
 
-      <div className="w-[450px] md:w-2/4 text-sm lg:w-4/12 rounded-xl m-auto p-14 mt-2">
+      <div className="w-full md:w-2/4 text-sm lg:w-4/12 rounded-xl m-auto p-10 md:p-[14] mt-2">
         <div className="flex flex-col mt-3 ">
           <input
             type="text"
-            className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full"
+            className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
             placeholder="Username"
             onChange={(e) => {
               setUserName(e.target.value);
@@ -118,7 +118,7 @@ const Login = () => {
           <div className="mt-5">
             <input
               type="password"
-              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
               placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);

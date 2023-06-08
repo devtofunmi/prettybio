@@ -111,11 +111,11 @@ const Bio = () => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "profile_image");
+    formData.append("upload_preset", "users_avater");
 
     try {
       const response = await fetch(
-        "https://api.cloudinary.com/v1_1/phantom1245/image/upload",
+        "https://api.cloudinary.com/v1_1/drirsnp0c/image/upload",
         {
           method: "POST",
           body: formData,
@@ -126,7 +126,14 @@ const Bio = () => {
       console.log("Cloudinary upload response:", data);
 
       if (response.ok) {
-        return data.secure_url; // Return the secure URL of the uploaded image
+        const imageUrl = new CloudinaryImage(data.public_id)
+          .resize(
+            fill().width(300).height(300).gravity(gravity().focusOn(face()))
+          )
+          .roundCorners(roundCorners().max())
+          .toURL();
+
+        return imageUrl; // Return the transformed image URL
       } else {
         throw new Error(data.error.message);
       }
@@ -156,7 +163,7 @@ const Bio = () => {
           </div>
         </div>
       )}
-      <div className="lg:w-4/6 w-11/12 md:w-5/6 rounded-xl p-5 md:p-10  mt-2">
+      <div className="lg:w-4/6 w-full md:w-5/6 rounded-xl p-5 md:p-10  mt-2">
         <div>
           <h1>Bio</h1>
           <div className=" w-28 h-28 m-auto border-8 border-pink-500  border-dotted rounded-full flex justify-center">
@@ -179,7 +186,7 @@ const Bio = () => {
           </div>
           <input
             type="text"
-            className="placeholder-black focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-7"
+            className="placeholder-black focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-7"
             placeholder="change Name"
             onChange={(e) => {
               setName(e.target.value);
@@ -191,7 +198,7 @@ const Bio = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="placeholder-black focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-2 px-4 block w-full mt-3"
+            className="placeholder-black focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
             placeholder="change Bio"
             onChange={(e) => {
               setBio(e.target.value);
