@@ -15,6 +15,7 @@ const Profile = () => {
   const [success, setSuccess] = useState("");
   const [userImage, setUserImage] = useState(null);
   const [userID, setUserId] = useState(null);
+  const [userLinkName, setUserLinkName] = useState("");
 
   const closeModal = () => {
     setShareModal(false);
@@ -41,11 +42,10 @@ const Profile = () => {
          setUserImage(data[0].image);
          setUserData(data);
          setUserId(data[0].id);
+         setUserLinkName(data[0].userlink_name);
+
        } else {
          console.log("Links fetched successfully:", data);
-         setUserData(data);
-         setUserImage(data.length > 0 ? data[0].image : null);
-         setUserId(data[0].user_id);
        }
      } catch (error) {
        console.error("Error fetching links:", error.message);
@@ -89,7 +89,7 @@ useEffect(() => {
 }, [userData, userID]);
   return (
     <div className="w-[80%] md:w-[60%] text-sm lg:w-[50%] rounded-xl m-auto p-8 mt-2 font-abc">
-      <ShareLinkModal closeModal={closeModal} shareModal={shareModal} />
+      <ShareLinkModal closeModal={closeModal} shareModal={shareModal} userLinkName={userLinkName} />
       {error && (
         <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4">
           <div className="flex justify-between">
