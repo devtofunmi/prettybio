@@ -126,7 +126,7 @@ const Links = () => {
                 </div>
                 <div>
                   <button onClick={() => deleteLink(link.id)}>
-                    <AiOutlineDelete className="text-[18px] md:text-[20px] " />
+                    <AiOutlineDelete className="text-[15px] md:text-[20px] " />
                   </button>
                 </div>
               </div>
