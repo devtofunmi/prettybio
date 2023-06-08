@@ -59,6 +59,8 @@ const DashBoardNav = () => {
             href={`https://prettybio.netlify.app/${userLinkName}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="hover:text-underline"
+            style={{ textDecoration: "underline" }}
           >
             https://prettybio.netlify.app/{userLinkName}
           </a>
@@ -69,7 +71,8 @@ const DashBoardNav = () => {
               <img
                 src={userImage}
                 alt="User Image"
-                className="w-full h-full rounded-full"
+                className="hover:text-underline"
+                style={{ textDecoration: "underline" }}
                 crossOrigin="anonymous"
               />
             )}
