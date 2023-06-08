@@ -41,7 +41,7 @@ const Dashboard = () => {
         <div className=" w-2/5 h-screen p-20 shadow-md    hidden lg:block md:block">
           <iframe
             scrolling="no"
-            className="w-80 lg:h-4/5 md:h-3/6  rounded-2xl  border-gray-900 border-8 "
+            className="w-70 lg:h-4/5 md:h-3/6  rounded-2xl  border-gray-900 border-8 "
             src={`https://prettybio.netlify.app/${userLinkName}`}
           />
         </div>
