@@ -5,16 +5,6 @@ import { useRouter } from "next/router";
 import GradientBorder from "../components/GradientBorder";
 import { supabase } from "../supabaseClient";
 import LoadingSpinner from "../components/LoadingSpinner";
-import {
-  CloudinaryImage,
-  fill,
-  width,
-  height,
-  gravity,
-  focusOn,
-  roundCorners,
-  max,
-} from "@cloudinary/base";
 
 const Setup = () => {
   const [image, setImage] = useState("");
@@ -46,40 +36,33 @@ const Setup = () => {
     fileInputRef.current.click();
   };
 
-  const uploadToCloudinary = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "users_avater");
+ const uploadToCloudinary = async (file) => {
+   const formData = new FormData();
+   formData.append("file", file);
+   formData.append("upload_preset", "users_avater");
 
-    try {
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/drirsnp0c/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+   try {
+     const response = await fetch(
+       "https://api.cloudinary.com/v1_1/drirsnp0c/image/upload",
+       {
+         method: "POST",
+         body: formData,
+       }
+     );
 
-      const data = await response.json();
-      console.log("Cloudinary upload response:", data);
+     const data = await response.json();
+     console.log("Cloudinary upload response:", data);
 
-      if (response.ok) {
-        const imageUrl = new CloudinaryImage(data.public_id)
-          .resize(
-            fill().width(300).height(300).gravity(gravity().focusOn(face()))
-          )
-          .roundCorners(roundCorners().max())
-          .toURL();
-
-        return imageUrl; // Return the transformed image URL
-      } else {
-        throw new Error(data.error.message);
-      }
-    } catch (error) {
-      console.error("Error uploading image to Cloudinary:", error);
-      throw error;
-    }
-  };
+     if (response.ok) {
+       return data.secure_url; // Return the uploaded image URL
+     } else {
+       throw new Error(data.error.message);
+     }
+   } catch (error) {
+     console.error("Error uploading image to Cloudinary:", error);
+     throw error;
+   }
+ };
   const setUp = async () => {
     setLoading(true);
 
