@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import GradientBorder from "../components/GradientBorder";
 import ShareLinkModal from "../components/ShareLinkModal";
-import { GrShare } from "react-icons/gr";
+import { AiOutlineShareAlt } from "react-icons/ai";
 import Image from "next/image";
 import { supabase } from "../supabaseClient";
-// import LinkLoadingSpinner from "./LinkLoadingSpinner";
+import LinkLoadingSpinner from "../components/LinkLoadingSpinner";
 
 const Profile = () => {
   const [shareModal, setShareModal] = useState(false);
@@ -116,7 +116,7 @@ useEffect(() => {
           }}
         >
           <div>
-            <GrShare className="text-[15px] md:text-[20px] hover:bg-gray-200" />
+            <AiOutlineShareAlt className="text-[20px] hover:bg-gray-200" />
           </div>
         </button>
       </div>
@@ -145,8 +145,8 @@ useEffect(() => {
 
       <div className="mt-5">
         {loading ? (
-          // <LinkLoadingSpinner />
-          <p>loading...</p>
+          <LinkLoadingSpinner />
+          
         ) : userLinks.length === 0 ? (
           <p className="text-center">Link is empty</p>
         ) : (
