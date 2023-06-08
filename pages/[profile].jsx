@@ -89,7 +89,11 @@ useEffect(() => {
 }, [userData, userID]);
   return (
     <div className="w-[80%] md:w-[60%] text-sm lg:w-[50%] rounded-xl m-auto p-8 mt-2 font-abc">
-      <ShareLinkModal closeModal={closeModal} shareModal={shareModal} userLinkName={userLinkName} />
+      <ShareLinkModal
+        closeModal={closeModal}
+        shareModal={shareModal}
+        userLinkName={userLinkName}
+      />
       {error && (
         <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4">
           <div className="flex justify-between">
@@ -127,8 +131,7 @@ useEffect(() => {
               <img
                 src={userImage}
                 alt="User Image"
-                width={500}
-                height={500}
+                className="w-full h-full rounded-full"
                 crossOrigin="anonymous"
               />
             )}
@@ -146,7 +149,6 @@ useEffect(() => {
       <div className="mt-5">
         {loading ? (
           <LinkLoadingSpinner />
-          
         ) : userLinks.length === 0 ? (
           <p className="text-center">Link is empty</p>
         ) : (

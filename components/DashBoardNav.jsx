@@ -39,11 +39,11 @@ const DashBoardNav = () => {
     <div className="flex items-center justify-between p-4 bg-white shadow-sm sticky top-0">
       <div>
         <div>
-        <Link href="/">
-          <h2 className="text-3xl">PrettyBio</h2>
-        </Link>
+          <Link href="/">
+            <h2 className="text-3xl">PrettyBio</h2>
+          </Link>
         </div>
-         <div className="text-[12px] block md:hidden mt-2">
+        <div className="text-[12px] block md:hidden mt-2">
           <a
             href={`https://prettybio.netlify.app/${userLinkName}`}
             target="_blank"
@@ -69,8 +69,7 @@ const DashBoardNav = () => {
               <img
                 src={userImage}
                 alt="User Image"
-                width={40}
-                height={40}
+                className="w-full h-full rounded-full"
                 crossOrigin="anonymous"
               />
             )}

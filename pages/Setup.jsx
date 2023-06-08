@@ -126,7 +126,7 @@ const Setup = () => {
         <div className="text-3xl p-8">PrettyBio</div>
       </Link>
       <div className="text-center">
-        <h1 className="text-3xl">Setup your page</h1>
+        <h1 className="text-2xl md:text-3xl">Setup your page</h1>
       </div>
 
       {error && (
@@ -148,7 +148,7 @@ const Setup = () => {
         </div>
       )}
 
-      <div className=" w-full md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-10 md:p-[14]  mt-2">
+      <div className="w-full md:w-2/4 text-sm lg:w-4/12 rounded-xl m-auto p-10 md:p-[14] mt-2">
         <div className="flex flex-col mt-3 justify-center">
           <div className="w-28 h-28 m-auto border-8 border-pink-500 border-dotted rounded-full flex justify-center">
             {image ? (
@@ -179,8 +179,8 @@ const Setup = () => {
               <p>prettybio.com/</p>
               <input
                 type="text"
-                placeholder="your name"
-                className="py-4 bg-transparent outline-none"
+                placeholder="yourname"
+                className="py-3 w-[120px] bg-transparent outline-none"
                 onChange={(e) => {
                   setUserLinkName(e.target.value);
                 }}

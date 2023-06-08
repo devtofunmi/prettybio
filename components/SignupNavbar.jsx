@@ -13,7 +13,7 @@ const SignupNavbar = () => {
       <div>
         <GradientBorder>
           <Link href="/Login">
-            <button className="bg-transparent text-sm lg:text-lg px-8">
+            <button className="bg-transparent text-sm lg:text-lg px-8 py-2 text-white">
               Log in
             </button>
           </Link>

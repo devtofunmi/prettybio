@@ -13,7 +13,7 @@ const LoginNavbar = () => {
       <div>
         <GradientBorder>
           <Link href="/Signup">
-            <button className="bg-white rounded-full text-sm lg:text-lg px-1 lg:px-4 py-2 ">
+            <button className="bg-white rounded-full text-sm lg:text-lg px-8 lg:px-4 py-2 ">
               Sign up
             </button>
           </Link>
