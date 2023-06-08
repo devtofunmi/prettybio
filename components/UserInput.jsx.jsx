@@ -16,7 +16,7 @@ const UserInput = () => {
         </div>
         <Link href="/Signup">
           <button
-            className="py-2 h-full px-2 w-[130px] md:w-[150px] text-white  rounded-full text-sm lg:text-base"
+            className="py-2 h-full px-0 w-[120px] md:w-[150px] text-white  rounded-full text-sm lg:text-base"
           
           >
             Claim my bio
