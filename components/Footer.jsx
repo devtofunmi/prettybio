@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <div>
-      <div className=" text-4xl w-4/5 leading-normal lg:leading-loose m-auto">
+      <div className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto">
         PrettyBio
         <p>
           is a beloved platform among a diverse group of users, including
@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="flex items-center justify-center py-20 ">
           <div className="flex lg:w-2/5 w-11/12 h-20 rounded-full items-center">
             <div className="bg-[#1DA1F2] text-white w-1/4 h-full flex items-center justify-center rounded-tl-full rounded-bl-full">
-              <p className="text-5xl">
+              <p className="md:text-5xl text-3xl">
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
@@ -33,7 +33,7 @@ const Footer = () => {
               </p>
             </div>
             <div className="bg-white h-full w-9/12 rounded-tr-full rounded-br-full  px-5 flex items-start flex-col justify-center">
-              <h1 className="font-semibold text-lg lg:text-2xl text-[#1c1c1c]">
+              <h1 className="font-semibold text-[18px] md:text-lg lg:text-2xl text-[#1c1c1c]">
                 Follow us on Twitter
               </h1>
               {/* <p class="my-1 font-medium text-[#6e6e6e]">
@@ -44,7 +44,7 @@ const Footer = () => {
                 href="http://twitter.com/codebrea_er"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#1c1c1c] font-medium text-lg"
+                className="text-[#1c1c1c] font-medium md:text-lg text-[15px]"
               >
                 Follow @PrettyBio
               </a>

@@ -48,6 +48,8 @@ const DashBoardNav = () => {
             href={`https://prettybio.netlify.app/${userLinkName}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="hover:text-underline"
+            style={{ textDecoration: "underline" }}
           >
             https://prettybio.netlify.app/{userLinkName}
           </a>

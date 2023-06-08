@@ -13,7 +13,7 @@ const FeaturesCard = () => {
           }`} key={i}
         >
           <div className="flex flex-col mt-28 w-full lg:w-5/6">
-            <div className="text-5xl lg:text-6xl">{card.heading}</div>
+            <div className="text-4xl md:text-6xl">{card.heading}</div>
             <div className=" mt-8 text-xl">{card.subheading}</div>
           </div>
           <div className="w-5/6">{card.image}</div>

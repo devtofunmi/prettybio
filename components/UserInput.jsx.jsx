@@ -4,25 +4,26 @@ import GradientBorder from "./GradientBorder";
 
 const UserInput = () => {
   return (
-    <div className="flex items-center text-black justify-center w-full  md:w-[500px] lg:w-1/2  px-5  my-auto mx-auto text-sm  lg:text-lg rounded-md mt-10">
-      <GradientBorder>
-        <div className="flex items-center bg-white ml-1 pl-2 xm:text-[10px]  text-sm rounded-full">
-          <p>prettybio.com/</p>
-          <input
-            type="text"
-            placeholder="your name"
-            className="py-2 px-0 bg-transparent outline-none xm:w-[80px w-[100px] md:w-[150px]"
-          />
-        </div>
-        <Link href="/Signup">
-          <button
-            className="py-2 h-full px-0 w-[120px] md:w-[150px] text-white  rounded-full text-sm lg:text-base"
-          
-          >
-            Claim my bio
-          </button>
-        </Link>
-      </GradientBorder>
+    <div className="my-10 flex w-full justify-center items-center m-auto">
+      <div className="flex items-center text-black justify-center w-full  md:w-[500px] lg:w-1/2  px-5  my-auto mx-auto text-sm  lg:text-lg rounded-md mt-10">
+        <GradientBorder>
+          <div className="flex items-center bg-white ml-1 pl-2 md:py-1 xm:text-[10px]  text-sm rounded-full">
+            <p className="py-1  text-[12px] md:text-base lg:text-xl ">
+              prettybio.com/
+            </p>
+            <input
+              type="text"
+              placeholder="yourname"
+              className="h-[2rem] md:h-[3rem] rounded-full outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[12px] lg:text-base bg-transparent px-0 md:px-0"
+            />
+          </div>
+          <Link href="/Signup">
+            <button className="text-[12px] w-[100px] md:w-full md:text-base  py-2 lg:px-4 px-0 rounded-sm">
+              Claim my bio
+            </button>
+          </Link>
+        </GradientBorder>
+      </div>
     </div>
   );
 };

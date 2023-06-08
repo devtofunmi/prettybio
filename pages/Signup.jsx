@@ -14,6 +14,13 @@ const Signup = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+   const isValidEmail = (value) => {
+     // Regular expression for email validation
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     return emailRegex.test(value);
+   };
+
   const SignUp = async () => {
     if (!supabase) {
       console.error("Supabase client is not defined.");
@@ -25,6 +32,8 @@ setLoading(true);
 setTimeout(async () => {
   if (!email) {
     setError("Please enter your email");
+  } else if (!isValidEmail(email)) {
+    setError("Please enter a valid email address");
   } else if (!username) {
     setError("Please enter your username");
   } else if (!password) {
@@ -62,9 +71,9 @@ setTimeout(async () => {
           setError(insertError.message);
         } else {
           setSuccess("Signup successful");
-           setTimeout(() => {
-             setSuccess("");
-           }, 2000);
+          setTimeout(() => {
+            setSuccess("");
+          }, 2000);
           router.push("/Login");
         }
       }
