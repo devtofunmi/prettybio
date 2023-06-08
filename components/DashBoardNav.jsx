@@ -70,9 +70,8 @@ const DashBoardNav = () => {
             {userImage && (
               <img
                 src={userImage}
+                className="w-full h-full rounded-full"
                 alt="User Image"
-                className="hover:text-underline"
-                style={{ textDecoration: "underline" }}
                 crossOrigin="anonymous"
               />
             )}
