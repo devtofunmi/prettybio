@@ -77,6 +77,7 @@ const Setup = () => {
         userlink_name: userLinkName,
         bio: bio,
         image: imageUrl, // Store the image URL in the database
+        setup_complete: true,
       }).eq("id", userId);
 
       console.log("User data response:", data, error);

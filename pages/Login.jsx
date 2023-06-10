@@ -13,67 +13,54 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const logIn = async () => {
-    const { data, error } = await supabase
-      .from("users")
-      .select("id, image, userlink_name, username, bio, setup_complete")
-      .eq("username", username)
-      .eq("password", password);
+ const logIn = async () => {
+   const { data, error } = await supabase
+     .from("users")
+     .select("id, image, userlink_name, username, bio, setup_complete")
+     .eq("username", username)
+     .eq("password", password);
 
-    setLoading(true);
-    setTimeout(async () => {
-      if (!username) {
-        setError("Enter your email");
-      } else if (!password) {
-        setError("Enter your password");
-      } else if (error) {
-        setError(error.message);
-      } else if (data.length === 0) {
-        setError("Incorrect username or password");
-      } else if (data.length === 1) {
-        const user = data[0];
-        // console.log("User data:", user);
-        setSuccess("Login successful");
-        setTimeout(() => {
-          setSuccess("");
-        }, 2000);
+   setLoading(true);
+   setTimeout(async () => {
+     if (!username) {
+       setError("Enter your email");
+     } else if (!password) {
+       setError("Enter your password");
+     } else if (error) {
+       setError(error.message);
+     } else if (data.length === 0) {
+       setError("Incorrect username or password");
+     } else if (data.length === 1) {
+       const user = data[0];
+       setSuccess("Login successful");
+       setTimeout(() => {
+         setSuccess("");
+       }, 2000);
 
-        const setupComplete = user.setup_complete;
+       const setupComplete = user.setup_complete;
 
-        if (setupComplete === false) {
-          const userId = user.id;
+       if (setupComplete === false) {
+         const userId = user.id;
 
-          const { data, error } = await supabase
-            .from("users")
-            .update({ setup_complete: true })
-            .eq("id", userId);
+         // Store user data in localStorage
+         const userData = JSON.stringify([{ id: userId }]);
+         localStorage.setItem("data", userData);
 
-          if (error) {
-            console.error("Error updating setup status:", error);
-            return;
-          }
+         router.push("/Setup");
+       } else if (setupComplete === true) {
+         // Store user data in localStorage
+         const userData = JSON.stringify([{ id: user.id }]);
+         localStorage.setItem("data", userData);
 
-          console.log("Setup status updated successfully");
+         router.push("/Dashboard");
+       }
+     } else {
+       console.log("Multiple users found with the same username and password");
+     }
 
-          // Store user data in localStorage
-          const userData = JSON.stringify([{ id: userId }]);
-          localStorage.setItem("data", userData);
-
-          router.push("/Setup");
-        } else if (setupComplete === true) {
-          // Store user data in localStorage
-          const userData = JSON.stringify([{ id: user.id }]);
-          localStorage.setItem("data", userData);
-
-          router.push("/Dashboard");
-        }
-      } else {
-        console.log("Multiple users found with the same username and password");
-      }
-
-      setLoading(false);
-    }, 1000);
-  };
+     setLoading(false);
+   }, 1000);
+ };
 
   function handleSubmit() {
     setError("");
