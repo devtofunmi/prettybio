@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const FeaturesItem = [
   {
-    image: <Image src={"/assets/one.png"} alt="features image"   width={500}
+    image: <Image src={"/assets/claim.png"} alt="features image"   width={500}
               height={500}/>,
     heading: "Claim your bio",
     subheading:
@@ -12,7 +12,7 @@ const FeaturesItem = [
     isInverted: false,
   },
   {
-    image: <Image src={"/assets/one.png"} alt="features image"  width={500}
+    image: <Image src={"/assets/links.png"} alt="features image"  width={500}
               height={500} />,
     heading: "All your links in one place",
     subheading:
@@ -20,7 +20,7 @@ const FeaturesItem = [
     isInverted: true,
   },
   {
-    image: <Image src={"/assets/one.png"} alt="features image"  width={500}
+    image: <Image src={"/assets/world.png"} alt="features image"  width={500}
               height={500} />,
     heading: "Use it anywhere ",
     subheading:
@@ -28,8 +28,8 @@ const FeaturesItem = [
     isInverted: false,
   },
   {
-    image: <Image src={"/assets/one.png"} alt="features image"  width={500}
-              height={500} />,
+    image: <Image src={"/assets/analytic.png"} alt="features image"  width={450}
+              height={450} />,
     heading: "Analytics",
     subheading:
       "Enhance your professional online presence by tracking the number of clicks on your links and viewing your page views. This will help you to understand the effectiveness of your content and optimize your page for success.",

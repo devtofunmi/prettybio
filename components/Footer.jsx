@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <div>
-      <div className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto">
+      <div className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto mt-[70px]">
         PrettyBio
         <p>
           is a beloved platform among a diverse group of users, including
