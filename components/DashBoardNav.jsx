@@ -43,7 +43,7 @@ const DashBoardNav = () => {
             <h2 className="text-3xl">PrettyBio</h2>
           </Link>
         </div>
-        <div className="text-[12px] block md:hidden mt-2">
+        <div className="text-[10px] block md:hidden mt-2">
           <a
             href={`https://prettybio.netlify.app/${userLinkName}`}
             target="_blank"

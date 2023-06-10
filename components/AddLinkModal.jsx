@@ -128,9 +128,14 @@ const AddLinkModal = ({ showModal, closeModal }) => {
             <GradientBorder>
               <button
                 onClick={handleSubmit}
-                className="w-[200px] py-2 text-center justify-center text-white text-xl rounded-full focus:border-blue-700"
+                // className="w-[200px] py-2 text-center justify-center text-white text-xl rounded-full focus:border-blue-700"
+                className="px-14 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full focus:border-blue-700"
               >
-                {loading ? <LoadingSpinner /> : <p className="text-[15px] md:text-[20px]">SAVE</p>}
+                {loading ? (
+                  <LoadingSpinner />
+                ) : (
+                  <p className="text-[15px] md:text-[20px]">SAVE</p>
+                )}
               </button>
             </GradientBorder>
           </div>

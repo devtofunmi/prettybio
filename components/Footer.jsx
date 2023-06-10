@@ -41,7 +41,7 @@ const Footer = () => {
                 PrettyBio, be sure to follow us on Twitter
               </p> */}
               <a
-                href="http://twitter.com/codebrea_er"
+                href="http://twitter.com/Pre_ttyBio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#1c1c1c] font-medium md:text-lg text-[15px]"

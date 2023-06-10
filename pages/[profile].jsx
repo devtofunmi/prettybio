@@ -45,7 +45,8 @@ const Profile = () => {
          setUserLinkName(data[0].userlink_name);
 
        } else {
-         console.log("Links fetched successfully:", data);
+        // console.log("Links fetched successfully:", data);
+        console.log("Links fetched successfully:");
        }
      } catch (error) {
        console.error("Error fetching links:", error.message);
@@ -73,7 +74,7 @@ useEffect(() => {
           console.error("Error fetching links:", error.message);
           setError(error.message);
         } else {
-          console.log("Links fetched successfully:", data);
+          // console.log("Links fetched successfully:", data);
           setUserLinks(data);
         }
       } catch (error) {
@@ -88,7 +89,7 @@ useEffect(() => {
   }
 }, [userData, userID]);
   return (
-    <div className="w-[80%] md:w-[60%] text-sm lg:w-[50%] rounded-xl m-auto p-8 mt-2 font-abc">
+    <div className="w-full md:w-[60%] text-sm lg:w-[50%] rounded-xl m-auto md:p-8 p-5 mt-2 font-abc">
       <ShareLinkModal
         closeModal={closeModal}
         shareModal={shareModal}
@@ -114,7 +115,7 @@ useEffect(() => {
       )}
       <div className="flex justify-start">
         <button
-          className="text-xl text-whi px-10"
+          className="text-xl md:px-10 px-0"
           onClick={() => {
             setShareModal(!shareModal);
           }}
@@ -146,11 +147,9 @@ useEffect(() => {
         </p>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-5 h-[500px] md:h-[400px]">
         {loading ? (
           <LinkLoadingSpinner />
-        ) : userLinks.length === 0 ? (
-          <p className="text-center">Link is empty</p>
         ) : (
           userLinks.map((link) => (
             <div key={link.id}>

@@ -34,7 +34,7 @@ const Links = () => {
         if (error) {
           console.error("Error fetching links:", error.message);
         } else {
-          console.log("Links fetched successfully:", data);
+          // console.log("Links fetched successfully:", data);
           setLinks(data);
         }
       } catch (error) {
@@ -112,8 +112,6 @@ const Links = () => {
       <div className="mt-5">
         {isLoading ? (
           <LinkLoadingSpinner />
-        ) : links.length === 0 ? (
-          <p className="text-center">Link is empty</p>
         ) : (
           links.map((link) => (
             <div key={link.id}>
