@@ -1,5 +1,14 @@
 import '../styles/globals.css'
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import { useEffect } from 'react';
+import { initializeAOS } from '../utils/aos';
+
+function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    initializeAOS();
+  }, []);
+
+  return <Component {...pageProps} />;
 }
+
+export default MyApp;
