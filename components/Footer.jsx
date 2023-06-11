@@ -3,7 +3,10 @@ import React from "react";
 const Footer = () => {
   return (
     <div>
-      <div className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto mt-[70px]">
+      <div
+        data-aos="zoom-in"
+        className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto mt-[70px]"
+      >
         PrettyBio
         <p>
           is a beloved platform among a diverse group of users, including
@@ -14,7 +17,10 @@ const Footer = () => {
 
       <div className=" mt-20">
         <div className="flex items-center justify-center py-20 ">
-          <div className="flex lg:w-2/5 w-11/12 h-20 rounded-full items-center">
+          <div
+            data-aos="flip-left"
+            className="flex lg:w-2/5 w-11/12 h-20 rounded-full items-center"
+          >
             <div className="bg-[#1DA1F2] text-white w-1/4 h-full flex items-center justify-center rounded-tl-full rounded-bl-full">
               <p className="md:text-5xl text-3xl">
                 <svg
