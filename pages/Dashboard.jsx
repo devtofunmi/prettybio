@@ -38,14 +38,16 @@ const Dashboard = () => {
         <DashBoardNav />
       </div>
       <div className="w-full flex">
-        <div className=" w-2/5 h-screen p-20 shadow-md    hidden lg:block md:block">
+        <div
+          data-aos="fade-right"
+          className=" w-2/5 h-screen p-20 shadow-md    hidden lg:block md:block"
+        >
           <iframe
             scrolling="no"
-            className="w-60 lg:h-4/5 md:h-3/6  rounded-2xl  border-gray-900 border-8 " 
+            className="w-60 lg:h-4/5 md:h-3/6  rounded-2xl  border-gray-900 border-8 "
             src={`https://prettybio.netlify.app/${userLinkName}`}
           />
         </div>
-      
 
         <div
           className="lg:w-3/5 w-full md:w-3/5 ml-0"
