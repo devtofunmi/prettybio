@@ -115,11 +115,19 @@ const Links = () => {
         ) : (
           links.map((link) => (
             <div key={link.id}>
-              <div className="bg-gray-200  my-5 mx-5 p-6 hover:bg-pink-500 hover:text-white flex justify-between">
+              <div
+                data-aos="fade-down"
+                className="bg-gray-200  my-5 mx-5 p-6 hover:bg-pink-500 hover:text-white flex justify-between"
+              >
                 <div>
-                  <h1 className="text-[13px] md:text-[15px]">{link.link_name}</h1>
+                  <h1 className="text-[13px] md:text-[15px]">
+                    {link.link_name}
+                  </h1>
                   <a href={link.link_url} target="_blank" rel="noreferrer">
-                    <p className="text-[10px] md:text-[12px]"> {link.link_url}</p>
+                    <p className="text-[10px] md:text-[12px]">
+                      {" "}
+                      {link.link_url}
+                    </p>
                   </a>
                 </div>
                 <div>
