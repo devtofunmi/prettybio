@@ -36,7 +36,7 @@ const DashBoardNav = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-between p-4 bg-white shadow-sm sticky top-0">
+    <div className="flex items-center justify-between p-4 text-text shadow-lg sticky top-0">
       <div>
         <div>
           <Link href="/">
