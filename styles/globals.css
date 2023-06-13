@@ -5,12 +5,12 @@
 
 ::-webkit-scrollbar {
   width:5px;
-  background-color: #F5F5F5;
+  background-color: #2b2c31;
 }
 ::-webkit-scrollbar-thumb {
     width: 0px;
   border-radius: 20px;
-  background-color: #98cad3;
+  background-color: #202125;
 }
 
 /* ::-webkit-scrollbar-horizontal {
@@ -25,5 +25,5 @@
 
 
 body{
-    background-color: rgb(247, 248, 252);
+    background-color:#202125;
 }
