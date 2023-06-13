@@ -34,7 +34,7 @@ const DashboardTabs = () => {
             <button
               className={
                 activeTab === tab.id
-                  ? "text-black   rounded-md "
+                  ? "text-text   rounded-md "
                   : "  text-gray-500 " + "relative"
               }
               onClick={() => setActiveTab(tab.id)}
@@ -42,7 +42,7 @@ const DashboardTabs = () => {
               {tab.title}
               <div
                 className={`w-36 h-1 ${
-                  activeTab === tab.id ? "bg-pink-500 " : "bg-transparent"
+                  activeTab === tab.id ? "bg-text " : "bg-transparent"
                 }`}
               ></div>
             </button>
