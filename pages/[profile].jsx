@@ -89,7 +89,7 @@ useEffect(() => {
   }
 }, [userData, userID]);
   return (
-    <div className="w-full md:w-[60%] text-sm lg:w-[50%] rounded-xl m-auto md:p-8 p-5 mt-2 font-abc">
+    <div className="w-full md:w-[60%] text-text text-sm lg:w-[50%] rounded-xl m-auto md:p-8 p-5 mt-2 font-abc">
       <ShareLinkModal
         closeModal={closeModal}
         shareModal={shareModal}
@@ -121,7 +121,7 @@ useEffect(() => {
           }}
         >
           <div>
-            <AiOutlineShareAlt className="text-[20px] hover:bg-gray-200" />
+            <AiOutlineShareAlt className="text-[20px] hover:bg-btntext" />
           </div>
         </button>
       </div>
@@ -153,7 +153,7 @@ useEffect(() => {
         ) : (
           userLinks.map((link) => (
             <div key={link.id}>
-              <div className="bg-gray-200 my-5 p-5 rounded-xl cursor-pointer hover:bg-pink-500 hover:text-white text-center">
+              <div className="bg-[#303135] my-5 p-5 rounded-xl cursor-pointer hover:bg-btntext hover:text-white text-center">
                 <a href={link.link_url} target="_blank" rel="noreferrer">
                   <h1>{link.link_name}</h1>
                 </a>
@@ -165,7 +165,7 @@ useEffect(() => {
 
       <div>
         <a href="http://prettybio.netlify.app">
-          <h1 className="text-center mt-10">PrettyBio</h1>
+          <h1 className="text-center mt-10 hover:text-white">PrettyBio</h1>
         </a>
       </div>
     </div>
