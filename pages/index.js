@@ -7,7 +7,7 @@ import HomepageNavbar from '../components/HomepageNavbar'
 const Index = () => {
   return (
     // bg-[#f5f8f9]
-    <div className="bg-gradient-to-r from-blue-100 to-fuchsia-200 font-abc">
+    <div className="font-abc">
       <HomepageNavbar/>
      <Hero/>
      <Features />
