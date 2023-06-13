@@ -3,7 +3,7 @@ import React from "react";
 const Analytics = () => {
   return (
     <div className="w-full">
-       {/* <div className="lg:w-4/5 w-FULL text-sm lg:text-lg md:w-11/12 rounded-xl p-5 md:p-10 mt-2">
+      {/* <div className="lg:w-4/5 w-FULL text-sm lg:text-lg md:w-11/12 rounded-xl p-5 md:p-10 mt-2">
          <div className="mt-5">
           <h1>Page Views</h1>
           <div className=" mt-5 bg-gray-200 p-5 rounded-md w-28 ">
@@ -42,7 +42,12 @@ const Analytics = () => {
           </div>
         </div>
       </div>   */}
-      <p className="font-abc text-[20px] text-center mt-[20px]">coming soon</p>
+      <p
+        data-aos="fade-down"
+        className="font-abc text-text text-[20px] text-center mt-[20px]"
+      >
+        coming soon
+      </p>
     </div>
   );
 };
