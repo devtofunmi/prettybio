@@ -5,7 +5,7 @@ const Footer = () => {
     <div>
       <div
         data-aos="zoom-in"
-        className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto mt-[70px]"
+        className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto mt-[70px] text-text"
       >
         PrettyBio
         <p>
