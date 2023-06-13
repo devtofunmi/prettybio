@@ -21,10 +21,10 @@ module.exports = {
       colors: {
         textHover: "#effbce",
         text: "#d4d7d9",
-        btntext: "#a6acae",
+        
         primary: "#2b2f3b",
         secondary: "#b997f7",
-        btntext: "#3d4042",      
+        btntext: "#303135",      
       },
     },
   },
