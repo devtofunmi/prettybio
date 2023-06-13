@@ -96,11 +96,11 @@ const Settings = () => {
         </div>
       )}
 
-      <div className="lg:w-4/6 w-full md:w-5/6 rounded-xl p-5 md:p-10 mt-2">
+      <div className="lg:w-4/6 w-full md:w-5/6 rounded-xl text-text p-5 md:p-10 mt-2">
         <div>
           <h1>Accounts</h1>
           <div className="flex items-center border bg-white pl-2 rounded-md mt-3">
-            <p>prettybio.com/</p>
+            <p className="text-btntext">prettybio.com/</p>
             <input
               type="text"
               placeholder="yourname"
@@ -116,7 +116,7 @@ const Settings = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
             placeholder="change email"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -128,7 +128,7 @@ const Settings = () => {
         <div className="mt-4">
           <input
             type="password"
-            className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
             placeholder="change password"
             onChange={(e) => {
               setPassword(e.target.value);
@@ -140,7 +140,7 @@ const Settings = () => {
         <div className="mt-5 justify-center items-center flex ">
           <GradientBorder>
             <button
-              className="px-16 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full"
+              className="px-16 lg:px-32 md:px-20 py-2 bg-transparent text-btntext text-base rounded-full"
               onClick={handleSubmit}
             >
               {loading ? <LoadingSpinner /> : <p>Save</p>}
