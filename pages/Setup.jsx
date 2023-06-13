@@ -107,10 +107,10 @@ const Setup = () => {
   return (
     <div className="font-abc">
       <Link href="/">
-        <div className="text-3xl p-8">PrettyBio</div>
+        <div className="text-3xl p-8 text-text">PrettyBio</div>
       </Link>
       <div className="text-center">
-        <h1 className="text-2xl md:text-3xl">Setup your page</h1>
+        <h1 className="text-2xl md:text-3xl text-text">Setup your page</h1>
       </div>
 
       {error && (
@@ -134,7 +134,7 @@ const Setup = () => {
 
       <div className="w-full md:w-2/4 text-sm lg:w-4/12 rounded-xl m-auto p-10 md:p-[14] mt-2">
         <div className="flex flex-col mt-3 justify-center">
-          <div className="w-28 h-28 m-auto border-8 border-pink-500 border-dotted rounded-full flex justify-center">
+          <div className="w-28 h-28 m-auto border-8 border-text border-dotted rounded-full flex justify-center">
             {image ? (
               <img
                 src={image}
@@ -153,7 +153,7 @@ const Setup = () => {
           <div className="flex flex-col mt-7 text-sm">
             <input
               type="text"
-              className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
+              className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
               placeholder="Name"
               onChange={(e) => {
                 setName(e.target.value);
@@ -174,7 +174,7 @@ const Setup = () => {
             <div className="mt-5">
               <input
                 type="text"
-                className="placeholder-black focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
+                className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
                 placeholder="Bio"
                 onChange={(e) => {
                   setBio(e.target.value);
@@ -185,7 +185,7 @@ const Setup = () => {
           <div className="mt-5 justify-center items-center flex">
             <GradientBorder>
               <button
-                className="px-14 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full"
+                className="px-14 lg:px-32 md:px-20 py-2 bg-transparent text-btntext text-base rounded-full"
                 onClick={handleSubmit}
               >
                 {loading ? <LoadingSpinner /> : <p>Continue</p>}
