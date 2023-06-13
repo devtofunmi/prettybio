@@ -8,9 +8,9 @@ const UserInput = () => {
       data-aos="fade-up-right"
       className="my-10 flex w-full justify-center items-center m-auto"
     >
-      <div className="flex items-center text-black justify-center w-full  md:w-[500px] lg:w-1/2  px-5  my-auto mx-auto text-sm  lg:text-lg rounded-md mt-10">
+      <div className="flex items-center text-btntext  justify-center w-full  md:w-[500px] lg:w-1/2  px-5  my-auto mx-auto text-sm  lg:text-lg rounded-md mt-10">
         <GradientBorder>
-          <div className="flex items-center bg-white ml-1 pl-2 md:py-1 xm:text-[10px]  text-sm rounded-full">
+          <div className="flex items-center bg-transparent ml-1 pl-2 md:py-1 xm:text-[10px]  text-sm rounded-full">
             <p className="py-3  text-[12px] md:text-base lg:text-xl ">
               prettybio.com/
             </p>
