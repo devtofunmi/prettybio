@@ -3,7 +3,7 @@ import UserInput from "./UserInput.jsx";
 
 const Hero = () => {
   return (
-    <div className="mt-20">
+    <div className="mt-20 text-text">
       <h1
         data-aos="zoom-in"
         className="text-5xl md:text-7xl lg:text-8xl font-abc font-bold mx-auto text-center"
