@@ -3,7 +3,7 @@ import FeaturesItem from "./FeaturesItem";
 
 const FeaturesCard = () => {
   return (
-    <div className="flex flex-col  items-center mt-20 px-5 md:px-10">
+    <div className="flex flex-col  items-center mt-20 px-5 md:px-10 text-text">
       {FeaturesItem.map((card, i) => (
         <div
           className={`flex flex-col lg:flex-row ${
