@@ -40,11 +40,11 @@ const Dashboard = () => {
       <div className="w-full flex">
         <div
           data-aos="fade-right"
-          className=" w-2/5 h-screen p-20 shadow-md    hidden lg:block md:block"
+          className=" w-2/5 h-screen bg-[#303135] p-20 shadow-md    hidden lg:block md:block"
         >
           <iframe
             scrolling="no"
-            className="w-60 lg:h-4/5 md:h-3/6  rounded-2xl  border-gray-900 border-8 "
+            className="w-[260px] lg:h-[500px] md:h-3/6  rounded-3xl  border-[#222222] shadow-lg border-[10px] "
             src={`https://prettybio.netlify.app/${userLinkName}`}
           />
         </div>
