@@ -144,7 +144,7 @@ const Bio = () => {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full text-text ">
       {error && (
         <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4 ">
           <div className="flex justify-between">
@@ -166,7 +166,7 @@ const Bio = () => {
       <div className="lg:w-4/6 w-full md:w-5/6 rounded-xl p-5 md:p-10  mt-2">
         <div>
           <h1>Bio</h1>
-          <div className=" w-28 h-28 m-auto border-8 border-pink-500  border-dotted rounded-full flex justify-center">
+          <div className=" w-28 h-28 m-auto border-8 border-text  border-dotted rounded-full flex justify-center">
             <div className=" text-3xl  flex justify-center">
               {image ? (
                 <img
@@ -186,7 +186,7 @@ const Bio = () => {
           </div>
           <input
             type="text"
-            className="placeholder-black focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-7"
+            className="placeholder-btntext focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-7"
             placeholder="change Name"
             onChange={(e) => {
               setName(e.target.value);
@@ -198,7 +198,7 @@ const Bio = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="placeholder-black focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            className="placeholder-btntext focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
             placeholder="change Bio"
             onChange={(e) => {
               setBio(e.target.value);
@@ -210,7 +210,7 @@ const Bio = () => {
         <div className="mt-5 justify-center items-center flex ">
           <GradientBorder>
             <button
-              className=" px-16  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full "
+              className=" px-16  lg:px-32 md:px-20 py-2 bg-transparent  text-btntext text-base rounded-full "
               onClick={handleSubmit}
             >
               {loading ? <LoadingSpinner /> : <p>Save</p>}
