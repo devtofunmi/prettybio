@@ -99,7 +99,7 @@ const Links = () => {
       <div className="flex justify-center">
         <GradientBorder>
           <button
-            className="text-xl text-white px-10"
+            className="text-xl text-btntext px-10"
             onClick={() => {
               setShowModal(!showModal);
             }}
@@ -117,7 +117,7 @@ const Links = () => {
             <div key={link.id}>
               <div
                 data-aos="fade-down"
-                className="bg-gray-200  my-5 mx-5 p-6 hover:bg-pink-500 hover:text-white flex justify-between"
+                className="bg-[#303135] text-text  my-5 mx-5 p-6 hover:bg-btntext hover:text-white flex justify-between"
               >
                 <div>
                   <h1 className="text-[13px] md:text-[15px]">
