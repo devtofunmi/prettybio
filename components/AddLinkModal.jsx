@@ -80,7 +80,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
           showModal ? "flex" : "hidden"
         }`}
       >
-        <div className="w-[90%] md:w-2/4 lg:w-[35%] rounded-xl bg-white m-auto p-8 mt-40">
+        <div className="w-[90%] md:w-2/4 lg:w-[35%] rounded-xl bg-[#202125] text-text m-auto p-8 mt-40">
           <div className="flex justify-between items-center text-base lg:text-xl md:text-sm">
             <h1>Add Link</h1>
             <div>
@@ -112,7 +112,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
             onChange={(e) => setLinkName(e.target.value)}
             value={linkName}
             type="text"
-            className="placeholder-black md:placeholder:text-sm placeholder:text-[10px] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
+            className="placeholder-btntext md:placeholder:text-sm placeholder:text-[10px] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
             placeholder="LinkName"
           />
           <div className="mt-4">
@@ -120,8 +120,8 @@ const AddLinkModal = ({ showModal, closeModal }) => {
               onChange={(e) => setLinkUrl(e.target.value)}
               value={linkUrl}
               type="text"
-              className="placeholder-black md:placeholder:text-sm placeholder:text-[10px] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
-              placeholder="LinkURL(e.g.,https://twitter.com/yourname)"
+              className="placeholder-btntext md:placeholder:text-sm placeholder:text-[10px] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
+              placeholder="https://example.com/"
             />
           </div>
           <div className="mt-5 justify-center items-center flex">
@@ -129,7 +129,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
               <button
                 onClick={handleSubmit}
                 // className="w-[200px] py-2 text-center justify-center text-white text-xl rounded-full focus:border-blue-700"
-                className="px-14 lg:px-32 md:px-20 py-2 bg-transparent text-white text-base rounded-full focus:border-blue-700"
+                className="px-14 lg:px-32 md:px-20 py-2 bg-transparent text-btntext text-base rounded-full focus:border-blue-700"
               >
                 {loading ? (
                   <LoadingSpinner />
