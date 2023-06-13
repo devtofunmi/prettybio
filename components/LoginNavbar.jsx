@@ -4,7 +4,7 @@ import GradientBorder from "./GradientBorder";
 
 const LoginNavbar = () => {
   return (
-    <div className="flex items-center justify-between p-4 lg:p-8">
+    <div className="flex items-center justify-between p-4 lg:p-8 text-text">
       <div>
         <Link href="/">
           <h2 className="text-2xl lg:text-3xl">PrettyBio</h2>
@@ -13,7 +13,7 @@ const LoginNavbar = () => {
       <div>
         <GradientBorder>
           <Link href="/Signup">
-            <button className="bg-white rounded-full text-sm lg:text-lg px-6 lg:px-4 py-2 ">
+            <button className="bg-transparent rounded-full text-sm lg:text-lg px-6 lg:px-4 py-2 text-btntext ">
               Sign up
             </button>
           </Link>
