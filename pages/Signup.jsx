@@ -93,7 +93,7 @@ setTimeout(async () => {
   return (
     <div className="font-abc">
       <SignupNavbar />
-      <h1 className="text-black text-3xl  flex justify-center">Sign up</h1>
+      <h1 className="text-text text-3xl  flex justify-center">Sign up</h1>
 
       {error && (
         <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4 ">
@@ -118,7 +118,7 @@ setTimeout(async () => {
         <div className="flex flex-col mt-3 justify-center ">
           <input
             type="email"
-            className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-4 px-4 block w-full "
+            className="placeholder-btntext focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-4 px-4 block w-full "
             placeholder="email"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -128,7 +128,7 @@ setTimeout(async () => {
           <div className="mt-5">
             <input
               type="text"
-              className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className="placeholder-btntext focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
               placeholder="username"
               onChange={(e) => {
                 setUserName(e.target.value);
@@ -139,7 +139,7 @@ setTimeout(async () => {
           <div className="mt-5">
             <input
               type="password"
-              className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className="placeholder-btntext focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
               placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -150,7 +150,7 @@ setTimeout(async () => {
           <div className="mt-5">
             <input
               type="password"
-              className="placeholder-black focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className="placeholder-btntext focus:outline-none focus:border-blue-700  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
               placeholder="confirm Password"
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
@@ -161,7 +161,7 @@ setTimeout(async () => {
         <div className="mt-5 justify-center items-center flex ">
           <GradientBorder>
             <button
-              className=" px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-white text-base rounded-full "
+              className=" px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-btntext text-base rounded-full "
               onClick={handleSubmit}
             >
               {loading ? <LoadingSpinner /> : <p>SIGN UP </p>}
