@@ -153,7 +153,7 @@ const Setup = () => {
           <div className="flex flex-col mt-7 text-sm">
             <input
               type="text"
-              className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
+              className="bg-[#202125] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
               placeholder="Name"
               onChange={(e) => {
                 setName(e.target.value);
@@ -174,7 +174,7 @@ const Setup = () => {
             <div className="mt-5">
               <input
                 type="text"
-                className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
+                className="bg-[#202125] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
                 placeholder="Bio"
                 onChange={(e) => {
                   setBio(e.target.value);
