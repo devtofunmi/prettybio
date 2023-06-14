@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import GradientBorder from "../components/GradientBorder";
-import Otpp from "../components/Otpp";
+// import Otpp from "../components/Otpp";
 // import Navbar from "../components/Navbar";
 
 const Otp = () => {
@@ -15,7 +15,7 @@ const Otp = () => {
 
       <div className=" w-5/6 md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-14 ">
         <div className="flex flex-col mt-3 justify-center items-center ">
-          <Otpp />
+          {/* <Otpp /> */}
         </div>
         <div className="mt-5 justify-center items-center flex flex-col ">
           <Link href="/Login">
