@@ -6,6 +6,7 @@ import HomepageNavbar from '../components/HomepageNavbar'
 import Faq from '../components/faq'
 
 
+
 const Index = () => {
   return (
     // bg-[#f5f8f9]
