@@ -21,7 +21,6 @@ module.exports = {
       colors: {
         textHover: "#effbce",
         text: "#d4d7d9",
-        
         primary: "#2b2f3b",
         secondary: "#b997f7",
         btntext: "#303135",      
