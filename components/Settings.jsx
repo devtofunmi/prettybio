@@ -99,12 +99,12 @@ const Settings = () => {
       <div className="lg:w-4/6 w-full md:w-5/6 rounded-xl text-text p-5 md:p-10 mt-2">
         <div>
           <h1>Accounts</h1>
-          <div className="flex items-center border bg-white pl-2 rounded-md mt-3">
-            <p className="text-btntext">prettybio.com/</p>
+          <div className="flex items-center border bg-[#202125] pl-2 rounded-md mt-3">
+            <p>prettybio.com/</p>
             <input
               type="text"
               placeholder="yourname"
-              className="py-3 px-0 w-[120px] bg-transparent outline-none"
+              className="py-3 px-0 w-[120px] bg-[#202125] outline-none"
               onChange={(e) => {
                 setUserLinkName(e.target.value);
               }}
@@ -116,7 +116,7 @@ const Settings = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            className=" focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 bg-[#202125]"
             placeholder="change email"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -128,7 +128,7 @@ const Settings = () => {
         <div className="mt-4">
           <input
             type="password"
-            className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            className=" focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 bg-[#202125]"
             placeholder="change password"
             onChange={(e) => {
               setPassword(e.target.value);
