@@ -95,7 +95,7 @@ const Login = () => {
         <div className="flex flex-col mt-3 ">
           <input
             type="text"
-            className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+            className="bg-[#202125] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
             placeholder="Username"
             onChange={(e) => {
               setUserName(e.target.value);
@@ -105,7 +105,7 @@ const Login = () => {
           <div className="mt-5">
             <input
               type="password"
-              className="placeholder-btntext focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className="bg-[#202125] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
               placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);
