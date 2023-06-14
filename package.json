@@ -14,7 +14,6 @@
     "@supabase/supabase-js": "^2.21.0",
     "aos": "^2.3.4",
     "autoprefixer": "^10.4.13",
-    "caniuse-lite": "^1.0.30001495",
     "cloudinary-react": "^1.8.1",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.7",
@@ -23,7 +22,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
-    "react-otp-input": "^2.4.0",
     "tailwindcss": "^3.2.4"
   }
 }
