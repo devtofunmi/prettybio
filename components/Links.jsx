@@ -117,7 +117,7 @@ const Links = () => {
             <div key={link.id}>
               <div
                 data-aos="fade-down"
-                className="bg-[#303135] text-text  my-5 mx-5 p-6 hover:bg-btntext hover:text-white flex justify-between"
+                className="bg-btntext text-text  my-5 mx-5 p-6 hover:bg-btntext hover:text-white flex justify-between"
               >
                 <div>
                   <h1 className="text-[13px] md:text-[15px]">
