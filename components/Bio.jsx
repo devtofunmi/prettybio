@@ -186,7 +186,7 @@ const Bio = () => {
           </div>
           <input
             type="text"
-            className="placeholder-btntext focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-7"
+            className="bg-[#202125] focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-7"
             placeholder="change Name"
             onChange={(e) => {
               setName(e.target.value);
@@ -198,7 +198,7 @@ const Bio = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="placeholder-btntext focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            className="bg-[#202125] focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
             placeholder="change Bio"
             onChange={(e) => {
               setBio(e.target.value);
