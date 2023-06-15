@@ -112,7 +112,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
             onChange={(e) => setLinkName(e.target.value)}
             value={linkName}
             type="text"
-            className="bg-[#202125] md:placeholder:text-sm placeholder:text-[10px] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
+            className="bg-[#202125] text-text md:placeholder:text-sm placeholder:text-[10px]  focus:border-[#effbce] border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
             placeholder="LinkName"
           />
           <div className="mt-4">
@@ -120,7 +120,7 @@ const AddLinkModal = ({ showModal, closeModal }) => {
               onChange={(e) => setLinkUrl(e.target.value)}
               value={linkUrl}
               type="text"
-              className="bg-[#202125] md:placeholder:text-sm placeholder:text-[10px] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-2 px-4 block w-full"
+              className="bg-[#202125] text-text md:placeholder:text-sm placeholder:text-[10px] focus:border-[#effbce] border border-gray-400 rounded-md py-2 px-4 block w-full"
               placeholder="https://example.com/"
             />
           </div>
