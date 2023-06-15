@@ -35,6 +35,18 @@ const Faq = () => {
       answer:
         "No! That's against IG's T&C. It ruins your followers' experience and is useless since you can not tap on it.",
     },
+    {
+      id: 7,
+      question: "Is my data safe?",
+      answer:
+        "Of course Your data is safe with PrettyBio.",
+    },
+    {
+      id: 8,
+      question: "I love the product, How can i show my appreciation",
+      answer:
+        "Tell your friends how much you love PrettyBio! Leave us a nice review on Twitter.",
+    },
   ];
 
   const toggleActive = (id) => {
