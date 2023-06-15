@@ -146,10 +146,10 @@ const Bio = () => {
   return (
     <div className="w-full text-text ">
       {error && (
-        <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4 ">
-          <div className="flex justify-between">
+        <div className="flex justify-center md:w-[300px] w-[200px] m-auto rounded-lg  items-center bg-red-500 text-white p-1 md:text-[15px] text-[12px] mb-0 ">
+          <div className="flex justify-between items-center">
             <p>{error}</p>
-            <button className="px-2 py-1" onClick={() => setError("")}>
+            <button className=" px-2 py-1" onClick={() => setError("")}>
               X
             </button>
           </div>
@@ -157,7 +157,7 @@ const Bio = () => {
       )}
 
       {success && (
-        <div className="fixed top-0 left-0 right-0 items-center bg-green-500 text-white p-4 ">
+        <div className="flex justify-center md:w-[300px] w-[200px] m-auto rounded-lg  items-center bg-green-500 text-white p-1 md:text-[15px] text-[12px] mb-0 ">
           <div className="text-center">
             <p>{success}</p>
           </div>
@@ -186,7 +186,7 @@ const Bio = () => {
           </div>
           <input
             type="text"
-            className="bg-[#202125] focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-7"
+            className="bg-[#202125]   focus:border-[#effbce]  border border-gray-400 rounded-md py-3 px-4 block w-full mt-7"
             placeholder="change Name"
             onChange={(e) => {
               setName(e.target.value);
@@ -198,7 +198,7 @@ const Bio = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="bg-[#202125] focus:outline-none  focus:border-blue-700  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            className="bg-[#202125]   focus:border-[#effbce]  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
             placeholder="change Bio"
             onChange={(e) => {
               setBio(e.target.value);
