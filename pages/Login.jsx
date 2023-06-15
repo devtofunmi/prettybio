@@ -70,11 +70,9 @@ const Login = () => {
   return (
     <div className="font-abc">
       <LoginNavbar />
-      <h1 className="text-text text-3xl flex justify-center">Log in</h1>
-
       {error && (
-        <div className="fixed top-0 left-0 right-0 items-center bg-red-500 text-white p-4 ">
-          <div className="flex justify-between">
+        <div className="flex justify-center md:w-[300px] w-[200px] m-auto rounded-lg  items-center bg-red-500 text-white p-1 md:text-[15px] text-[12px] mb-5 ">
+          <div className="flex justify-between items-center">
             <p>{error}</p>
             <button className="px-2 py-1" onClick={() => setError("")}>
               X
@@ -82,20 +80,20 @@ const Login = () => {
           </div>
         </div>
       )}
-
       {success && (
-        <div className="fixed top-0 left-0 right-0 items-center bg-green-500 text-white p-4 ">
+        <div className="flex justify-center md:w-[300px] w-[200px] m-auto rounded-lg  items-center bg-green-500 text-white p-1 md:text-[15px] text-[12px] mb-5 ">
           <div className="text-center">
             <p>{success}</p>
           </div>
         </div>
       )}
+      <h1 className="text-text text-3xl flex justify-center">Log in</h1>
 
       <div className="w-full md:w-2/4 text-sm lg:w-4/12 rounded-xl m-auto p-10 md:p-[14] mt-2">
         <div className="flex flex-col mt-3 ">
           <input
             type="text"
-            className="bg-[#202125] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+            className="bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
             placeholder="Username"
             onChange={(e) => {
               setUserName(e.target.value);
@@ -105,7 +103,7 @@ const Login = () => {
           <div className="mt-5">
             <input
               type="password"
-              className="bg-[#202125] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className="bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
               placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);
