@@ -3,12 +3,11 @@ import React from "react";
 const Footer = () => {
   return (
     <div>
-      <div
-        data-aos="zoom-in"
-        className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto mt-[70px] text-text"
-      >
-        PrettyBio
-        <p>
+      <div data-aos="zoom-in">
+        <p className=" md:text-6xl text-4xl w-4/5 m-auto mt-[70px] text-text">
+          PrettyBio
+        </p>
+        <p className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto md:mt-5 mt-2 text-text">
           is a beloved platform among a diverse group of users, including
           artists, writers, musicians, podcasters, YouTubers, gamers,
           developers, hobbyists, and brands.
