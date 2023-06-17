@@ -17,7 +17,7 @@ const UserInput = () => {
             <input
               type="text"
               placeholder="yourname"
-              className="h-[2rem] md:h-[3rem] rounded-full  outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0"
+              className="h-[2rem] md:h-[3rem] rounded-full  outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0 text-text"
             />
           </div>
           <Link href="/Signup">
