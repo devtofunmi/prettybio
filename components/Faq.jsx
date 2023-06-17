@@ -56,7 +56,7 @@ const Faq = () => {
   return (
     <div
       data-aos="fade-down"
-      className="mx-auto w-full rounded-2xl px-5 md:px-10 lg:px-20  text-text"
+      className="mx-auto w-full md:w-2/3 rounded-2xl px-5 md:px-10 lg:px-20  text-text"
     >
       <h1 className="text-center text-text text-4xl md:text-6xl lg:text-5xl mt-[40px] ">
         FAQ
