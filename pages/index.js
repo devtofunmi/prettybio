@@ -8,9 +8,11 @@ import Faq from '../components/Faq'
 
 
 const Index = () => {
+  
   return (
     // bg-[#f5f8f9]
     <div className="font-abc">
+      
       <HomepageNavbar/>
      <Hero/>
      <Features />
