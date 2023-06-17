@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import GradientBorder from "./GradientBorder";
+import HomeGradientBorder from "./HomeGradientBorder";
 
 const UserInput = () => {
   return (
@@ -9,9 +9,9 @@ const UserInput = () => {
       className="my-10 flex w-full justify-center items-center m-auto"
     >
       <div className="flex items-center text-btntext  justify-center w-full  md:w-[500px] lg:w-1/2  px-5  my-auto mx-auto text-sm  lg:text-lg rounded-md mt-10">
-        <GradientBorder>
-          <div className="flex items-center bg-transparent ml-1 pl-2 md:py-1 xm:text-[10px]  text-sm rounded-full">
-            <p className="py-3  text-[12px] md:text-base lg:text-xl ">
+        <HomeGradientBorder>
+          <div className="flex items-center bg-btntext ml-1 pl-2 md:my-[2px] xm:text-[10px]  text-sm ">
+            <p className="py-3  text-[12px] md:text-base lg:text-xl text-text ">
               prettybio.com/
             </p>
             <input
@@ -21,11 +21,11 @@ const UserInput = () => {
             />
           </div>
           <Link href="/Signup">
-            <button className="text-[12px] w-[100px] md:w-full md:text-base  py-2 lg:px-4 px-0 rounded-sm">
-              Claim my bio
+            <button className="text-[12px] text-black w-[100px] md:w-full md:text-base  py-2 lg:px-4 px-0 rounded-sm">
+              Claim my link
             </button>
           </Link>
-        </GradientBorder>
+        </HomeGradientBorder>
       </div>
     </div>
   );
