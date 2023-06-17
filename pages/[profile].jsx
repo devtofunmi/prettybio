@@ -165,7 +165,7 @@ useEffect(() => {
 
       <div>
         <a href="http://prettybio.netlify.app">
-          <h1 className="text-center mt-10 hover:text-white">PrettyBio</h1>
+          <h1 className="text-center mt-5 hover:text-white">PrettyBio</h1>
         </a>
       </div>
     </div>
