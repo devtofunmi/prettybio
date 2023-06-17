@@ -66,7 +66,7 @@ const Faq = () => {
         <div key={item.id}>
           <button
             onClick={() => toggleActive(item.id)}
-            className="flex text-text mt-5 w-full hover:text-white justify-between rounded-lg bg-btntext px-4 py-9 text-center text-lg "
+            className="flex text-text mt-5 w-full hover:text-white justify-between rounded-lg bg-btntext px-4 py-9 text-center text-md md:text-lg "
           >
             <span>{item.question}</span>
             <IoIosArrowDown
@@ -76,7 +76,7 @@ const Faq = () => {
             />
           </button>
           {active === item.id && (
-            <div className="px-8 pt-4 pb-2 text-lg  text-text">
+            <div className="px-5 pt-4 pb-2 text-lg mt-[-5px] bg-btntext rounded-b-lg  text-text">
               {item.answer}
             </div>
           )}
