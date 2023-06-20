@@ -23,8 +23,20 @@
  
 } */
 
-
-body{
-    background-color:#202125;
-    /* background-color:black; */
+.dark {
+  background-color: #202125;
+  color: white;
 }
+
+
+.light {
+  background-color: #f8f8f8;
+  color: black;
+}
+
+
+
+/* body{
+    background-color:#202125;
+    background-color:black;
+} */
