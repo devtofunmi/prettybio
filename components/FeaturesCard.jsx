@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import FeaturesItem from "./FeaturesItem";
 
 const FeaturesCard = () => {
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
+  
   return (
-    <div className="flex flex-col  items-center mt-20 px-5 md:px-10 text-text">
+    <div className={`text-${currentTheme === "dark" ? "text" : "black"} mt-20 flex flex-col  items-center px-5 md:px-10`}
+    
+    >
       {FeaturesItem.map((card, i) => (
         <div
           className={`flex flex-col lg:flex-row ${
