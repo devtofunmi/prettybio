@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import { IoIosArrowDown } from "react-icons/io";
 
 const Faq = () => {
-  const [active, setActive] = useState(null);
+const [active, setActive] = useState(null);
+const { systemTheme, theme, setTheme } = useTheme();
+const [mounted, setMounted] = useState(false);
+
+useEffect(() => {
+  setMounted(true);
+}, []);
+
+if (!mounted) return null;
+const currentTheme = theme === "system" ? systemTheme : theme;
+
   const faqs = [
     {
       id: 1,
@@ -38,8 +49,7 @@ const Faq = () => {
     {
       id: 7,
       question: "Is my data safe?",
-      answer:
-        "Of course Your data is safe with PrettyBio.",
+      answer: "Of course Your data is safe with PrettyBio.",
     },
     {
       id: 8,
@@ -56,27 +66,48 @@ const Faq = () => {
   return (
     <div
       data-aos="fade-down"
-      className="mx-auto w-full md:w-2/3 rounded-2xl px-5 md:px-10 lg:px-20  text-text"
+      className={`text-${
+        currentTheme === "dark" ? "text" : "black"
+      } mx-auto w-full md:w-2/3 rounded-2xl px-5 md:px-10 lg:px-20`}
     >
-      <h1 className="text-center text-text text-4xl md:text-6xl lg:text-5xl mt-[40px] ">
+      <h1 className="text-center  text-4xl md:text-6xl lg:text-5xl mt-[40px] ">
         FAQ
       </h1>
-      <p data-aos="fade-down" className="text-center mt-2 text-xl">Have a question? look here</p>
+      <p data-aos="fade-down" className="text-center mt-2 text-xl">
+        Have a question? look here
+      </p>
       {faqs.map((item) => (
         <div key={item.id}>
           <button
             onClick={() => toggleActive(item.id)}
-            className="flex text-text mt-5 w-full hover:text-white justify-between rounded-lg bg-btntext px-4 py-9 text-center text-md md:text-lg "
+            className={`${
+              currentTheme === "dark"
+                ? "flex  mt-5 w-full hover:text-white justify-between rounded-lg bg-btntext px-4 py-9 text-center text-md md:text-lg"
+                : "bg-[#f8f8f8] text-black flex mt-5 w-full justify-between rounded-lg px-4 py-9 text-center text-md md:text-lg"
+            } `}
           >
             <span>{item.question}</span>
-            <IoIosArrowDown
+            <div
               className={`${
                 active === item.id ? "rotate-180 transform" : ""
               } h-6 w-6 text-text`}
-            />
+            >
+              <IoIosArrowDown
+                className={`${
+                  currentTheme === "dark" ? "text-white" : "text-black"
+                }`}
+              />
+            </div>
           </button>
           {active === item.id && (
-            <div className="px-5 pt-4 pb-2 text-lg mt-[-5px] bg-btntext rounded-b-lg  text-text">
+            <div
+              className={`${
+                currentTheme === "dark"
+                  ? "px-5 pt-4 pb-2 text-lg mt-[-5px] bg-btntext rounded-b-lg text-text"
+                  : "px-5 pt-4 pb-2 text-lg mt-[-5px] bg-[#f8f8f8] rounded-b-lg text-black"
+              }`}
+              
+            >
               {item.answer}
             </div>
           )}
