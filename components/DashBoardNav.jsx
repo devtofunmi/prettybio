@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import GradientBorder from "./GradientBorder";
 import { supabase } from "../supabaseClient";
 import Link from "next/link";
@@ -6,6 +7,15 @@ import Link from "next/link";
 const DashBoardNav = () => {
   const [userImage, setUserImage] = useState(null);
   const [userLinkName, setUserLinkName] = useState(null);
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+ const gradientStyle = {
+   background: "linear-gradient(275.79deg, #93c3c4 5.39%, #f2cfad 70.00%)",
+ };
+ const whiteGradientStyle = {
+   background: "linear-gradient(275.79deg, #d758bc  5.39%, #e8588e  70.39%)",
+ };
 
   useEffect(() => {
     async function fetchUserData() {
@@ -35,8 +45,21 @@ const DashBoardNav = () => {
     fetchUserData();
   }, []);
 
+    useEffect(() => {
+      setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+    const currentTheme = theme === "system" ? systemTheme : theme;
+
   return (
-    <div className="flex items-center justify-between p-4 text-text shadow-lg sticky top-0">
+    <div
+      className={`${
+        currentTheme === "dark"
+          ? "flex items-center justify-between p-4 text-text shadow-lg sticky top-0"
+          : "flex items-center justify-between p-4 text-black shadow-lg sticky top-0"
+      }`}
+    >
       <div>
         <div>
           <Link href="/">
@@ -68,7 +91,12 @@ const DashBoardNav = () => {
           </a>
         </div>
         <GradientBorder>
-          <div className="w-10 h-10 rounded-full">
+          <div
+            className={`style ${
+              currentTheme === "dark" ? "dark" : "light"
+            } w-10 h-10 rounded-full`}
+            style={currentTheme === "dark" ? gradientStyle : whiteGradientStyle}
+          >
             {userImage && (
               <img
                 src={userImage}
