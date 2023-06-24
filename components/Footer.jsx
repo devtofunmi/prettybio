@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 const Footer = () => {
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
   return (
     <div>
       <div data-aos="zoom-in">
-        <p className=" md:text-6xl text-4xl w-4/5 m-auto mt-[70px] text-text">
+        <p
+          className={`${
+            currentTheme === "dark"
+              ? "md:text-6xl text-4xl w-4/5 m-auto mt-[70px] text-text"
+              : "md:text-6xl text-4xl w-4/5 m-auto mt-[70px] text-black"
+          }`}
+        >
           PrettyBio
         </p>
-        <p className=" md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto md:mt-5 mt-2 text-text">
+        <p
+          className={`${
+            currentTheme === "dark"
+              ? "md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto md:mt-5 mt-2 text-text"
+              : "md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto md:mt-5 mt-2 text-[#bbbbbc]"
+          }`}
+        >
           is a beloved platform among a diverse group of users, including
           artists, writers, musicians, podcasters, YouTubers, gamers,
           developers, hobbyists, and brands.
@@ -18,7 +40,11 @@ const Footer = () => {
         <div className="flex items-center justify-center py-20 ">
           <div
             data-aos="flip-left"
-            className="flex lg:w-2/5 w-11/12 h-20 rounded-full items-center"
+            className={`${
+              currentTheme === "dark"
+                ? "flex lg:w-2/5 w-11/12 h-20 rounded-full items-center"
+                : "flex lg:w-2/5 w-11/12 h-20 rounded-full items-center shadow-xl"
+            }`}
           >
             <div className="bg-[#1DA1F2] text-white w-1/4 h-full flex items-center justify-center rounded-tl-full rounded-bl-full">
               <p className="md:text-5xl text-3xl">
