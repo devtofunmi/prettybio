@@ -1,8 +1,19 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import HomeGradientBorder from "./HomeGradientBorder";
 
 const UserInput = () => {
+   const { systemTheme, theme, setTheme } = useTheme();
+   const [mounted, setMounted] = useState(false);
+
+   useEffect(() => {
+     setMounted(true);
+   }, []);
+
+   if (!mounted) return null;
+   const currentTheme = theme === "system" ? systemTheme : theme;
+
   return (
     <div
       data-aos="fade-up-right"
@@ -10,14 +21,24 @@ const UserInput = () => {
     >
       <div className="flex items-center text-btntext  justify-center w-full  md:w-[500px] lg:w-1/2  px-5  my-auto mx-auto text-sm  lg:text-lg rounded-md mt-10">
         <HomeGradientBorder>
-          <div className="flex items-center bg-btntext ml-1 pl-2 md:my-[2px] xm:text-[10px]  text-sm ">
-            <p className="py-3  text-[12px] md:text-base lg:text-xl text-text ">
+          <div
+            className={`${
+              currentTheme === "dark"
+                ? "bg-btntext text-text"
+                : "bg-[#f8f8f8] text-black"
+            } flex items-center  ml-1 pl-2 md:my-[2px] xm:text-[10px]  text-sm`}
+          >
+            <p className="py-3  text-[12px] md:text-base lg:text-xl ">
               prettybio.com/
             </p>
             <input
               type="text"
               placeholder="yourname"
-              className="h-[2rem] md:h-[3rem] rounded-full  outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0 text-text"
+              className={`${
+                currentTheme === "dark"
+                  ? "h-[2rem] md:h-[3rem] rounded-full  outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0 text-text"
+                  : "h-[2rem] md:h-[3rem] rounded-full  outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0 text-black"
+              } flex items-center  ml-1 pl-2 md:my-[2px] xm:text-[10px]  text-sm`}
             />
           </div>
           <Link href="/Signup">
