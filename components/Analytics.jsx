@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 const Analytics = () => {
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
   return (
     <div className="w-full">
       {/* <div className="lg:w-4/5 w-FULL text-sm lg:text-lg md:w-11/12 rounded-xl p-5 md:p-10 mt-2">
@@ -44,7 +53,12 @@ const Analytics = () => {
       </div>   */}
       <p
         data-aos="fade-down"
-        className="font-abc text-text text-[20px] text-center mt-[20px]"
+        className={`${
+          currentTheme === "dark"
+            ? "font-abc text-text text-[20px] text-center mt-[20px]"
+            : "font-abc text-black text-[20px] text-center mt-[20px]"
+        } `}
+       
       >
         coming soon
       </p>
