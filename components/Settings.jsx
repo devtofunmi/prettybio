@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import GradientBorder from "./GradientBorder";
 import { supabase } from "../supabaseClient";
 import LoadingSpinner from "./LoadingSpinner";
@@ -10,6 +11,8 @@ const Settings = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+   const { systemTheme, theme, setTheme } = useTheme();
+   const [mounted, setMounted] = useState(false);
 
   const save = async () => {
     if (email === "" && password === "" && userLinkName === "") {
@@ -74,6 +77,12 @@ const Settings = () => {
   function handleSubmit() {
     save();
   }
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
     <div className="w-full">
@@ -98,13 +107,35 @@ const Settings = () => {
 
       <div className="lg:w-4/6 w-full md:w-5/6 rounded-xl text-text p-5 md:p-10 mt-2">
         <div>
-          <h1>Accounts</h1>
-          <div className="flex items-center border bg-[#202125] pl-2 rounded-md mt-3">
-            <p>prettybio.com/</p>
+          <h1
+            className={`${
+              currentTheme === "dark" ? "text-text" : "text-black"
+            }`}
+          >
+            Accounts
+          </h1>
+          <div
+            className={`${
+              currentTheme === "dark"
+                ? "flex items-center border  pl-2  mt-3  text-sm items-center text-black bg-transparent border  rounded-md"
+                : "flex items-center border  pl-2  mt-3  text-sm items-center text-black bg-white border  rounded-md"
+            }`}
+          >
+            <p
+              className={`${
+                currentTheme === "dark" ? "text-text" : "text-black"
+              }`}
+            >
+              prettybio.com/
+            </p>
             <input
               type="text"
               placeholder="yourname"
-              className="py-3 px-0 w-[120px] bg-[#202125] outline-none"
+              className={`${
+                currentTheme === "dark"
+                  ? "py-3 px-0 w-[120px] bg-transparent outline-none text-text"
+                  : "py-3 px-0 w-[120px] bg-transparent outline-none text-black"
+              }`}
               onChange={(e) => {
                 setUserLinkName(e.target.value);
               }}
@@ -116,7 +147,11 @@ const Settings = () => {
         <div className="mt-4">
           <input
             type="text"
-            className=" focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 bg-[#202125]"
+            className={`${
+              currentTheme === "dark"
+                ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
+            }`}
             placeholder="change email"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -128,7 +163,11 @@ const Settings = () => {
         <div className="mt-4">
           <input
             type="password"
-            className=" focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 bg-[#202125]"
+            className={`${
+              currentTheme === "dark"
+                ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
+            }`}
             placeholder="change password"
             onChange={(e) => {
               setPassword(e.target.value);
