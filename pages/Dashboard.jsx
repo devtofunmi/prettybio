@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import DashBoardNav from "../components/DashBoardNav";
 import DashboardTabs from "../components/DashboardTabs";
 import { supabase } from "../supabaseClient";
 
 const Dashboard = () => {
   const [userLinkName, setUserLinkName] = useState(null);
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  
 
   useEffect(() => {
     async function fetchUserData() {
@@ -32,6 +37,14 @@ const Dashboard = () => {
 
     fetchUserData();
   }, []);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
   return (
     <div className="overflow-y-hidden font-abc relative">
       <div className="sticky top-0 ">
@@ -40,7 +53,10 @@ const Dashboard = () => {
       <div className="w-full flex">
         <div
           data-aos="fade-right"
-          className=" w-2/5 h-screen bg-[#303135] p-20 shadow-md    hidden lg:block md:block"
+          className={`${
+            currentTheme === "dark" ? "w-2/5 h-screen bg-[#303135] p-20 shadow-md    hidden lg:block md:block" : "w-2/5 h-screen bg-[#f8f8f8] p-20 shadow-lg    hidden lg:block md:block"
+          } `}
+         
         >
           <iframe
             scrolling="no"
