@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useTheme } from "next-themes";
 import GradientBorder from "./GradientBorder";
 import { BsCamera } from "react-icons/bs";
 import { supabase } from "../supabaseClient";
@@ -14,6 +15,8 @@ const Bio = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   const save = async () => {
     setLoading(true);
@@ -143,6 +146,13 @@ const Bio = () => {
     }
   };
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
   return (
     <div className="w-full text-text ">
       {error && (
@@ -165,8 +175,22 @@ const Bio = () => {
       )}
       <div className="lg:w-4/6 w-full md:w-5/6 rounded-xl p-5 md:p-10  mt-2">
         <div>
-          <h1>Bio</h1>
-          <div className=" w-28 h-28 m-auto border-8 border-text  border-dotted rounded-full flex justify-center">
+          <h1
+            className={`${
+              currentTheme === "dark"
+                ? "text-text"
+                : "text-black"
+            }`}
+          >
+            Bio
+          </h1>
+          <div
+            className={`${
+              currentTheme === "dark"
+                ? "w-28 h-28 m-auto border-8 border-text border-dotted rounded-full flex justify-center"
+                : "w-28 h-28 m-auto border-8 border-black border-dotted rounded-full flex justify-center"
+            }`}
+          >
             <div className=" text-3xl  flex justify-center">
               {image ? (
                 <img
@@ -186,7 +210,11 @@ const Bio = () => {
           </div>
           <input
             type="text"
-            className="bg-[#202125]   focus:border-[#effbce]  border border-gray-400 rounded-md py-3 px-4 block w-full mt-7"
+            className={`${
+              currentTheme === "dark"
+                ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
+            }`}
             placeholder="change Name"
             onChange={(e) => {
               setName(e.target.value);
@@ -198,7 +226,11 @@ const Bio = () => {
         <div className="mt-4">
           <input
             type="text"
-            className="bg-[#202125]   focus:border-[#effbce]  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+            className={`${
+              currentTheme === "dark"
+                ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
+                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
+            }`}
             placeholder="change Bio"
             onChange={(e) => {
               setBio(e.target.value);
