@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import { supabase } from "../supabaseClient";
 import { MdOutlineClose } from "react-icons/md";
 import GradientBorder from "./GradientBorder";
@@ -12,7 +13,8 @@ const AddLinkModal = ({ showModal, closeModal }) => {
   const [userId, setUserId] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+const { systemTheme, theme, setTheme } = useTheme();
+const [mounted, setMounted] = useState(false);
   useEffect(() => {
     const storedData = localStorage.getItem("data");
     const dataArray = JSON.parse(storedData);
@@ -71,6 +73,12 @@ const AddLinkModal = ({ showModal, closeModal }) => {
       }
     }
   };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
     <>
@@ -80,7 +88,13 @@ const AddLinkModal = ({ showModal, closeModal }) => {
           showModal ? "flex" : "hidden"
         }`}
       >
-        <div className="w-[90%] md:w-2/4 lg:w-[35%] rounded-xl bg-[#202125] text-text m-auto p-8 mt-40">
+        <div
+          className={`${
+            currentTheme === "dark"
+              ? "w-[90%] md:w-2/4 lg:w-[35%] rounded-xl bg-[#202125] text-text m-auto p-8 mt-40"
+              : "w-[90%] md:w-2/4 lg:w-[35%] rounded-xl bg-[#f7f7f7] text-black m-auto p-8 mt-40"
+          } `}
+        >
           <div className="flex justify-between items-center text-base lg:text-xl md:text-sm">
             <h1>Add Link</h1>
             <div>
@@ -112,7 +126,11 @@ const AddLinkModal = ({ showModal, closeModal }) => {
             onChange={(e) => setLinkName(e.target.value)}
             value={linkName}
             type="text"
-            className="bg-[#202125] text-text md:placeholder:text-sm placeholder:text-[10px]  focus:border-[#effbce] border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
+            className={`${
+              currentTheme === "dark"
+                ? "bg-[#202125] text-text md:placeholder:text-sm placeholder:text-[10px]  focus:border-[#effbce] border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
+                : "bg-transparent text-black md:placeholder:text-sm placeholder:text-[10px]  focus:border-[#effbce] border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
+            } `}
             placeholder="LinkName"
           />
           <div className="mt-4">
@@ -120,7 +138,12 @@ const AddLinkModal = ({ showModal, closeModal }) => {
               onChange={(e) => setLinkUrl(e.target.value)}
               value={linkUrl}
               type="text"
-              className="bg-[#202125] text-text md:placeholder:text-sm placeholder:text-[10px] focus:border-[#effbce] border border-gray-400 rounded-md py-2 px-4 block w-full"
+              className={`${
+                currentTheme === "dark"
+                  ? "bg-[#202125] text-text md:placeholder:text-sm placeholder:text-[10px]  focus:border-[#effbce] border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
+                  : "bg-transparent text-black md:placeholder:text-sm placeholder:text-[10px]  focus:border-[#effbce] border border-gray-400 rounded-md py-2 px-4 block w-full mt-5"
+              } `}
+             
               placeholder="https://example.com/"
             />
           </div>
