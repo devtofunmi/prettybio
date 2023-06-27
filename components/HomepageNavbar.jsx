@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import GradientBorder from "./GradientBorder";
 import { useTheme } from "next-themes";
+import Image from "next/image";
+
 
 const HomepageNavbar = () => {
   const { systemTheme, theme, setTheme } = useTheme();
@@ -14,6 +16,11 @@ const HomepageNavbar = () => {
   if (!mounted) return null;
   const currentTheme = theme === "system" ? systemTheme : theme;
 
+  const toggleTheme = () => {
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  };
+
   return (
     <div
       className={`text ${
@@ -22,12 +29,27 @@ const HomepageNavbar = () => {
     >
       <div>
         <Link href="/">
-          <h2 className="text-2xl lg:text-3xl">
-            PrettyBio
-          </h2>
+          <h2 className="text-[20px] md:text-3xl">PrettyBio</h2>
         </Link>
       </div>
       <div className="flex items-center justify-center">
+        <div>
+          <button
+            className={`bg-${
+              currentTheme === "dark" ? "black" : "gray"
+            }-700 hover:bg-${
+              currentTheme === "dark" ? "white" : "gray"
+            } w-[15px] md:w-[20px] rounded-md`}
+            onClick={toggleTheme}
+          >
+            <Image
+              src={`/assets/${currentTheme === "dark" ? "sun" : "moon"}.svg`}
+              alt="logo"
+              height={20}
+              width={20}
+            />
+          </button>
+        </div>
         <div>
           <Link href="/Login">
             <button className="bg-transparent rounded-full text-sm lg:text-lg px-1 lg:px-4 py-2 ">
