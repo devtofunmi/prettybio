@@ -177,9 +177,7 @@ const Bio = () => {
         <div>
           <h1
             className={`${
-              currentTheme === "dark"
-                ? "text-text"
-                : "text-black"
+              currentTheme === "dark" ? "text-text" : "text-black"
             }`}
           >
             Bio
@@ -200,7 +198,13 @@ const Bio = () => {
                 />
               ) : (
                 <button className="cursor-pointer" onClick={handleButtonClick}>
-                  <BsCamera />
+                  <BsCamera
+                    className={`${
+                      currentTheme === "dark"
+                        ? "text-white"
+                        : "text-black"
+                    }`}
+                  />
                 </button>
               )}
               <div className="hidden">
