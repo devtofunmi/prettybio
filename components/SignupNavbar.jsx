@@ -23,7 +23,7 @@ const SignupNavbar = () => {
     >
       <div>
         <Link href="/">
-          <h2 className="text-2xl lg:text-3xl">PrettyBio</h2>
+          <h2 className="text-[20px] md:text-3xl">PrettyBio</h2>
         </Link>
       </div>
       <div>
@@ -35,7 +35,6 @@ const SignupNavbar = () => {
                   ? "bg-transparent text-sm lg:text-lg px-8 py-2 text-btntext"
                   : "bg-transparent text-sm lg:text-lg px-8 py-2 text-black"
               }`}
-            
             >
               Log in
             </button>
