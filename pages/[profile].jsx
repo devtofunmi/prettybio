@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import GradientBorder from "../components/GradientBorder";
 import ShareLinkModal from "../components/ShareLinkModal";
 import { AiOutlineShareAlt } from "react-icons/ai";
@@ -16,66 +17,38 @@ const Profile = () => {
   const [userImage, setUserImage] = useState(null);
   const [userID, setUserId] = useState(null);
   const [userLinkName, setUserLinkName] = useState("");
+     const { systemTheme, theme, setTheme } = useTheme();
+     const [mounted, setMounted] = useState(false);
 
   const closeModal = () => {
     setShareModal(false);
   };
 
- useEffect(() => {
-   setLoading(true);
-   // Fetch the user's data from the users table
-   const fetchUserData = async () => {
-     try {
-       const pathname = window.location.pathname;
-       const userlinkname = pathname.replace("/", "");
-
-       const { data, error } = await supabase
-         .from("users")
-         .select("userlink_name, name, bio, image, id")
-         .eq("userlink_name", userlinkname);
-
-       if (error) {
-         console.error("Error fetching links:", error.message);
-       }
-
-       if (data && data.length > 0) {
-         setUserImage(data[0].image);
-         setUserData(data);
-         setUserId(data[0].id);
-         setUserLinkName(data[0].userlink_name);
-
-       } else {
-        // console.log("Links fetched successfully:", data);
-        console.log("Links fetched successfully:");
-       }
-     } catch (error) {
-       console.error("Error fetching links:", error.message);
-       setError(error.message);
-     } finally {
-       setLoading(false);
-     }
-   };
-
-   fetchUserData();
- }, []);
-
-useEffect(() => {
-  if (userData && userData.length > 0) {
+  useEffect(() => {
     setLoading(true);
-    // Fetch the user's links from the Link table
-    const fetchLinks = async () => {
+    // Fetch the user's data from the users table
+    const fetchUserData = async () => {
       try {
+        const pathname = window.location.pathname;
+        const userlinkname = pathname.replace("/", "");
+
         const { data, error } = await supabase
-          .from("links")
-          .select("*")
-          .eq("user_id", userID);
+          .from("users")
+          .select("userlink_name, name, bio, image, id")
+          .eq("userlink_name", userlinkname);
 
         if (error) {
           console.error("Error fetching links:", error.message);
-          setError(error.message);
+        }
+
+        if (data && data.length > 0) {
+          setUserImage(data[0].image);
+          setUserData(data);
+          setUserId(data[0].id);
+          setUserLinkName(data[0].userlink_name);
         } else {
           // console.log("Links fetched successfully:", data);
-          setUserLinks(data);
+          console.log("Links fetched successfully:");
         }
       } catch (error) {
         console.error("Error fetching links:", error.message);
@@ -85,11 +58,54 @@ useEffect(() => {
       }
     };
 
-    fetchLinks();
-  }
-}, [userData, userID]);
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    if (userData && userData.length > 0) {
+      setLoading(true);
+      // Fetch the user's links from the Link table
+      const fetchLinks = async () => {
+        try {
+          const { data, error } = await supabase
+            .from("links")
+            .select("*")
+            .eq("user_id", userID);
+
+          if (error) {
+            console.error("Error fetching links:", error.message);
+            setError(error.message);
+          } else {
+            // console.log("Links fetched successfully:", data);
+            setUserLinks(data);
+          }
+        } catch (error) {
+          console.error("Error fetching links:", error.message);
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchLinks();
+    }
+  }, [userData, userID]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
+  
   return (
-    <div className="w-full md:w-[60%] text-text text-sm lg:w-[50%] rounded-xl m-auto md:p-8 p-5 mt-2 font-abc">
+    <div
+      className={`${
+        currentTheme === "dark"
+          ? "w-full md:w-[60%] text-text text-sm lg:w-[50%] rounded-xl m-auto md:p-8 p-5 mt-2 font-abc"
+          : "w-full md:w-[60%] text-black text-sm lg:w-[50%] rounded-xl m-auto md:p-8 p-5 mt-2 font-abc"
+      }`}
+    >
       <ShareLinkModal
         closeModal={closeModal}
         shareModal={shareModal}
@@ -121,7 +137,14 @@ useEffect(() => {
           }}
         >
           <div>
-            <AiOutlineShareAlt className="text-[20px] hover:bg-btntext" />
+            <AiOutlineShareAlt
+              className={`${
+                currentTheme === "dark"
+                  ? "text-[20px] hover:bg-btntext"
+                  : "text-[20px]"
+              } `}
+             
+            />
           </div>
         </button>
       </div>
@@ -153,7 +176,13 @@ useEffect(() => {
         ) : (
           userLinks.map((link) => (
             <div key={link.id}>
-              <div className="bg-[#303135] my-5 p-5 rounded-xl cursor-pointer hover:bg-btntext hover:text-white text-center">
+              <div
+                className={`${
+                  currentTheme === "dark"
+                    ? "bg-[#303135] my-5 p-5 rounded-xl cursor-pointer hover:bg-btntext hover:text-white text-center"
+                    : "bg-[#f7f7f7] shadow-md text-black text-center  my-5 mx-5 p-5 rounded-xl cursor-pointer"
+                } `}
+              >
                 <a href={link.link_url} target="_blank" rel="noreferrer">
                   <h1>{link.link_name}</h1>
                 </a>
@@ -165,7 +194,15 @@ useEffect(() => {
 
       <div>
         <a href="http://prettybio.netlify.app">
-          <h1 className="text-center mt-5 hover:text-white">PrettyBio</h1>
+          <h1
+            className={`${
+              currentTheme === "dark"
+                ? "text-center mt-5 hover:text-white"
+                : "text-center mt-5 text-black"
+            } `}
+          >
+            PrettyBio
+          </h1>
         </a>
       </div>
     </div>
