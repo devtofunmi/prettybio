@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTheme } from "next-themes";
 import { BsCamera } from "react-icons/bs";
 import Link from "next/link";
@@ -28,20 +28,20 @@ const Setup = () => {
   if (!mounted) return null;
   const currentTheme = theme === "system" ? systemTheme : theme;
 
- function uploadImage(e) {
-   const file = e.target.files[0];
-   const reader = new FileReader();
+  function uploadImage(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-   reader.onloadend = () => {
-     setImage(reader.result); // Set the image URL to the result of FileReader
-     uploadToCloudinary(file); // Pass the file to the uploadToCloudinary function
-   };
+    reader.onloadend = () => {
+      setImage(reader.result); // Set the image URL to the result of FileReader
+      uploadToCloudinary(file); // Pass the file to the uploadToCloudinary function
+    };
 
-   reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
-   console.log("Selected file:", file);
-   console.log("File reader result:", reader.result);
- }
+    console.log("Selected file:", file);
+    console.log("File reader result:", reader.result);
+  }
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
@@ -74,8 +74,30 @@ const Setup = () => {
       throw error;
     }
   };
+
   const setUp = async () => {
     setLoading(true);
+
+    if (!image) {
+      setError("Please insert your image");
+      setLoading(false);
+      return;
+    }
+    if (!name) {
+      setError("Please enter your name");
+      setLoading(false);
+      return;
+    }
+    if (!userLinkName) {
+      setError("Please insert your linkname");
+      setLoading(false);
+      return;
+    }
+    if (!bio) {
+      setError("Please enter your bio");
+      setLoading(false);
+      return;
+    }
 
     try {
       const imageUrl = await uploadToCloudinary(image);
