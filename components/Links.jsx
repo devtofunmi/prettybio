@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import { supabase } from "../supabaseClient";
 import GradientBorder from "../components/GradientBorder";
 import AddLinkModal from "./AddLinkModal";
@@ -12,7 +13,8 @@ const Links = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const closeModal = () => {
     setShowModal(false);
   };
@@ -39,7 +41,7 @@ const Links = () => {
         }
       } catch (error) {
         console.error("Error fetching links:", error.message);
-         setError(error.message);
+        setError(error.message);
       } finally {
         setIsLoading(false);
       }
@@ -54,25 +56,30 @@ const Links = () => {
         .from("links")
         .delete()
         .eq("id", linkId);
-        
 
       if (error) {
         console.error("Error deleting link:", error.message);
-         setError(error.message);
+        setError(error.message);
       } else {
         console.log("Link deleted successfully");
-         setSuccess("Link deleted successfully");
-         setTimeout(() => {
-           setSuccess("");
-         }, 2000);
+        setSuccess("Link deleted successfully");
+        setTimeout(() => {
+          setSuccess("");
+        }, 2000);
         // Remove the deleted link from the links state
         setLinks(links.filter((link) => link.id !== linkId));
       }
     } catch (error) {
       console.error("Error deleting link:", error.message);
     }
-    
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
     <div className="mt-5 lg:mt-0 md:mt-0">
@@ -117,7 +124,12 @@ const Links = () => {
             <div key={link.id}>
               <div
                 data-aos="fade-down"
-                className="bg-btntext text-text  my-5 mx-5 p-6 hover:bg-btntext hover:text-white flex justify-between"
+                className={`${
+                  currentTheme === "dark"
+                    ? "bg-btntext text-text  my-5 mx-5 p-6 hover:bg-btntext hover:text-white flex justify-between"
+                    : "bg-[#f7f7f7] shadow-md text-black  my-5 mx-5 p-6  flex justify-between"
+                } `}
+              
               >
                 <div>
                   <h1 className="text-[13px] md:text-[15px]">
