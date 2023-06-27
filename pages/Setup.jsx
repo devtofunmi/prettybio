@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import React, { useEffect, useState,useRef } from "react";
+import { useTheme } from "next-themes";
 import { BsCamera } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,53 +17,63 @@ const Setup = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  
 
-  function uploadImage(e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-    reader.onloadend = () => {
-      setImage(reader.result); // Set the image URL to the result of FileReader
-    };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    reader.readAsDataURL(file);
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
-    console.log("Selected file:", file);
-    console.log("File reader result:", reader.result);
-  }
+ function uploadImage(e) {
+   const file = e.target.files[0];
+   const reader = new FileReader();
+
+   reader.onloadend = () => {
+     setImage(reader.result); // Set the image URL to the result of FileReader
+     uploadToCloudinary(file); // Pass the file to the uploadToCloudinary function
+   };
+
+   reader.readAsDataURL(file);
+
+   console.log("Selected file:", file);
+   console.log("File reader result:", reader.result);
+ }
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
 
- const uploadToCloudinary = async (file) => {
-   const formData = new FormData();
-   formData.append("file", file);
-   formData.append("upload_preset", "users_avater");
+  const uploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "users_avater");
 
-   try {
-     const response = await fetch(
-       "https://api.cloudinary.com/v1_1/drirsnp0c/image/upload",
-       {
-         method: "POST",
-         body: formData,
-       }
-     );
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/drirsnp0c/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-     const data = await response.json();
-     console.log("Cloudinary upload response:", data);
+      const data = await response.json();
+      console.log("Cloudinary upload response:", data);
 
-     if (response.ok) {
-       return data.secure_url; // Return the uploaded image URL
-     } else {
-       throw new Error(data.error.message);
-     }
-   } catch (error) {
-     console.error("Error uploading image to Cloudinary:", error);
-     throw error;
-   }
- };
+      if (response.ok) {
+        return data.secure_url; // Return the uploaded image URL
+      } else {
+        throw new Error(data.error.message);
+      }
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+      throw error;
+    }
+  };
   const setUp = async () => {
     setLoading(true);
 
@@ -72,13 +83,16 @@ const Setup = () => {
       const dataArray = JSON.parse(storedData);
       const userId = dataArray[0]?.id;
       // Store user information in the database, including the image URL
-      const { data, error } = await supabase.from("users").update({
-        name: name,
-        userlink_name: userLinkName,
-        bio: bio,
-        image: imageUrl, // Store the image URL in the database
-        setup_complete: true,
-      }).eq("id", userId);
+      const { data, error } = await supabase
+        .from("users")
+        .update({
+          name: name,
+          userlink_name: userLinkName,
+          bio: bio,
+          image: imageUrl, // Store the image URL in the database
+          setup_complete: true,
+        })
+        .eq("id", userId);
 
       console.log("User data response:", data, error);
 
@@ -87,9 +101,9 @@ const Setup = () => {
         setError("Error setting up user");
       } else {
         setSuccess("Setup successful");
-         setTimeout(() => {
-           setSuccess("");
-         }, 2000);
+        setTimeout(() => {
+          setSuccess("");
+        }, 2000);
         router.push("/Dashboard");
       }
     } catch (error) {
@@ -107,10 +121,26 @@ const Setup = () => {
   return (
     <div className="font-abc">
       <Link href="/">
-        <div className="text-3xl p-8 text-text">PrettyBio</div>
+        <div
+          className={`${
+            currentTheme === "dark"
+              ? "text-3xl p-8 text-text"
+              : "text-3xl p-8 text-black"
+          }`}
+        >
+          PrettyBio
+        </div>
       </Link>
       <div className="text-center">
-        <h1 className="text-2xl md:text-3xl text-text">Setup your page</h1>
+        <h1
+          className={`${
+            currentTheme === "dark"
+              ? "text-2xl md:text-3xl text-text"
+              : "text-2xl md:text-3xl text-black"
+          }`}
+        >
+          Setup your page
+        </h1>
       </div>
 
       {error && (
@@ -134,7 +164,13 @@ const Setup = () => {
 
       <div className="w-full md:w-2/4 text-sm lg:w-4/12 rounded-xl m-auto p-10 md:p-[14] mt-2">
         <div className="flex flex-col mt-3 justify-center">
-          <div className="w-28 h-28 m-auto border-8 border-text border-dotted rounded-full flex justify-center">
+          <div
+            className={`${
+              currentTheme === "dark"
+                ? "w-28 h-28 m-auto border-8 border-text border-dotted rounded-full flex justify-center"
+                : "w-28 h-28 m-auto border-8 border-black border-dotted rounded-full flex justify-center"
+            }`}
+          >
             {image ? (
               <img
                 src={image}
@@ -153,18 +189,38 @@ const Setup = () => {
           <div className="flex flex-col mt-7 text-sm">
             <input
               type="text"
-              className="bg-[#202125] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
+              className={`${
+                currentTheme === "dark"
+                  ? "bg-[#202125] focus:outline-none focus:border-black border border-gray-400 rounded-md py-4 px-4 block w-full"
+                  : "bg-transparent focus:outline-none focus:border-black border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
+              }`}
               placeholder="Name"
               onChange={(e) => {
                 setName(e.target.value);
               }}
             />
-            <div className="flex text-sm items-center text-black bg-white mt-5 border pl-4 rounded-md">
-              <p>prettybio.com/</p>
+            <div
+              className={`${
+                currentTheme === "dark"
+                  ? "flex items-center border  pl-4  mt-3  text-sm items-center text-black bg-transparent border  rounded-md"
+                  : "flex items-center border  pl-4  mt-3  text-sm items-center text-black bg-white border  rounded-md"
+              }`}
+            >
+              <p
+                className={`${
+                  currentTheme === "dark" ? "text-text" : "text-black"
+                }`}
+              >
+                prettybio.com/
+              </p>
               <input
                 type="text"
                 placeholder="yourname"
-                className="py-3 w-[120px] bg-transparent outline-none"
+                className={`${
+                  currentTheme === "dark"
+                    ? "py-3 px-0 w-[120px] bg-transparent outline-none text-text"
+                    : "py-3 px-0 w-[120px] bg-transparent outline-none text-black"
+                }`}
                 onChange={(e) => {
                   setUserLinkName(e.target.value);
                 }}
@@ -174,7 +230,11 @@ const Setup = () => {
             <div className="mt-5">
               <input
                 type="text"
-                className="bg-[#202125] focus:outline-none focus:border-blue-700 border border-gray-400 rounded-md py-4 px-4 block w-full"
+                className={`${
+                  currentTheme === "dark"
+                    ? "bg-[#202125] focus:outline-none focus:border-black border border-gray-400 rounded-md py-4 px-4 block w-full"
+                    : "bg-transparent focus:outline-none focus:border-white border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
+                }`}
                 placeholder="Bio"
                 onChange={(e) => {
                   setBio(e.target.value);
@@ -185,7 +245,11 @@ const Setup = () => {
           <div className="mt-5 justify-center items-center flex">
             <GradientBorder>
               <button
-                className="px-14 lg:px-32 md:px-20 py-2 bg-transparent text-btntext text-base rounded-full"
+                className={`${
+                  currentTheme === "dark"
+                    ? "px-14 lg:px-32 md:px-20 py-2 bg-transparent text-btntext text-base rounded-full"
+                    : "px-14 lg:px-32 md:px-20 py-2 bg-transparent text-black text-base rounded-full"
+                }`}
                 onClick={handleSubmit}
               >
                 {loading ? <LoadingSpinner /> : <p>Continue</p>}
