@@ -40,7 +40,7 @@ const Index = () => {
       <Faq />
       <Footer />
     </div>
-  );
+  )
 };
 
-export default Index;
+export default Index
