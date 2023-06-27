@@ -213,7 +213,7 @@ const Bio = () => {
             className={`${
               currentTheme === "dark"
                 ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
-                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
+                : "bg-transparent  focus:border-[#effbce]  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
             }`}
             placeholder="change Name"
             onChange={(e) => {
@@ -229,7 +229,7 @@ const Bio = () => {
             className={`${
               currentTheme === "dark"
                 ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
-                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
+                : "bg-transparent  focus:border-[#effbce]  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
             }`}
             placeholder="change Bio"
             onChange={(e) => {
