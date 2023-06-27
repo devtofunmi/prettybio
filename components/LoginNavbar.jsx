@@ -24,7 +24,7 @@ const LoginNavbar = () => {
     >
       <div>
         <Link href="/">
-          <h2 className="text-2xl lg:text-3xl">PrettyBio</h2>
+          <h2 className="text-[20px] md:text-3xl">PrettyBio</h2>
         </Link>
       </div>
       <div>
