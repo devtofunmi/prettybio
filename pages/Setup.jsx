@@ -224,8 +224,8 @@ const Setup = () => {
             <div
               className={`${
                 currentTheme === "dark"
-                  ? "flex items-center border  pl-4  mt-3  text-sm items-center text-black bg-transparent border  rounded-md"
-                  : "flex items-center border  pl-4  mt-3  text-sm items-center text-black bg-white border  rounded-md"
+                  ? "flex items-center border  pl-4  mt-3  text-sm  text-black bg-transparent   rounded-md"
+                  : "flex items-center  pl-4  mt-3  text-sm  text-black bg-white border  rounded-md"
               }`}
             >
               <p
