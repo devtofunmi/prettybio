@@ -201,7 +201,11 @@ const Setup = () => {
               />
             ) : (
               <button className="cursor-pointer" onClick={handleButtonClick}>
-                <BsCamera />
+                <BsCamera
+                  className={`${
+                    currentTheme === "dark" ? "text-white" : "text-black"
+                  }`}
+                />
               </button>
             )}
             <div className="hidden">
