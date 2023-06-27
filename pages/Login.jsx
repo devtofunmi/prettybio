@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import { supabase } from "../supabaseClient";
 import GradientBorder from "../components/GradientBorder";
 import LoginNavbar from "../components/LoginNavbar";
@@ -13,54 +14,64 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
- const logIn = async () => {
-   const { data, error } = await supabase
-     .from("users")
-     .select("id, image, userlink_name, username, bio, setup_complete")
-     .eq("username", username)
-     .eq("password", password);
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-   setLoading(true);
-   setTimeout(async () => {
-     if (!username) {
-       setError("Enter your email");
-     } else if (!password) {
-       setError("Enter your password");
-     } else if (error) {
-       setError(error.message);
-     } else if (data.length === 0) {
-       setError("Incorrect username or password");
-     } else if (data.length === 1) {
-       const user = data[0];
-       setSuccess("Login successful");
-       setTimeout(() => {
-         setSuccess("");
-       }, 2000);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-       const setupComplete = user.setup_complete;
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
-       if (setupComplete === false) {
-         const userId = user.id;
+  const logIn = async () => {
+    const { data, error } = await supabase
+      .from("users")
+      .select("id, image, userlink_name, username, bio, setup_complete")
+      .eq("username", username)
+      .eq("password", password);
 
-         // Store user data in localStorage
-         const userData = JSON.stringify([{ id: userId }]);
-         localStorage.setItem("data", userData);
+    setLoading(true);
+    setTimeout(async () => {
+      if (!username) {
+        setError("Enter your email");
+      } else if (!password) {
+        setError("Enter your password");
+      } else if (error) {
+        setError(error.message);
+      } else if (data.length === 0) {
+        setError("Incorrect username or password");
+      } else if (data.length === 1) {
+        const user = data[0];
+        setSuccess("Login successful");
+        setTimeout(() => {
+          setSuccess("");
+        }, 2000);
 
-         router.push("/Setup");
-       } else if (setupComplete === true) {
-         // Store user data in localStorage
-         const userData = JSON.stringify([{ id: user.id }]);
-         localStorage.setItem("data", userData);
+        const setupComplete = user.setup_complete;
 
-         router.push("/Dashboard");
-       }
-     } else {
-       console.log("Multiple users found with the same username and password");
-     }
+        if (setupComplete === false) {
+          const userId = user.id;
 
-     setLoading(false);
-   }, 1000);
- };
+          // Store user data in localStorage
+          const userData = JSON.stringify([{ id: userId }]);
+          localStorage.setItem("data", userData);
+
+          router.push("/Setup");
+        } else if (setupComplete === true) {
+          // Store user data in localStorage
+          const userData = JSON.stringify([{ id: user.id }]);
+          localStorage.setItem("data", userData);
+
+          router.push("/Dashboard");
+        }
+      } else {
+        console.log("Multiple users found with the same username and password");
+      }
+
+      setLoading(false);
+    }, 1000);
+  };
 
   function handleSubmit() {
     setError("");
@@ -87,13 +98,25 @@ const Login = () => {
           </div>
         </div>
       )}
-      <h1 className="text-text text-3xl flex justify-center">Log in</h1>
+      <h1
+        className={`${
+          currentTheme === "dark"
+            ? "text-text text-3xl flex justify-center"
+            : "text-black text-3xl flex justify-center"
+        }`}
+      >
+        Log in
+      </h1>
 
       <div className="w-full md:w-2/4 text-sm lg:w-4/12 rounded-xl m-auto p-10 md:p-[14] mt-2">
         <div className="flex flex-col mt-3 ">
           <input
             type="text"
-            className="bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+            className={`${
+              currentTheme === "dark"
+                ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+            }`}
             placeholder="Username"
             onChange={(e) => {
               setUserName(e.target.value);
@@ -103,7 +126,11 @@ const Login = () => {
           <div className="mt-5">
             <input
               type="password"
-              className="bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className={`${
+                currentTheme === "dark"
+                  ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+                  : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+              }`}
               placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -114,7 +141,12 @@ const Login = () => {
         <div className="mt-5 justify-center items-center flex">
           <GradientBorder>
             <button
-              className="text-btntext px-14 lg:px-32 md:px-20 py-3 bg-transparent  text-base rounded-full"
+              className={`${
+                currentTheme === "dark"
+                  ? "text-btntext px-14 lg:px-32 md:px-20 py-3 bg-transparent  text-base rounded-full"
+                  : "text-black px-14 lg:px-32 md:px-20 py-3 bg-transparent  text-base rounded-full"
+              }`}
+         
               onClick={handleSubmit}
             >
               {loading ? <LoadingSpinner /> : <p>LOG IN</p>}
