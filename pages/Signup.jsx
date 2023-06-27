@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import GradientBorder from "../components/GradientBorder";
 import { supabase } from "../supabaseClient";
 import { useRouter } from "next/router";
@@ -15,75 +16,86 @@ const Signup = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-   const isValidEmail = (value) => {
-     // Regular expression for email validation
-     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-     return emailRegex.test(value);
-   };
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
+  const isValidEmail = (value) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(value);
+  };
 
   const SignUp = async () => {
+    
     if (!supabase) {
       console.error("Supabase client is not defined.");
       return;
     }
 
-
-setLoading(true);
-setTimeout(async () => {
-  if (!email) {
-    setError("Please enter your email");
-  } else if (!isValidEmail(email)) {
-    setError("Please enter a valid email address");
-  } else if (!username) {
-    setError("Please enter your username");
-  } else if (!password) {
-    setError("Please enter your password");
-  } else if (password.length < 6) {
-    setError("Password must be at least 6 characters long");
-  } else if (!confirmPassword) {
-    setError("Please confirm your password");
-  } else if (password !== confirmPassword) {
-    setError("Password does not match the confirmed password");
-  } else {
-    try {
-      const { data: existingUsernames, error: existingUsernamesError } =
-        await supabase.from("users").select().eq("username", username);
-
-      const { data: existingEmails, error: existingEmailsError } =
-        await supabase.from("users").select().eq("email", email);
-
-      if (existingUsernamesError || existingEmailsError) {
-        setError("Error checking existing usernames and emails");
-      } else if (existingUsernames.length > 0) {
-        setError("Username is already registered");
-      } else if (existingEmails.length > 0) {
-        setError("Email is already registered");
+    setLoading(true);
+    setTimeout(async () => {
+      
+      if (!email) {
+        setError("Please enter your email");
+      } else if (!isValidEmail(email)) {
+        setError("Please enter a valid email address");
+      } else if (!username) {
+        setError("Please enter your username");
+      } else if (!password) {
+        setError("Please enter your password");
+      } else if (password.length < 6) {
+        setError("Password must be at least 6 characters long");
+      } else if (!confirmPassword) {
+        setError("Please confirm your password");
+      } else if (password !== confirmPassword) {
+        setError("Password does not match the confirmed password");
       } else {
-        const { data: insertedData, error: insertError } = await supabase
-          .from("users")
-          .insert({
-            email: email,
-            username: username,
-            password: password,
-          });
+        try {
+          const { data: existingUsernames, error: existingUsernamesError } =
+            await supabase.from("users").select().eq("username", username);
 
-        if (insertError) {
-          setError(insertError.message);
-        } else {
-          setSuccess("Signup successful");
-          setTimeout(() => {
-            setSuccess("");
-          }, 2000);
-          router.push("/Login");
+          const { data: existingEmails, error: existingEmailsError } =
+            await supabase.from("users").select().eq("email", email);
+
+          if (existingUsernamesError || existingEmailsError) {
+            setError("Error checking existing usernames and emails");
+          } else if (existingUsernames.length > 0) {
+            setError("Username is already registered");
+          } else if (existingEmails.length > 0) {
+            setError("Email is already registered");
+          } else {
+            const { data: insertedData, error: insertError } = await supabase
+              .from("users")
+              .insert({
+                email: email,
+                username: username,
+                password: password,
+              });
+
+            if (insertError) {
+              setError(insertError.message);
+            } else {
+              setSuccess("Signup successful");
+              setTimeout(() => {
+                setSuccess("");
+              }, 2000);
+              router.push("/Login");
+            }
+          }
+        } catch (error) {
+          setError(error.message);
         }
       }
-    } catch (error) {
-      setError(error.message);
-    }
-  }
 
-  setLoading(false);
-}, 1000);
+      setLoading(false);
+    }, 1000);
   };
 
   function handleSubmit() {
@@ -112,13 +124,25 @@ setTimeout(async () => {
         </div>
       )}
 
-      <h1 className="text-text text-3xl  flex justify-center">Sign up</h1>
+      <h1
+        className={`${
+          currentTheme === "dark"
+            ? "text-text text-3xl flex justify-center"
+            : "text-black text-3xl flex justify-center"
+        }`}
+      >
+        Sign up
+      </h1>
 
       <div className=" w-full md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-10 md:p-[14]  mt-2">
         <div className="flex flex-col mt-3 justify-center ">
           <input
             type="email"
-            className="bg-[#202125]  focus:border-[#effbce] text-text  border border-gray-400 rounded-md py-4 px-4 block w-full "
+            className={`${
+              currentTheme === "dark"
+                ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+            }`}
             placeholder="email"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -128,7 +152,11 @@ setTimeout(async () => {
           <div className="mt-5">
             <input
               type="text"
-              className="bg-[#202125]  focus:border-[#effbce] text-text  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className={`${
+                currentTheme === "dark"
+                  ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+                  : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+              }`}
               placeholder="username"
               onChange={(e) => {
                 setUserName(e.target.value);
@@ -139,7 +167,11 @@ setTimeout(async () => {
           <div className="mt-5">
             <input
               type="password"
-              className="bg-[#202125]  focus:border-[#effbce] text-text  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className={`${
+                currentTheme === "dark"
+                  ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+                  : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+              }`}
               placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -150,7 +182,11 @@ setTimeout(async () => {
           <div className="mt-5">
             <input
               type="password"
-              className="bg-[#202125]  focus:border-[#effbce] text-text  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+              className={`${
+                currentTheme === "dark"
+                  ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
+                  : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+              }`}
               placeholder="confirm Password"
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
@@ -161,7 +197,11 @@ setTimeout(async () => {
         <div className="mt-5 justify-center items-center flex ">
           <GradientBorder>
             <button
-              className=" px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-btntext text-base rounded-full "
+              className={`${
+                currentTheme === "dark"
+                  ? "px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-btntext text-base rounded-full"
+                  : "px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-black text-base rounded-full"
+              }`}
               onClick={handleSubmit}
             >
               {loading ? <LoadingSpinner /> : <p>SIGN UP </p>}
