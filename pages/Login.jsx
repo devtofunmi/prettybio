@@ -115,7 +115,7 @@ const Login = () => {
             className={`${
               currentTheme === "dark"
                 ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+                : "bg-transparent  focus:border-[#effbce]  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
             }`}
             placeholder="Username"
             onChange={(e) => {
@@ -129,7 +129,7 @@ const Login = () => {
               className={`${
                 currentTheme === "dark"
                   ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                  : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+                  : "bg-transparent  focus:border-[#effbce]  border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
               }`}
               placeholder="Password"
               onChange={(e) => {
