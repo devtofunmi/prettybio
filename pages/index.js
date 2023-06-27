@@ -18,21 +18,10 @@ const Index = () => {
   if (!mounted) return null;
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  const toggleTheme = () => {
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  };
+ 
 
   return (
     <div className={`font-abc ${currentTheme === 'dark' ? 'dark' : ''}`}>
-      <div className="absolute top-0 left-0 ">
-        <button
-          className={`bg-${currentTheme === 'dark' ? 'black' : 'gray'}-700 hover:bg-${currentTheme === 'dark' ? 'white' : 'gray'} w-20 rounded-md p-4`}
-          onClick={toggleTheme}
-        >
-          <Image src={`/assets/${currentTheme === 'dark' ? 'sun' : 'moon'}.svg`} alt="logo" height={20} width={20} />
-        </button>
-      </div>
 
       <HomepageNavbar />
       <Hero />
