@@ -24,7 +24,7 @@ const UserInput = () => {
           <div
             className={`${
               currentTheme === "dark"
-                ? "bg-black text-text"
+                ? "bg-[#0c0c0c] text-text"
                 : "bg-[#f8f8f8] text-black"
             } flex items-center  ml-1 pl-2 md:my-[2px] xm:text-[10px]  text-sm`}
           >
