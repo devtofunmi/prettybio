@@ -137,11 +137,12 @@ const Signup = () => {
       <div className=" w-full md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-10 md:p-[14]  mt-2">
         <div className="flex flex-col mt-3 justify-center ">
           <input
+          autocomplete="off"
             type="email"
             className={`${
               currentTheme === "dark"
                 ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+                : "bg-transparent  focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
             }`}
             placeholder="email"
             onChange={(e) => {
@@ -151,11 +152,12 @@ const Signup = () => {
 
           <div className="mt-5">
             <input
+            autocomplete="off"
               type="text"
               className={`${
                 currentTheme === "dark"
                   ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                  : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+                  : "bg-transparent  focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
               }`}
               placeholder="username"
               onChange={(e) => {
@@ -166,11 +168,12 @@ const Signup = () => {
 
           <div className="mt-5">
             <input
+            autocomplete="off"
               type="password"
               className={`${
                 currentTheme === "dark"
                   ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                  : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+                  : "bg-transparent  focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
               }`}
               placeholder="Password"
               onChange={(e) => {
@@ -181,6 +184,7 @@ const Signup = () => {
 
           <div className="mt-5">
             <input
+            autocomplete="off"
               type="password"
               className={`${
                 currentTheme === "dark"
