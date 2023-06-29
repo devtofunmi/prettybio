@@ -32,6 +32,7 @@ const UserInput = () => {
               prettybio.com/
             </p>
             <input
+              autocomplete="off"
               type="text"
               placeholder="yourname"
               className={`${
