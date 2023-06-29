@@ -117,8 +117,8 @@ const Settings = () => {
           <div
             className={`${
               currentTheme === "dark"
-                ? "flex items-center border  pl-2  mt-3  text-sm items-center text-black bg-transparent border  rounded-md"
-                : "flex items-center border  pl-2  mt-3  text-sm items-center text-black bg-white border  rounded-md"
+                ? "flex items-center   pl-2  mt-3  text-sm text-black bg-transparent border  rounded-md"
+                : "flex items-center   pl-2  mt-3  text-sm  text-black bg-white border  rounded-md"
             }`}
           >
             <p
@@ -129,6 +129,7 @@ const Settings = () => {
               prettybio.com/
             </p>
             <input
+            autocomplete="off"
               type="text"
               placeholder="yourname"
               className={`${
@@ -146,11 +147,12 @@ const Settings = () => {
 
         <div className="mt-4">
           <input
+          autocomplete="off"
             type="text"
             className={`${
               currentTheme === "dark"
                 ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
-                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
+                : "bg-transparent  focus:border-[#effbce]  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
             }`}
             placeholder="change email"
             onChange={(e) => {
@@ -162,11 +164,12 @@ const Settings = () => {
 
         <div className="mt-4">
           <input
+          autocomplete="off"
             type="password"
             className={`${
               currentTheme === "dark"
                 ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3"
-                : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
+                : "bg-transparent  focus:border-[#effbce]  border border-gray-400 rounded-md py-3 px-4 block w-full mt-3 text-black"
             }`}
             placeholder="change password"
             onChange={(e) => {
