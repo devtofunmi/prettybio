@@ -214,6 +214,7 @@ const Setup = () => {
           </div>
           <div className="flex flex-col mt-7 text-sm">
             <input
+            autocomplete="off"
               type="text"
               className={`${
                 currentTheme === "dark"
@@ -240,6 +241,7 @@ const Setup = () => {
                 prettybio.com/
               </p>
               <input
+              autocomplete="off"
                 type="text"
                 placeholder="yourname"
                 className={`${
@@ -255,6 +257,7 @@ const Setup = () => {
 
             <div className="mt-5">
               <input
+              autocomplete="off"
                 type="text"
                 className={`${
                   currentTheme === "dark"
