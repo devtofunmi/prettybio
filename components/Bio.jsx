@@ -213,6 +213,7 @@ const Bio = () => {
             </div>
           </div>
           <input
+          autocomplete="off"
             type="text"
             className={`${
               currentTheme === "dark"
@@ -229,6 +230,7 @@ const Bio = () => {
 
         <div className="mt-4">
           <input
+          autocomplete="off"
             type="text"
             className={`${
               currentTheme === "dark"
