@@ -189,7 +189,7 @@ const Signup = () => {
               className={`${
                 currentTheme === "dark"
                   ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                  : "bg-transparent  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
+                  : "bg-transparent  focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
               }`}
               placeholder="confirm Password"
               onChange={(e) => {
