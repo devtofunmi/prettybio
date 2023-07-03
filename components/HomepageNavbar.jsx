@@ -32,7 +32,7 @@ const HomepageNavbar = () => {
           <h2 className="text-[20px] md:text-3xl">PrettyBio</h2>
         </Link>
       </div>
-      <div className="flex items-center justify-center gap-[10px] ">
+      <div className="flex items-center justify-center gap-[10px] md:gap-[0px] ">
         <div>
           <button
             className={`bg-${
