@@ -4,11 +4,11 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-  width:5px;
+  width:8px;
   background-color: #2b2c31;
 }
 ::-webkit-scrollbar-thumb {
-    width: 0px;
+  width: 2px;
   border-radius: 20px;
   background-color: #202125;
 }
