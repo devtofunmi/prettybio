@@ -1,0 +1,8 @@
+.hidescrollbar::-webkit-scrollbar{
+    display: none;
+}
+.hidescrollbar{
+    display: flex;
+    overflow-x: scroll;
+    width: 100%;
+}

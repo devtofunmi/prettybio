@@ -4,7 +4,7 @@ import Analytics from "./Analytics";
 import Bio from "./Bio";
 import Links from "./Links";
 import Settings from "./Settings";
-
+import style from "./DashboardTabs.module.css"
 const DashboardTabs = () => {
   const [activeTab, setActiveTab] = useState(1);
   const { systemTheme, theme, setTheme } = useTheme();
@@ -34,46 +34,46 @@ const DashboardTabs = () => {
   if (!mounted) return null;
   const currentTheme = theme === "system" ? systemTheme : theme;
 
+ 
+
   return (
     <div className="flex flex-col lg:p-10 p-0 pt-5 md:p-5">
-      <div className="flex w-full overflow-x-scroll">
-        {tabButtons.map((tab) => (
-          <div className="p-0 lg:p-5 md:p-1 text-lg lg:text-xl" key={tab.id}>
-            <button
-              className={
-                activeTab === tab.id
-                  ? `${
-                      currentTheme === "dark"
-                        ? "text-text rounded-md"
-                        : "text-black rounded-md"
-                    }`
-                  : `${
-                      currentTheme === "dark"
-                        ? "text-gray-500 relative"
-                        : "text-gray-500"
-                    }`
-              }
-              onClick={() => setActiveTab(tab.id)}
-            >
-              {tab.title}
-              <div
-                className={`w-36 h-1 ${
+      <div >
+        <div className={style.hidescrollbar}>
+          {tabButtons.map((tab) => (
+            <div className="p-0 lg:p-5 md:p-1 text-lg lg:text-xl" key={tab.id}>
+              <button
+                className={
                   activeTab === tab.id
                     ? `${
                         currentTheme === "dark"
-                          ? "bg-text"
-                          : "bg-gray-500"
+                          ? "text-text rounded-md"
+                          : "text-black rounded-md"
                       }`
                     : `${
                         currentTheme === "dark"
-                          ? "bg-transparent"
-                          : "bg-transparent"
+                          ? "text-gray-500 relative"
+                          : "text-gray-500"
                       }`
-                }`}
-              ></div>
-            </button>
-          </div>
-        ))}
+                }
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.title}
+                <div
+                  className={`w-36 h-1 ${
+                    activeTab === tab.id
+                      ? `${currentTheme === "dark" ? "bg-text" : "bg-gray-500"}`
+                      : `${
+                          currentTheme === "dark"
+                            ? "bg-transparent"
+                            : "bg-transparent"
+                        }`
+                  }`}
+                ></div>
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
       <div>
         {activeTab === 1 && <Links />}
