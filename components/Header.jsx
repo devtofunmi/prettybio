@@ -44,22 +44,25 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {menuOpen && (
-        <nav className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center py-4 md:hidden">
-          <Link href="/features" className="block px-4 py-2 text-gray-800">
+        <nav className="fixed z-10 top-16 left-0 w-full h-screen bg-white shadow-md font-semibold flex flex-col px-4  py-4 md:hidden">
+          <div className="flex flex-col items-left gap-10">
+          <Link href="/features" className="block px-4 py-2 text-2xl mt-5 text-gray-800">
             Features
           </Link>
-          <Link href="/faq" className="block px-4 py-2 text-gray-800 ">
+          <Link href="/faq" className="block px-4 py-2 text-2xl  text-gray-800 ">
             FAQ
           </Link>
-          <Link href="/Login" className="block px-4 py-2 text-gray-800 ">
+          <Link href="/Login" className="block px-4 py-2 text-2xl text-gray-800 ">
             Login
           </Link>
           <Link
             href="/Signup"
-            className="block bg-gray-900 text-white px-4 py-2 rounded-full hover:bg-gray-800"
+            className="block text-gray-800  px-4 py-4  text-2xl rounded-full hover:bg-gray-800"
           >
             Sign Up
           </Link>
+          </div>
+          
         </nav>
       )}
     </div>
