@@ -41,7 +41,7 @@ export default function Footer() {
         <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
         <div className="flex justify-center md:justify-start space-x-4">
           <Link href="https://twitter.com" target="_blank">
-            <image
+            <Image
               src="/images/twitter-icon.png"
               alt="Twitter"
               width={24}
@@ -49,7 +49,7 @@ export default function Footer() {
             />
           </Link>
           <Link href="https://instagram.com" target="_blank">
-            <image
+            <Image
               src="/images/instagram-icon.png"
               alt="Instagram"
               width={24}
@@ -57,7 +57,7 @@ export default function Footer() {
             />
           </Link>
           <Link href="https://facebook.com" target="_blank">
-            <image
+            <Image
               src="/images/facebook-icon.png"
               alt="Facebook"
               width={24}
