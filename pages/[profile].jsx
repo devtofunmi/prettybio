@@ -152,11 +152,13 @@ const Profile = () => {
         <GradientBorder>
           <div className="w-20 h-20 md:w-28 md:h-28 rounded-full">
             {userImage && (
-              <img
+              <Image
                 src={userImage}
                 alt="User Image"
                 className="w-full h-full rounded-full"
                 crossOrigin="anonymous"
+                width={112} // Adjust width as needed
+                height={112} // Adjust height as needed
               />
             )}
           </div>
