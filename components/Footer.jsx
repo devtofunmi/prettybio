@@ -1,90 +1,82 @@
-import React, { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
+import Image from "next/image";
+import Link from "next/link";
 
-const Footer = () => {
-  const { systemTheme, theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-  const currentTheme = theme === "system" ? systemTheme : theme;
+export default function Footer() {
   return (
-    <div>
-      <div data-aos="zoom-in">
-        <p
-          className={`${
-            currentTheme === "dark"
-              ? "md:text-6xl text-4xl w-4/5 m-auto mt-[70px] text-text"
-              : "md:text-6xl text-4xl w-4/5 m-auto mt-[70px] text-black"
-          }`}
-        >
-          PrettyBio
-        </p>
-        <p
-          className={`${
-            currentTheme === "dark"
-              ? "md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto md:mt-5 mt-2 text-text"
-              : "md:text-4xl text-3xl w-4/5 leading-normal lg:leading-loose m-auto md:mt-5 mt-2 text-[#bbbbbc]"
-          }`}
-        >
-          is a beloved platform among a diverse group of users, including
-          artists, writers, musicians, podcasters, YouTubers, gamers,
-          developers, hobbyists, and brands.
+    <footer className="w-full bg-gray-900 text-white py-10 mt-16">
+    <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      {/* Branding */}
+      <div>
+        <h3 className="text-2xl font-bold">PrettyBio</h3>
+        <p className="text-gray-400 mt-2">
+          The best way to share your links in one place.
         </p>
       </div>
 
-      <div className=" mt-20">
-        <div className="flex items-center justify-center py-20 ">
-          <div
-            data-aos="flip-left"
-            className={`${
-              currentTheme === "dark"
-                ? "flex lg:w-2/5 w-11/12 h-20 rounded-full items-center"
-                : "flex lg:w-2/5 w-11/12 h-20 rounded-full items-center shadow-xl"
-            }`}
-          >
-            <div className="bg-[#1DA1F2] text-white w-1/4 h-full flex items-center justify-center rounded-tl-full rounded-bl-full">
-              <p className="md:text-5xl text-3xl">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <title></title>
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path>
-                </svg>
-              </p>
-            </div>
-            <div className="bg-white h-full w-9/12 rounded-tr-full rounded-br-full  px-5 flex items-start flex-col justify-center">
-              <h1 className="font-semibold text-[18px] md:text-lg lg:text-2xl text-[#1c1c1c]">
-                Follow us on Twitter
-              </h1>
-              {/* <p class="my-1 font-medium text-[#6e6e6e]">
-                To stay informed about the latest updates and features from
-                PrettyBio, be sure to follow us on Twitter
-              </p> */}
-              <a
-                href="http://twitter.com/Pre_ttyBio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#1c1c1c] font-medium md:text-lg text-[15px]"
-              >
-                Follow @PrettyBio
-              </a>
-            </div>
-          </div>
+      {/* Quick Links */}
+      <div>
+        <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
+        <ul className="text-gray-400 space-y-2">
+          <li>
+            <Link href="/features" className="hover:text-white">
+              Features
+            </Link>
+          </li>
+          <li>
+            <Link href="/faq" className="hover:text-white">
+              FAQ
+            </Link>
+          </li>
+          {/* <li>
+            <Link href="/pricing" className="hover:text-white">
+              Pricing
+            </Link>
+          </li> */}
+          <li>
+            <Link href="/contact" className="hover:text-white">
+              Contact
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+      {/* Social Media */}
+      <div>
+        <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
+        <div className="flex justify-center md:justify-start space-x-4">
+          <Link href="https://twitter.com" target="_blank">
+            <image
+              src="/images/twitter-icon.png"
+              alt="Twitter"
+              width={24}
+              height={24}
+            />
+          </Link>
+          <Link href="https://instagram.com" target="_blank">
+            <image
+              src="/images/instagram-icon.png"
+              alt="Instagram"
+              width={24}
+              height={24}
+            />
+          </Link>
+          <Link href="https://facebook.com" target="_blank">
+            <image
+              src="/images/facebook-icon.png"
+              alt="Facebook"
+              width={24}
+              height={24}
+            />
+          </Link>
         </div>
       </div>
     </div>
-  );
-};
 
-export default Footer;
+    {/* Copyright */}
+    <div className="text-center text-gray-500 text-sm mt-6 border-t border-gray-700 pt-4">
+      &copy; {new Date().getFullYear()} PrettyBio. All rights reserved.
+    </div>
+  </footer>
+  );
+}
+
