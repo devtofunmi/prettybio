@@ -6,9 +6,7 @@ const Header = () => {
 
   return (
     <div>
-      {/* Header */}
       <header className="w-full px-6 py-4 flex justify-between items-center bg-white shadow-md fixed top-0 left-0 z-50">
-        {/* Logo */}
         <Link href="/" >
         <h2 className="text-3xl font-bold text-gray-800">PrettyBio</h2>
         </Link>
@@ -23,7 +21,7 @@ const Header = () => {
           </Link>
         </nav>
 
-        {/* Login & Signup */}
+
         <div className="hidden md:flex items-center gap-6">
           <Link href="/Login" className="px-4 py-2 text-gray-800 ">
             Login
@@ -36,7 +34,6 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-gray-900 text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
