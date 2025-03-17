@@ -5,7 +5,6 @@ export default function Footer() {
   return (
     <footer className="w-full bg-gray-900 text-white py-10 mt-16">
     <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-      {/* Branding */}
       <div>
         <h3 className="text-2xl font-bold">PrettyBio</h3>
         <p className="text-gray-400 mt-2">
@@ -13,7 +12,6 @@ export default function Footer() {
         </p>
       </div>
 
-      {/* Quick Links */}
       <div>
         <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
         <ul className="text-gray-400 space-y-2">
@@ -39,8 +37,6 @@ export default function Footer() {
           </li>
         </ul>
       </div>
-
-      {/* Social Media */}
       <div>
         <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
         <div className="flex justify-center md:justify-start space-x-4">
@@ -72,7 +68,6 @@ export default function Footer() {
       </div>
     </div>
 
-    {/* Copyright */}
     <div className="text-center text-gray-500 text-sm mt-6 border-t border-gray-700 pt-4">
       &copy; {new Date().getFullYear()} PrettyBio. All rights reserved.
     </div>
