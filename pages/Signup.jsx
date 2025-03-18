@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import GradientBorder from "../components/GradientBorder";
+import GradientBorder from "../components/GradientBorder"; 
 import { supabase } from "../supabaseClient";
 import { useRouter } from "next/router";
 import LoadingSpinner from "../components/LoadingSpinner";
-import SignupNavbar from "../components/SignupNavbar";
+import Navbar from "../components/Navbar";
+import Image from "next/image";
+import Link from "next/link";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -103,116 +105,98 @@ const Signup = () => {
     SignUp();
   }
   return (
-    <div className="font-abc">
-      <SignupNavbar />
-      {error && (
-        <div className="flex justify-center md:w-[300px] w-[200px] m-auto rounded-lg  items-center bg-red-500 text-white p-1 md:text-[15px] text-[12px] mb-5 ">
-          <div className="flex justify-between items-center">
-            <p>{error}</p>
-            <button className=" px-2 py-1" onClick={() => setError("")}>
+    <div>
+       <div className="absolute top-2 left-5">
+          <Navbar />
+      </div>
+    <div className="min-h-screen bg-white text-gray-900 flex">
+      <div className="w-full lg:w-1/2 flex flex-col mt-28 md:mt-10 items-center px-8">
+        {error && (
+          <div className="flex justify-center w-full max-w-md m-auto rounded-lg items-center bg-red-500 text-white p-2 mb-5">
+            <p className="flex-1">{error}</p>
+            <button className="px-2 py-1" onClick={() => setError("")}>
               X
             </button>
           </div>
-        </div>
-      )}
+        )}
 
-      {success && (
-        <div className="flex justify-center md:w-[300px] w-[200px] m-auto rounded-lg  items-center bg-green-500 text-white p-1 md:text-[15px] text-[12px] mb-5 ">
-          <div className="text-center">
+        {success && (
+          <div className="flex justify-center w-full max-w-md m-auto rounded-lg items-center bg-green-500 text-white p-2 mb-5">
             <p>{success}</p>
           </div>
-        </div>
-      )}
+        )}
+        
 
-      <h1
-        className={`${
-          currentTheme === "dark"
-            ? "text-text text-3xl flex justify-center"
-            : "text-black text-3xl flex justify-center"
-        }`}
-      >
-        Sign up
-      </h1>
+        <h1 className="text-4xl font-bold text-gray-900 mt-0 md:mt-16">Join PrettyBio</h1>
+        <p className="text-gray-600 mt-3">Sign up for free!</p>
 
-      <div className=" w-full md:w-2/4 text-sm  lg:w-4/12 rounded-xl  m-auto p-10 md:p-[14]  mt-2">
-        <div className="flex flex-col mt-3 justify-center ">
+        <div className="w-full max-w-md mt-5">
           <input
-          autocomplete="off"
+            autoComplete="off"
             type="email"
-            className={`${
-              currentTheme === "dark"
-                ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                : "bg-transparent  focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
-            }`}
-            placeholder="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            className="bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
           />
 
-          <div className="mt-5">
-            <input
-            autocomplete="off"
-              type="text"
-              className={`${
-                currentTheme === "dark"
-                  ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                  : "bg-transparent  focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
-              }`}
-              placeholder="username"
-              onChange={(e) => {
-                setUserName(e.target.value);
-              }}
-            />
+          <input
+            autoComplete="off"
+            type="text"
+            className="bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-5 text-black"
+            placeholder="Username"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+
+          <input
+            autoComplete="off"
+            type="password"
+            className="bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-5 text-black"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <input
+            autoComplete="off"
+            type="password"
+            className="bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-5 text-black"
+            placeholder="Confirm Password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+
+          <div className="mt-5 w-full">
+            <GradientBorder>
+              <button
+                className="w-full px-24 py-4 bg-transparent text-gray-800 font-bold text-base"
+                onClick={handleSubmit}
+              >
+                {loading ? <LoadingSpinner /> : "SIGN UP"}
+              </button>
+            </GradientBorder>
           </div>
 
-          <div className="mt-5">
-            <input
-            autocomplete="off"
-              type="password"
-              className={`${
-                currentTheme === "dark"
-                  ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                  : "bg-transparent  focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
-              }`}
-              placeholder="Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
+          <div className="mt-5 flex justify-center text-center text-gray-600">
+            <p>
+              Already have an account?{" "}
+              <Link href="/Login" className="text-blue-500 hover:underline">
+                Login
+              </Link>
+            </p>
+            
           </div>
-
-          <div className="mt-5">
-            <input
-            autocomplete="off"
-              type="password"
-              className={`${
-                currentTheme === "dark"
-                  ? "bg-[#202125]  focus:border-[#effbce] text-text border border-gray-400 rounded-md py-4 px-4 block w-full mt-3"
-                  : "bg-transparent  focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full mt-3 text-black"
-              }`}
-              placeholder="confirm Password"
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
-            />
-          </div>
-        </div>
-        <div className="mt-5 justify-center items-center flex ">
-          <GradientBorder>
-            <button
-              className={`${
-                currentTheme === "dark"
-                  ? "px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-btntext text-base rounded-full"
-                  : "px-14  lg:px-32 md:px-20 py-2 bg-transparent  text-black text-base rounded-full"
-              }`}
-              onClick={handleSubmit}
-            >
-              {loading ? <LoadingSpinner /> : <p>SIGN UP </p>}
-            </button>
-          </GradientBorder>
         </div>
       </div>
+
+      <div className="hidden lg:block w-1/2 relative">
+  <Image
+    src="https://media.istockphoto.com/id/2174175055/photo/a-businessman-use-generative-engine-optimization-on-his-smartphone-to-view-search-results.webp?s=1024x1024&w=is&k=20&c=HCEOpEPqIJq8a0awaQlbKOVu5eFg4TYkhr9hmHYKD0A="
+    alt="Signup Illustration"
+    layout="fill" 
+    objectFit="cover"
+    priority
+  />
+</div>
+
+    </div>
     </div>
   );
 };
