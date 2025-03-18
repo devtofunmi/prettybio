@@ -10,14 +10,14 @@ export default function LandingPage() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-white text-gray-900">      
         <Header />
       <section className="text-center px-6 py-32 mt-20 flex flex-col items-center w-full">
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+        <h1 className="text-5xl font-extrabold text-gray-900 mb-6 leading-tight ">
           Your Bio, Your Links, One Simple Page
         </h1>
         <p className="text-xl text-gray-600 mb-8">
           Create and customize your personal link hub in seconds.
         </p>
         <Link
-          href="/signup"
+          href="/Signup"
           className="bg-gray-900 text-white px-8 py-3 rounded-full shadow-lg hover:bg-gray-800 text-lg"
         >
           Get Started
