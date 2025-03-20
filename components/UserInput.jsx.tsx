@@ -1,19 +1,9 @@
 import Link from "next/link";
 import React, { useEffect, useState, FC } from "react";
-import { useTheme } from "next-themes";
 import HomeGradientBorder from "./HomeGradientBorder";
 
 const UserInput: FC = () => {
-  const { systemTheme, theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState<boolean>(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
     <div className="my-10">
