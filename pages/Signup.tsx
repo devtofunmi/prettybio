@@ -14,10 +14,7 @@ const Signup: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>("");
-  const [emailError, setEmailError] = useState<string>("");
-  const [usernameError, setUsernameError] = useState<string>("");
-  const [passwordError, setPasswordError] = useState<string>("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const router = useRouter();
 
@@ -30,40 +27,28 @@ const Signup: React.FC = () => {
     let isValid = true;
 
     if (!email) {
-      setEmailError("Please enter your email");
+      setError("Please enter your email.");
       isValid = false;
     } else if (!isValidEmail(email)) {
-      setEmailError("Please enter a valid email address");
+      setError("Please enter a valid email address.");
       isValid = false;
-    } else {
-      setEmailError("");
-    }
-
-    if (!username) {
-      setUsernameError("Please enter your username");
+    } else if (!username) {
+      setError("Please enter your username.");
       isValid = false;
-    } else {
-      setUsernameError("");
-    }
-
-    if (!password) {
-      setPasswordError("Please enter your password");
+    } else if (!password) {
+      setError("Please enter your password.");
       isValid = false;
     } else if (password.length < 6) {
-      setPasswordError("Password must be at least 6 characters long");
+      setError("Password must be at least 6 characters long.");
       isValid = false;
-    } else {
-      setPasswordError("");
-    }
-
-    if (!confirmPassword) {
-      setConfirmPasswordError("Please confirm your password");
+    } else if (!confirmPassword) {
+      setError("Please confirm your password.");
       isValid = false;
     } else if (password !== confirmPassword) {
-      setConfirmPasswordError("Passwords do not match");
+      setError("Passwords do not match.");
       isValid = false;
     } else {
-      setConfirmPasswordError("");
+      setError("");
     }
 
     return isValid;
@@ -74,6 +59,7 @@ const Signup: React.FC = () => {
 
     setLoading(true);
     setSuccess("");
+    setError("");
 
     try {
       const { data: existingUsernames, error: existingUsernamesError } =
@@ -83,11 +69,11 @@ const Signup: React.FC = () => {
         await supabase.from("users").select().eq("email", email);
 
       if (existingUsernamesError || existingEmailsError) {
-        setEmailError("Error checking existing usernames and emails");
+        setError("Error checking existing usernames and emails.");
       } else if (existingUsernames.length > 0) {
-        setUsernameError("Username is already registered");
+        setError("Username is already registered.");
       } else if (existingEmails.length > 0) {
-        setEmailError("Email is already registered");
+        setError("Email is already registered.");
       } else {
         const { error: insertError } = await supabase
           .from("users")
@@ -98,7 +84,7 @@ const Signup: React.FC = () => {
           });
 
         if (insertError) {
-          setEmailError(insertError.message);
+          setError(insertError.message);
         } else {
           setSuccess("Signup successful! Redirecting...");
           setTimeout(() => {
@@ -107,7 +93,7 @@ const Signup: React.FC = () => {
         }
       }
     } catch (error: any) {
-      setEmailError(error.message);
+      setError(error.message);
     }
 
     setLoading(false);
@@ -124,73 +110,59 @@ const Signup: React.FC = () => {
       </div>
       <div className="w-full lg:w-1/2 flex flex-col mt-28 md:mt-10 items-center px-8">
         {success && (
-          <div className="w-full max-w-md mb-5 p-4 rounded-lg bg-green-100 text-green-700 border border-green-400">
+          <div className="w-full max-w-md mb-5 rounded-lg bg-green-100 border-l-4  border-green-400 p-4 text-green-700">
             <p className="flex items-center gap-2">{success}</p>
           </div>
         )}
+        {error && (
+          <div className="w-full max-w-md mb-5 rounded-lg bg-red-100 border-l-4  border-red-400 p-4 text-red-700">
+            <p className="flex items-center gap-2">{error}</p>
+          </div>
+        )}
+
         <h1 className="text-4xl font-bold text-gray-900">Join PrettyBio</h1>
         <p className="text-gray-600 mt-3">Sign up for free!</p>
         <div className="w-full max-w-md mt-5">
           <div className="mb-5">
             <input
               type="email"
-              className={`bg-transparent border ${
-                emailError ? "border-red-500" : "border-gray-400"
-              } rounded-md py-4 px-4 block w-full text-black`}
+              className="bg-transparent border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {emailError && (
-              <p className="text-red-500 text-sm mt-1">{emailError}</p>
-            )}
           </div>
           <div className="mb-5">
             <input
               type="text"
-              className={`bg-transparent border ${
-                usernameError ? "border-red-500" : "border-gray-400"
-              } rounded-md py-4 px-4 block w-full text-black`}
+              className="bg-transparent border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            {usernameError && (
-              <p className="text-red-500 text-sm mt-1">{usernameError}</p>
-            )}
           </div>
           <div className="mb-5">
             <input
               type="password"
-              className={`bg-transparent border ${
-                passwordError ? "border-red-500" : "border-gray-400"
-              } rounded-md py-4 px-4 block w-full text-black`}
+              className="bg-transparent border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {passwordError && (
-              <p className="text-red-500 text-sm mt-1">{passwordError}</p>
-            )}
           </div>
           <div className="mb-5">
             <input
               type="password"
-              className={`bg-transparent border ${
-                confirmPasswordError ? "border-red-500" : "border-gray-400"
-              } rounded-md py-4 px-4 block w-full text-black`}
+              className="bg-transparent border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               placeholder="Confirm Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            {confirmPasswordError && (
-              <p className="text-red-500 text-sm mt-1">{confirmPasswordError}</p>
-            )}
           </div>
           <div className="mt-5 w-full">
             <GradientBorder>
               <button
-                className="w-full px-24 py-4 bg-transparent text-gray-800 font-bold text-base"
+                className="w-full px-24 py-4 bg-transparent text-gray-800 hover:text-white font-bold text-base"
                 onClick={handleSubmit}
                 disabled={loading}
               >
@@ -222,4 +194,3 @@ const Signup: React.FC = () => {
 };
 
 export default Signup;
-
