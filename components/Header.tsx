@@ -6,7 +6,7 @@ const Header: FC = () => {
 
   return (
     <div>
-      <header className="w-full px-6 py-4 flex justify-between items-center bg-white shadow-md fixed top-0 left-0 z-50">
+      <header className="w-full px-6 py-4 flex justify-between items-center bg-white shadow-sm fixed top-0 left-0 z-50">
         <Link href="/">
           <h2 className="text-3xl font-bold text-gray-800">PrettyBio</h2>
         </Link>
