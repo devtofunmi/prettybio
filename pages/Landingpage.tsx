@@ -18,19 +18,19 @@ interface Testimonial {
 
 export default function LandingPage(): JSX.Element {
   const features: Feature[] = [
-    { id: "themes", title: "Custom Themes", desc: "Pick a theme or design your own", img: "/themes.png" },
-    { id: "embed-apps", title: "Embed Apps", desc: "Embed your favorite apps and content", img: "/embed-apps.png" },
-    { id: "stats", title: "Advanced Analytics", desc: "Track clicks, engagement & revenue", img: "/stats.png" },
-    { id: "speed", title: "Fast & Secure", desc: "Optimized for performance", img: "/speed.png" },
-    { id: "seo-optimized", title: "SEO Optimized", desc: "Get discovered faster", img: "/seo-optimized.png" },
-    { id: "qr-code", title: "QR Code Generator", desc: "Share your bio with ease", img: "/qr-code.png" },
+    { id: "1", title: "Custom Themes", desc: "Pick a theme or design your own", img: "/themes.png" },
+    { id: "2", title: "Embed Apps", desc: "Embed your favorite apps and content", img: "/embed-apps.png" },
+    { id: "3", title: "Advanced Analytics", desc: "Track clicks, engagement & revenue", img: "/stats.png" },
+    { id: "4", title: "Fast & Secure", desc: "Optimized for performance", img: "/speed.png" },
+    { id: "5", title: "SEO Optimized", desc: "Get discovered faster", img: "/seo-optimized.png" },
+    { id: "6", title: "QR Code Generator", desc: "Share your bio with ease", img: "/qr-code.png" },
   ];
 
   const testimonials: Testimonial[] = [
-    { text: "PrettyBio has transformed how I share my content. It's simple and effective!", author: "Alex G." },
-    { text: "A must-have tool for anyone looking to streamline their online presence.", author: "Jamie L." },
-    { text: "Finally, a bio link tool that’s fast and easy to use. I love it!", author: "Chris M." },
-    { text: "My followers love how easy it is to find all my links in one place!", author: "Taylor R." },
+    { text: "PrettyBio has transformed how I share my content. It's simple and effective!", author: "Xing." },
+    { text: "A must-have tool for anyone looking to streamline their online presence.", author: "Josh." },
+    { text: "Finally, a bio link tool that’s fast and easy to use. I love it!", author: "Phantom." },
+    { text: "My followers love how easy it is to find all my links in one place!", author: "Mike." },
   ];
 
   return (
