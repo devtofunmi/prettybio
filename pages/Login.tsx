@@ -135,6 +135,9 @@ const Login: React.FC = () => {
                 Sign up
               </Link>
             </p>
+            <Link href="/DashboardLayout" className="text-blue-500 hover:underline">
+                LOGIN
+              </Link>
           </div>
         </div>
       </div>
