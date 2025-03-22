@@ -3,8 +3,8 @@ import DashboardLayout from "../DashboardLayout";
 const LinksPage: React.FC = () => {
   return (
     <DashboardLayout showMobilePreview={true} userLinkName="your-username">
-      <div className="min-h-screen"> 
-        <h1 className="text-3xl font-bold mb-6">Manage Your Links</h1>
+      <div className="min-h-screen text-gray-800"> 
+        <h1 className="text-3xl font-bold mb-6 ">Manage Your Links</h1>
 
         <div className="space-y-6">
           <div className="p-4 border rounded-lg hover:shadow-md">
