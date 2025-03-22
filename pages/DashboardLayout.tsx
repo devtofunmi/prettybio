@@ -1,0 +1,61 @@
+import Sidebar from '../components/Sidebar';
+import MobilePreview from '../components/MobilePreview';
+import { ReactNode } from 'react';
+
+interface DashboardLayoutProps {
+  children: ReactNode;
+  showMobilePreview?: boolean;
+  userLinkName?: string;
+}
+
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({
+  children,
+  showMobilePreview = false,
+  userLinkName = 'your-username',
+}) => {
+  return (
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+      <div className={`flex-1 lg:ml-64 ${showMobilePreview ? 'lg:mr-80' : ''} px-4 sm:px-6 md:px-8`}>
+        <div className="flex flex-col lg:flex-row">
+          
+          {/* Mobile Preview on Small Screens */}
+          {showMobilePreview && (
+            <div>
+              <div className="lg:hidden order-1 mb-8 bg-gray-50">
+                <h3 className="text-lg font-semibold mb-4">Mobile Preview</h3>
+                <div className="">
+                  <MobilePreview userLinkName={userLinkName} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="order-2 flex-1 p-4">
+            {children}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Preview Sidebar (large screens only) */}
+      {showMobilePreview && (
+        <div className="hidden lg:block w-80 h-screen text-gray-800 bg-white shadow-lg fixed right-0 top-0 z-10">
+          <div className="p-4 h-full flex flex-col">
+            <h3 className="text-lg font-semibold mb-4">Mobile Preview</h3>
+            <div className="flex-1">
+              <MobilePreview userLinkName={userLinkName} />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DashboardLayout;
+
+
+
+
+
+
