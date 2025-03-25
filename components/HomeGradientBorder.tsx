@@ -1,29 +1,23 @@
-import React  from "react";
+import React, { ReactNode } from "react";
 
-interface HomeGradientBorderProps {
-  children: React.ReactNode;
+interface GradientBorderProps {
+  children: ReactNode;
 }
 
-const HomeGradientBorder: React.FC<HomeGradientBorderProps> = ({ children }) => {
-
-
-  const gradientStyle = {
-    background: "linear-gradient(275.79deg, #93c3c4 5.39%, #f2cfad 70.00%)",
-  };
-
-  const whiteGradientStyle = {
-    background: "linear-gradient(275.79deg, #d758bc 70.0%, #e8588e 30.39%)",
+const GradientBorder: React.FC<GradientBorderProps> = ({ children }) => {
+  const whiteGradientStyle: React.CSSProperties = {
+    background: "linear-gradient(275.79deg, #d758bc  5.39%, #e8588e  70.39%)",
   };
 
   return (
     <div
-      className="rounded-md p-0.5 fit-content flex items-center justify-center w-fit"
-      style={gradientStyle} 
+      className="p-0.5 fit-content flex items-center justify-center w-fit"
+      style={whiteGradientStyle}
     >
-      <div className="rounded-full flex items-center">{children}</div>
+      <div className="flex items-center">{children}</div>
     </div>
   );
 };
 
-export default HomeGradientBorder;
+export default GradientBorder;
 
