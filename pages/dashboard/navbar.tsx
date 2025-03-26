@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import GradientBorder from '../../components/GradientBorder';
-import HomeGradientBorder from '../../components/HomeGradientBorder';
+import Link from 'next/link';
 
 const Navbar: React.FC = () => {
   const router = useRouter();
   const [currentSection, setCurrentSection] = useState<string>('Dashboard');
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const pathToTitle: Record<string, string> = {
@@ -19,25 +20,95 @@ const Navbar: React.FC = () => {
     setCurrentSection(pathToTitle[router.pathname] || 'Dashboard');
   }, [router.pathname]);
 
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   return (
-    <div className="fixed top-0 left-0 w-full text-gray-800 z-20 bg-white shadow-md p-4 flex justify-between items-center lg:ml-64 lg:mr-80">
-      <h1 className="text-xl font-bold ">{currentSection}</h1>
+    <div className="fixed top-0 left-0 w-full text-gray-800 z-20 bg-white shadow-sm p-4 flex justify-between items-center lg:ml-64 lg:mr-80">
+      <h1 className="text-xl font-bold">{currentSection}</h1>
 
-      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300">
-        <Image
-          src="/../public/assets/jay.jpg"
-          alt="User Image"
-          width={40}
-          height={40}
-          className="object-cover"
-        />
+      <div className="flex justify-center items-center">
+
+        {/* Image with Arrow */}
+        <div
+          ref={imageRef}
+          className="flex items-center gap-2 cursor-pointer lg:mr-64 lg:ml-80"
+          onClick={toggleModal}
+        >
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-gray-800">
+            <Image
+              src="/assets/jay.jpg"
+              alt="User Image"
+              width={40}
+              height={40}
+              className="object-cover"
+            />
+          </div>
+
+          {/* Dropdown Arrow */}
+          <span
+            className={`text-gray-600 transition-transform  ${
+              isModalOpen ? 'rotate-180' : 'rotate-0'
+            }`}
+          >
+            ▼
+          </span>
+        </div>
+
+        {/* Modal Positioned Below the Image */}
+        {isModalOpen && (
+          <div
+            className="absolute bg-white shadow-lg border border-gray-300 rounded-lg p-4 w-64 z-30 lg:mr-64 lg:ml-80"
+            style={{
+              top: '60px', // Positioned below the image
+              right: 15,
+            }}
+          >
+            {/* <h2 className="text-lg font-bold mb-4">Account Options</h2> */}
+            <div className='flex'>
+              <div className='flex gap-2'>
+            <div className="w-10 h-10 cursor-pointer rounded-full overflow-hidden border-2 border-transparent hover:border-gray-800">
+            <Image
+              src="/assets/jay.jpg"
+              alt="User Image"
+              width={40}
+              height={40}
+              className="object-cover"
+            />
+          </div>
+          <div>
+          <p className='font-bold'>Jay</p>
+
+              <Link className='text-[12px] cursor-pointer' href="https://prettybio.netlify.app/okay" target="_blank">
+                <p className="text-blue-500 hover:underline cursor-pointer">https://prettybio.netlify.app/okay</p>
+              </Link>
+          </div>
+          </div>
+            </div>
+
+            <div className="flex flex-col gap-4 mt-5">
+              <button
+                onClick={() => router.push('/dashboard/settings')}
+                className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition"
+              >
+                Account Settings
+              </button>
+
+              <button
+                onClick={() => router.push('/logout')}
+                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
       </div>
-    
-      <h1 className='text-black'>hiii</h1>
-
     </div>
   );
 };
 
 export default Navbar;
+
 
