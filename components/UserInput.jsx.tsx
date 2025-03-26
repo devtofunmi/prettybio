@@ -13,7 +13,7 @@ const UserInput: FC = () => {
       >
         <div className="flex items-center text-btntext justify-center w-full md:w-[500px] lg:w-1/2 px-5 my-auto mx-auto text-sm lg:text-lg rounded-md mt-10">
           <HomeGradientBorder>
-            <div className="bg-[#f8f8f8] text-black flex items-center ml-1 pl-2 md:my-[2px] xm:text-[10px] text-sm">
+            <div className="bg-[#f8f8f8] text-gray-800 flex items-center ml-1 pl-2 md:my-[2px] xm:text-[10px] text-sm">
               <p className="py-3 md:text-base lg:text-xl">
                 prettybio.com/
               </p>
@@ -21,11 +21,11 @@ const UserInput: FC = () => {
                 autoComplete="off"
                 type="text"
                 placeholder="yourname"
-                className="h-[2rem] md:h-[3rem] rounded-full outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0 text-black flex items-center ml-1 pl-2 md:my-[2px] xm:text-[10px] text-sm"
+                className="h-[2rem] md:h-[3rem] text-gray-800 rounded-full outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0 text-black flex items-center ml-1 pl-2 md:my-[2px] xm:text-[10px] text-sm"
               />
             </div>
             <Link href="/Signup">
-              <button className="text-[12px] text-black w-[100px] md:w-full md:text-base py-2 lg:px-4 px-0 rounded-sm">
+              <button className="text-[12px] text-gray-800 w-[100px] md:w-full md:text-base py-2 lg:px-4 px-0 rounded-sm">
                 Claim my link
               </button>
             </Link>
