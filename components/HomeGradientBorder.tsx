@@ -11,7 +11,7 @@ const GradientBorder: React.FC<GradientBorderProps> = ({ children }) => {
 
   return (
     <div
-      className="p-0.5 fit-content flex items-center justify-center w-fit"
+      className="p-0.5 fit-content flex items-center justify-center rounded-md w-fit"
       style={whiteGradientStyle}
     >
       <div className="flex items-center">{children}</div>
