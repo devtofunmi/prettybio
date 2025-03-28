@@ -7,7 +7,9 @@ const Sidebar: React.FC = () => {
       {/* Sidebar for large screens */}
       <aside className="hidden lg:flex lg:w-64 bg-gray-900 text-white h-screen fixed left-0 top-0">
         <div className="p-6 w-full">
+        <Link href="/" >
           <h2 className="text-2xl font-bold mb-6">PrettyBio</h2>
+            </Link>
           <nav className="space-y-4">
             <Link href="/dashboard" className="flex items-center gap-4 py-3 hover:bg-gray-700 px-4 rounded-lg">
               <FaLink /> Links
