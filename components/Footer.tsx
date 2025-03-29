@@ -17,12 +17,12 @@ const Footer: FC = () => {
           <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
           <ul className="text-gray-400 space-y-2">
             <li>
-              <Link href="/features" className="hover:text-white">
+              <Link href="/landingpage/features" className="hover:text-white">
                 Features
               </Link>
             </li>
             <li>
-              <Link href="/faq" className="hover:text-white">
+              <Link href="/landingpage/faq" className="hover:text-white">
                 FAQ
               </Link>
             </li>
