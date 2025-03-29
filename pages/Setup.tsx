@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { BsCamera } from "react-icons/bs";
+import { MdOutlinePhotoCameraBack } from "react-icons/md";
 import { useRouter } from "next/router";
 import GradientBorder from "../components/GradientBorder";
 import { supabase } from "../supabaseClient";
@@ -158,7 +158,7 @@ const Setup: React.FC = () => {
         <div className="w-full max-w-lg mx-auto">
           <div className="flex justify-center">
             <div
-              className="relative w-32 h-32 border-4 border-dashed rounded-full flex items-center justify-center cursor-pointer"
+              className="relative w-32 h-32 border-2 border-pink-400 border-dashed rounded-full flex items-center justify-center cursor-pointer"
               onClick={handleButtonClick}
             >
               {image ? (
@@ -168,7 +168,7 @@ const Setup: React.FC = () => {
                   className="w-full h-full rounded-full object-cover"
                 />
               ) : (
-                <BsCamera className="text-gray-600 text-4xl" />
+                <MdOutlinePhotoCameraBack className="text-pink-400 text-4xl" />
               )}
               <input
                 type="file"
@@ -182,12 +182,12 @@ const Setup: React.FC = () => {
             <input
               type="text"
               placeholder="Name"
-              className="w-full bg-white px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"
+              className="w-full bg-white px-4 py-3 border rounded-md focus:border-[#effbce]"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
 
-            <div className="flex items-center border rounded-md px-4">
+            <div className="flex items-center border rounded-md px-4 focus:border-[#effbce]">
               <span className="text-gray-500">prettybio.com/</span>
               <input
                 type="text"
@@ -201,7 +201,7 @@ const Setup: React.FC = () => {
             <input
               type="text"
               placeholder="Bio"
-              className="w-full bg-white px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"
+              className="w-full bg-white px-4 py-3 border rounded-md"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
             />
