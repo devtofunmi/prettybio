@@ -1,4 +1,4 @@
-import DashboardLayout from '../DashboardLayout';
+import DashboardLayout from './DashboardLayout';
 
 const AnalyticsPage: React.FC = () => {
   return (
