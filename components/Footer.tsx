@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { FaTwitter, FaInstagram, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -27,42 +27,27 @@ const Footer: FC = () => {
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-white">
-                Contact
+              <Link href="mailto:prettybio@gmail.com" className="hover:text-white">
+                 Contact
               </Link>
-            </li>
+             </li>
           </ul>
         </div>
 
         <div>
-          <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
-          <div className="flex justify-center md:justify-start space-x-4">
-            <Link href="https://twitter.com" target="_blank">
-              <Image
-                src="/images/twitter-icon.png"
-                alt="Twitter"
-                width={24}
-                height={24}
-              />
-            </Link>
-            <Link href="https://instagram.com" target="_blank">
-              <Image
-                src="/images/instagram-icon.png"
-                alt="Instagram"
-                width={24}
-                height={24}
-              />
-            </Link>
-            <Link href="https://facebook.com" target="_blank">
-              <Image
-                src="/images/facebook-icon.png"
-                alt="Facebook"
-                width={24}
-                height={24}
-              />
-            </Link>
-          </div>
-        </div>
+            <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
+            <div className="flex justify-center md:justify-start space-x-4">
+              <Link href="https://twitter.com" target="_blank" className="text-xl hover:text-blue-500">
+                <FaTwitter />
+              </Link>
+              <Link href="https://instagram.com" target="_blank" className="text-xl hover:text-pink-500">
+                <FaInstagram />
+              </Link>
+              <Link href="https://facebook.com" target="_blank" className="text-xl hover:text-blue-700">
+                <FaFacebook />
+              </Link>
+              </div>
+            </div>
       </div>
       <div className="text-center text-gray-500 text-sm mt-6 border-t border-gray-700 pt-4">
         &copy; {new Date().getFullYear()} PrettyBio. All rights reserved.
