@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import DashboardLayout from "../DashboardLayout";
+import DashboardLayout from "./DashboardLayout";
 import {
   FaYoutube, FaPinterest, FaTwitter, FaReddit, FaInstagram,
-  FaTiktok, FaLinkedin, FaFacebook, FaGithub, FaWhatsapp, FaTimes, FaTrash
+  FaTiktok, FaLinkedin, FaFacebook, FaGithub, FaWhatsapp, FaTimes, FaTrash,
+  FaLink,
+  FaShareAlt
 } from "react-icons/fa";
 import GradientBorder from "../../components/HomeGradientBorder";
 import GradientBorderr from "../../components/GradientBorder";
+import { Toaster, toast } from "react-hot-toast";
 
 interface Link {
   id: number;
@@ -101,19 +104,64 @@ const LinksPage: React.FC = () => {
     }
   };
 
-  // Delete Functions
+  
+
+  const currentUrl = "https://prettybio.com/devtofunmi"; 
+
+   // ✅ Copy URL function with toast
+   const handleCopyUrl = () => {
+    navigator.clipboard.writeText(currentUrl).then(() => {
+      toast.success("URL copied to clipboard!");
+    }).catch(() => {
+      toast.error("Failed to copy URL.");
+    });
+  };
+
+  // ✅ Share URL function with toast
+  const handleShareUrl = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: "Check out my PrettyBio profile",
+        url: currentUrl,
+      }).then(() => {
+        toast.success("Link shared successfully!");
+      }).catch(() => {
+        toast.error("Failed to share link.");
+      });
+    } else {
+      toast.error("Web Share API not supported in this browser.");
+    }
+  };
+
+  // ✅ Delete Functions
   const handleDeleteLink = (id: number) => {
     setLinks((prev) => prev.filter((link) => link.id !== id));
+    toast.success("Link deleted!");
   };
 
   const handleDeleteSocial = (id: number) => {
     setSocials((prev) => prev.filter((social) => social.id !== id));
+    toast.success("Social link deleted!");
   };
 
   return (
     <DashboardLayout showMobilePreview={true} userLinkName="your-username">
+      <Toaster />
       <section className="min-h-screen text-gray-800">
-        <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center text-gray-700 p-4 border rounded-lg bg-blue-100">
+          <h1>🔥 Your Link is live  
+            <span className="hidden md:inline ml-2 underline cursor-pointer">{currentUrl}</span> 
+          </h1>
+          <div className="flex gap-5">
+            <button onClick={handleCopyUrl} className="bg-white p-2 rounded-full">
+              <FaLink size={20} />
+            </button>
+            <button onClick={handleShareUrl} className="bg-white p-2 rounded-full">
+              <FaShareAlt size={20} />
+            </button>
+          </div>
+        </div>
+        <div className="flex justify-between items-center mb-6 mt-5">
           <h1 className="text-2xl font-bold">Your Links</h1>
 
           <div className="">
