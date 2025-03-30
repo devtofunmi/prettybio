@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../../supabaseClient";
 import GradientBorder from "../../components/GradientBorder";
 import Navbar from "../../components/Navbar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Image from "next/image";
 import Link from "next/link";
+import { Toaster, toast } from "react-hot-toast";
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -13,8 +13,6 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [success, setSuccess] = useState<string>("");
-  const [error, setError] = useState<string>("");
 
   const router = useRouter();
 
@@ -24,77 +22,60 @@ const Signup: React.FC = () => {
   };
 
   const validateForm = () => {
-    let isValid = true;
-
     if (!email) {
-      setError("Please enter your email.");
-      isValid = false;
-    } else if (!isValidEmail(email)) {
-      setError("Please enter a valid email address.");
-      isValid = false;
-    } else if (!username) {
-      setError("Please enter your username.");
-      isValid = false;
-    } else if (!password) {
-      setError("Please enter your password.");
-      isValid = false;
-    } else if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
-      isValid = false;
-    } else if (!confirmPassword) {
-      setError("Please confirm your password.");
-      isValid = false;
-    } else if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      isValid = false;
-    } else {
-      setError("");
+      toast.error("Please enter your email.");
+      return false;
+    }
+    if (!isValidEmail(email)) {
+      toast.error("Please enter a valid email address.");
+      return false;
+    }
+    if (!username) {
+      toast.error("Please enter your username.");
+      return false;
+    }
+    if (!password) {
+      toast.error("Please enter your password.");
+      return false;
+    }
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return false;
+    }
+    if (!confirmPassword) {
+      toast.error("Please confirm your password.");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return false;
     }
 
-    return isValid;
+    return true;
   };
 
-  const SignUp = async () => {
+  const SignUp = () => {
     if (!validateForm()) return;
 
     setLoading(true);
-    setSuccess("");
-    setError("");
 
-    try {
-      const { data: existingUsernames, error: existingUsernamesError } =
-        await supabase.from("users").select().eq("username", username);
+    // Simulating an async request (replace with your actual API call)
+    const signUpPromise = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Signup successful!");
+      }, 1500);
+    });
 
-      const { data: existingEmails, error: existingEmailsError } =
-        await supabase.from("users").select().eq("email", email);
-
-      if (existingUsernamesError || existingEmailsError) {
-        setError("Error checking existing usernames and emails.");
-      } else if (existingUsernames.length > 0) {
-        setError("Username is already registered.");
-      } else if (existingEmails.length > 0) {
-        setError("Email is already registered.");
-      } else {
-        const { error: insertError } = await supabase
-          .from("users")
-          .insert({
-            email: email,
-            username: username,
-            password: password,
-          });
-
-        if (insertError) {
-          setError(insertError.message);
-        } else {
-          setSuccess("Signup successful! Redirecting...");
-          setTimeout(() => {
-            router.push("/Login");
-          }, 1500);
-        }
-      }
-    } catch (error: any) {
-      setError(error.message);
-    }
+    toast.promise(signUpPromise, {
+      loading: "Signing up...",
+      success: () => {
+        setTimeout(() => {
+          router.push("/authentication/Login");
+        }, 2000);
+        return "Signup successful! Redirecting...";
+      },
+      error: "Signup failed. Please try again.",
+    });
 
     setLoading(false);
   };
@@ -105,24 +86,20 @@ const Signup: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-white text-gray-900 flex">
+
+      
       <div className="absolute top-2 left-5">
         <Navbar />
       </div>
+
       <div className="w-full lg:w-1/2 flex flex-col mt-28 md:mt-10 items-center px-8">
-        {success && (
-          <div className="w-full max-w-md mb-5 rounded-lg bg-green-100 border-l-4  border-green-400 p-4 text-green-700">
-            <p className="flex items-center gap-2">{success}</p>
-          </div>
-        )}
-        {error && (
-          <div className="w-full max-w-md mb-5 rounded-lg bg-red-100 border-l-4  border-red-400 p-4 text-red-700">
-            <p className="flex items-center gap-2">{error}</p>
-          </div>
-        )}
+      <Toaster reverseOrder={false} />
 
         <h1 className="text-4xl font-bold text-gray-900">Join PrettyBio</h1>
         <p className="text-gray-600 mt-3">Sign up for free!</p>
+
         <div className="w-full max-w-md mt-5">
+        
           <div className="mb-5">
             <input
               type="email"
@@ -132,6 +109,8 @@ const Signup: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
+          
           <div className="mb-5">
             <input
               type="text"
@@ -141,6 +120,8 @@ const Signup: React.FC = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
+
+        
           <div className="mb-5">
             <input
               type="password"
@@ -150,6 +131,8 @@ const Signup: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
+          
           <div className="mb-5">
             <input
               type="password"
@@ -159,6 +142,8 @@ const Signup: React.FC = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+
+          
           <div className="mt-5 w-full">
             <GradientBorder>
               <button
@@ -170,16 +155,20 @@ const Signup: React.FC = () => {
               </button>
             </GradientBorder>
           </div>
+
+          
           <div className="mt-5 flex justify-center text-center text-gray-600">
             <p>
               Already have an account?{" "}
-              <Link href="/Login" className="text-blue-500 hover:underline">
+              <Link href="/authentication/Login" className="text-blue-500 hover:underline">
                 Login
               </Link>
             </p>
           </div>
         </div>
       </div>
+
+      
       <div className="hidden lg:block w-1/2 relative">
         <Image
           src="https://media.istockphoto.com/id/2174175055/photo/a-businessman-use-generative-engine-optimization-on-his-smartphone-to-view-search-results.webp?s=1024x1024&w=is&k=20&c=HCEOpEPqIJq8a0awaQlbKOVu5eFg4TYkhr9hmHYKD0A="
@@ -194,3 +183,5 @@ const Signup: React.FC = () => {
 };
 
 export default Signup;
+
+
