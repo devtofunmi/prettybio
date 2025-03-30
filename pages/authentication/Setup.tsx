@@ -2,21 +2,20 @@ import React, { useEffect, useState, useRef } from "react";
 import { MdOutlinePhotoCameraBack } from "react-icons/md";
 import { useRouter } from "next/router";
 import GradientBorder from "../../components/GradientBorder";
-import { supabase } from "../../supabaseClient";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Navbar from "../../components/Navbar";
 import Image from "next/image";
+import { Toaster, toast } from "react-hot-toast";
 
 const Setup: React.FC = () => {
-  const [image, setImage] = useState<string>(""); 
+  const [image, setImage] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [userLinkName, setUserLinkName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+
   const router = useRouter();
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
 
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -26,7 +25,7 @@ const Setup: React.FC = () => {
 
     reader.onloadend = () => {
       if (typeof reader.result === "string") {
-        setImage(reader.result); 
+        setImage(reader.result);
         uploadToCloudinary(file);
       } else {
         console.error("Unexpected result type:", typeof reader.result);
@@ -39,6 +38,7 @@ const Setup: React.FC = () => {
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
+
   const uploadToCloudinary = async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -57,36 +57,36 @@ const Setup: React.FC = () => {
 
       if (response.ok) {
         setImage(data.secure_url);
+        toast.success("Image uploaded successfully!");
       } else {
         throw new Error(data.error.message);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
-      setError("Failed to upload image");
+      toast.error("Failed to upload image.");
     }
   };
+
   const setUp = async () => {
     setLoading(true);
-    setError("");
-    setSuccess("");
 
     if (!image) {
-      setError("Please upload an image");
+      toast.error("Please upload an image.");
       setLoading(false);
       return;
     }
     if (!name) {
-      setError("Please enter your name");
+      toast.error("Please enter your name.");
       setLoading(false);
       return;
     }
     if (!userLinkName) {
-      setError("Please enter a link name");
+      toast.error("Please enter your link name.");
       setLoading(false);
       return;
     }
     if (!bio) {
-      setError("Please enter your bio");
+      toast.error("Please enter your bio.");
       setLoading(false);
       return;
     }
@@ -100,29 +100,16 @@ const Setup: React.FC = () => {
         throw new Error("User ID not found");
       }
 
-      const { data, error } = await supabase
-        .from("users")
-        .update({
-          name,
-          userlink_name: userLinkName,
-          bio,
-          image,
-          setup_complete: true,
-        })
-        .eq("id", userId);
 
-      if (error) {
-        console.error("Error setting up user:", error.message);
-        setError("Error setting up user");
-      } else {
-        setSuccess("Setup successful");
-        setTimeout(() => {
-          router.push("/Dashboard");
-        }, 2000);
-      }
+      toast.success("Setup successful!");
+
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 2000);
+
     } catch (error) {
       console.error("Error during setup:", error);
-      setError("Error during setup");
+      toast.error("Error during setup.");
     }
 
     setLoading(false);
@@ -134,27 +121,17 @@ const Setup: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white text-gray-900">
+      <Toaster />
+
       <div className="absolute top-2 left-5 z-10">
         <Navbar />
       </div>
+
       <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 md:px-20">
         <h1 className="text-4xl font-bold text-gray-900 text-center mt-20 md:mt-5 mb-10">
           Setup Your Page
         </h1>
-        {error && (
-          <div className="w-full max-w-md mx-auto mb-4">
-            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md">
-              <p>{error}</p>
-            </div>
-          </div>
-        )}
-        {success && (
-          <div className="w-full max-w-md mx-auto mb-4">
-            <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md">
-              <p>{success}</p>
-            </div>
-          </div>
-        )}
+
         <div className="w-full max-w-lg mx-auto">
           <div className="flex justify-center">
             <div
@@ -178,7 +155,8 @@ const Setup: React.FC = () => {
               />
             </div>
           </div>
-          <div className="mt-6 space-y-4">         
+
+          <div className="mt-6 space-y-4">
             <input
               type="text"
               placeholder="Name"
@@ -206,6 +184,7 @@ const Setup: React.FC = () => {
               onChange={(e) => setBio(e.target.value)}
             />
           </div>
+
           <div className="mt-6">
             <GradientBorder>
               <button
@@ -219,6 +198,7 @@ const Setup: React.FC = () => {
           </div>
         </div>
       </div>
+
       <div className="hidden lg:block w-1/2 relative">
         <Image
           src="https://media.istockphoto.com/id/2174175055/photo/a-businessman-use-generative-engine-optimization-on-his-smartphone-to-view-search-results.webp?s=1024x1024&w=is&k=20&c=HCEOpEPqIJq8a0awaQlbKOVu5eFg4TYkhr9hmHYKD0A="
@@ -233,6 +213,7 @@ const Setup: React.FC = () => {
 };
 
 export default Setup;
+
 
 
 
