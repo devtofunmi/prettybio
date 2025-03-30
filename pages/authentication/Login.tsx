@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../../supabaseClient";
+import { Toaster, toast } from "react-hot-toast";
 import GradientBorder from "../../components/GradientBorder";
 import Navbar from "../../components/Navbar";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -11,85 +11,58 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
 
   const router = useRouter();
 
   const validateForm = () => {
     if (!username || !password) {
-      setError("Username and password are required.");
+      toast.error("Username and password are required.");
       return false;
     }
-    setError("");
     return true;
   };
 
-  const logIn = async () => {
-    if (!validateForm()) return;
+  const mockLogin = () => {
+    const mockUser = {
+      id: "1",
+      username: "tofunmi",
+      password: "123456",
+      setup_complete: true,
+    };
 
-    setLoading(true);
-    setError("");
-    setSuccess("");
+    if (username === mockUser.username && password === mockUser.password) {
+      toast.success("Login successful! Redirecting...");
 
-    try {
-      const { data, error } = await supabase
-        .from("users")
-        .select("id, image, userlink_name, username, bio, setup_complete")
-        .eq("username", username)
-        .eq("password", password);
+      const userData = JSON.stringify([{ id: mockUser.id }]);
+      localStorage.setItem("data", userData);
 
-      if (error) {
-        throw new Error("Invalid username or password.");
-      }
-
-      if (!data || data.length === 0) {
-        setError("Incorrect username or password.");
-      } else {
-        const user = data[0];
-
-        setSuccess("Login successful! Redirecting...");
-        
-        const userData = JSON.stringify([{ id: user.id }]);
-        localStorage.setItem("data", userData);
-
-        setTimeout(() => {
-          router.push(user.setup_complete ? "/dashboard" : "/authentication/Setup");
-        }, 1500);
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-      setError("An error occurred. Please try again.");
+      setTimeout(() => {
+        router.push(mockUser.setup_complete ? "/dashboard" : "/authentication/Setup");
+      }, 1500);
+    } else {
+      toast.error("Incorrect username or password.");
     }
-
-    setLoading(false);
   };
 
   const handleSubmit = () => {
-    logIn();
+    if (!validateForm()) return;
+
+    setLoading(true);
+
+    setTimeout(() => {
+      mockLogin();
+      setLoading(false);
+    }, 1000);
   };
 
   return (
     <div className="relative min-h-screen bg-white text-gray-900 flex">
+      <Toaster />
       <div className="absolute top-2 left-5">
         <Navbar />
       </div>
-      <div className="w-full lg:w-1/2 flex flex-col mt-28 md:mt-10 items-center px-8">
-        {error && (
-          <div className="w-full max-w-md mx-auto mb-4">
-            <div className="bg-red-100  border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md">
-              <p>{error}</p>
-            </div>
-          </div>
-        )}
-        {success && (
-          <div className="w-full max-w-md mx-auto mb-4">
-            <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md">
-              <p>{success}</p>
-            </div>
-          </div>
-        )}
 
+      <div className="w-full lg:w-1/2 flex flex-col mt-28 md:mt-10 items-center px-8">
         <h1 className="text-4xl font-bold text-gray-900 mt-0 md:mt-20">
           Welcome back!
         </h1>
@@ -131,13 +104,10 @@ const Login: React.FC = () => {
           <div className="mt-5 flex justify-center text-center text-gray-600">
             <p>
               Don’t have an account?{" "}
-              <Link href="/Signup" className="text-blue-500 hover:underline">
+              <Link href="/authentication/Signup" className="text-blue-500 hover:underline">
                 Sign up
               </Link>
             </p>
-            <Link href="/dashboard" className="text-blue-500 hover:underline">
-                LOGIN
-              </Link>
           </div>
         </div>
       </div>
@@ -156,6 +126,7 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+
 
 
 
