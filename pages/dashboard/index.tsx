@@ -9,6 +9,7 @@ import {
 import GradientBorder from "../../components/HomeGradientBorder";
 import GradientBorderr from "../../components/GradientBorder";
 import { Toaster, toast } from "react-hot-toast";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 interface Link {
   id: number;
@@ -46,6 +47,8 @@ const LinksPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [socialUrl, setSocialUrl] = useState("");
+  const [loadingLinks, setLoadingLinks] = useState<boolean>(false); 
+  const [loadingSocials, setLoadingSocials] = useState<boolean>(false);
   const [links, setLinks] = useState<Link[]>([
     { id: 1, title: "My Website", url: "https://mywebsite.com", type: "link" },
     { id: 2, title: "Portfolio", url: "https://myportfolio.com", type: "link" },
@@ -55,8 +58,9 @@ const LinksPage: React.FC = () => {
     { id: 2, platform: "Instagram", username: "example", url: "https://instagram.com/example", type: "social" },
   ]);
 
-  // Toggle Modals
+
   const toggleLinkModal = () => setIsLinkModalOpen((prev) => !prev);
+
   const toggleSocialModal = () => {
     setIsSocialModalOpen((prev) => !prev);
     setSelectedPlatform(null);
@@ -76,6 +80,7 @@ const LinksPage: React.FC = () => {
       setLinks((prev) => [...prev, newLink]);
       setTitle("");
       setUrl("");
+      setLoadingLinks(false);
       toggleLinkModal();
     }
   };
@@ -99,6 +104,7 @@ const LinksPage: React.FC = () => {
         setSocials((prev) => [...prev, newSocial]);
         setUsername("");
         setSocialUrl("");
+        setLoadingSocials(false);
         toggleSocialModal();
       }
     }
@@ -108,7 +114,7 @@ const LinksPage: React.FC = () => {
 
   const currentUrl = "https://prettybio.com/devtofunmi"; 
 
-   // ✅ Copy URL function with toast
+   //  Copy URL function
    const handleCopyUrl = () => {
     navigator.clipboard.writeText(currentUrl).then(() => {
       toast.success("URL copied to clipboard!");
@@ -117,7 +123,7 @@ const LinksPage: React.FC = () => {
     });
   };
 
-  // ✅ Share URL function with toast
+  //  Share URL function 
   const handleShareUrl = () => {
     if (navigator.share) {
       navigator.share({
@@ -133,7 +139,7 @@ const LinksPage: React.FC = () => {
     }
   };
 
-  // ✅ Delete Functions
+
   const handleDeleteLink = (id: number) => {
     setLinks((prev) => prev.filter((link) => link.id !== id));
     toast.success("Link deleted!");
@@ -174,9 +180,13 @@ const LinksPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Links Section */}
+        
         <div className="space-y-6">
-          {links.length === 0 ? (
+        {loadingLinks ? (
+            <div className="text-center">
+              <LoadingSpinner />
+            </div>
+          ) : links.length === 0 ? (
             <div className="text-gray-500 text-center">No links added yet. Click + Add Link to add your links.</div>
           ) : (
             links.map((link) => (
@@ -195,7 +205,7 @@ const LinksPage: React.FC = () => {
           )}
         </div>
 
-        {/* Socials Section */}
+      
         <div className="flex justify-between items-center mt-5 mb-6">
           <h1 className="text-2xl font-bold">Social Links</h1>
           <GradientBorder>
@@ -206,7 +216,11 @@ const LinksPage: React.FC = () => {
           
         </div>
         <div className="space-y-6 mt-4">
-          {socials.length === 0 ? (
+          {loadingSocials ? (
+            <div className="text-center">
+              <LoadingSpinner />
+            </div>
+          ) : socials.length === 0 ? (
             <div className="text-gray-500 text-center">No social links added yet. Click + Add Social to add your social profiles.</div>
           ) : (
             socials.map((social) => (
@@ -216,7 +230,7 @@ const LinksPage: React.FC = () => {
                   <div>
                     <h2 className="text-lg font-bold">{social.platform}</h2>
                     <a href={social.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                      {social.url}
+                      {social.username}
                     </a>
                   </div>
                 </div>
@@ -228,7 +242,7 @@ const LinksPage: React.FC = () => {
           )}
         </div>
 
-        {/* Add Link Modal */}
+        
         {isLinkModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -252,7 +266,7 @@ const LinksPage: React.FC = () => {
           </div>
         )}
 
-        {/* Add Social Modal */}
+        
         {isSocialModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-96">
