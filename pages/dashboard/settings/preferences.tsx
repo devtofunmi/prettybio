@@ -15,7 +15,7 @@ const PreferencesPage: React.FC = () => {
       <div className=" text-gray-800 min-h-screen">
         {/* Back Button */}
         <button 
-          onClick={() => router.push('/dashboard/settings')}
+          onClick={() => router.push('/dashboard/settings/settings')}
           className="flex items-center text-blue-600 hover:underline"
         >
           <FaArrowLeft className="mr-2" /> Back to Settings
