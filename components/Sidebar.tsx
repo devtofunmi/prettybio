@@ -17,7 +17,7 @@ const Sidebar: React.FC = () => {
             <Link href="/dashboard/analytics" className="flex items-center gap-4 py-3 hover:bg-gray-700 px-4 rounded-lg">
               <FaChartBar /> Analytics
             </Link>
-            <Link href="/dashboard/settings" className="flex items-center gap-4 py-3 hover:bg-gray-700 px-4 rounded-lg">
+            <Link href="/dashboard/settings/settings" className="flex items-center gap-4 py-3 hover:bg-gray-700 px-4 rounded-lg">
               <FaCog /> Settings
             </Link>
             <Link href="/logout" className="flex items-center gap-4 py-3 hover:bg-red-600 px-4 rounded-lg">
@@ -37,7 +37,7 @@ const Sidebar: React.FC = () => {
           <FaChartBar className="text-lg" />
           <span className="text-xs">Analytics</span>
         </Link>
-        <Link href="/dashboard/settings" className="flex flex-col items-center">
+        <Link href="/dashboard/settings/+settings" className="flex flex-col items-center">
           <FaCog className="text-lg" />
           <span className="text-xs">Settings</span>
         </Link>
