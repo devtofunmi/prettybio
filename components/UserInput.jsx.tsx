@@ -21,7 +21,7 @@ const UserInput: FC = () => {
                 autoComplete="off"
                 type="text"
                 placeholder="yourname"
-                className="h-[2rem] md:h-[3rem] text-gray-800 rounded-full outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0 text-black flex items-center ml-1 pl-2 md:my-[2px] xm:text-[10px] text-sm"
+                className="h-[2rem] md:h-[3rem] text-gray-800 rounded-full outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0  flex items-center ml-1 pl-2 md:my-[2px] xm:text-[10px] text-sm"
               />
             </div>
             <Link href="/Signup">
