@@ -13,8 +13,8 @@ const Navbar: React.FC = () => {
     const pathToTitle: Record<string, string> = {
       '/dashboard': 'Manage Your Links',
       '/dashboard/analytics': 'Analytics',
-      '/dashboard/settings': 'Settings',              // General settings page
-      '/dashboard/accountsettings': 'Account Settings', // Specific account settings page
+      '/dashboard/settings': 'Settings',            
+      '/dashboard/accountsettings': 'Account Settings', 
       '/dashboard/settings/account-info': 'Account Info',
       '/dashboard/settings/preferences': 'Preferences',
       '/logout': 'Logout',
@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
       <h1 className="text-xl font-bold">{currentSection}</h1>
 
       <div className="flex justify-center items-center">
-        {/* Image with Arrow */}
+        
         <div
           ref={imageRef}
           className="flex items-center gap-2 cursor-pointer lg:mr-64 lg:ml-80"
@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
             />
           </div>
 
-          {/* Dropdown Arrow */}
+          
           <span
             className={`text-gray-600 transition-transform ${
               isModalOpen ? 'rotate-180' : 'rotate-0'
@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
           </span>
         </div>
 
-        {/* Modal Positioned Below the Image */}
+      
         {isModalOpen && (
           <div
             className="absolute bg-white shadow-lg border border-gray-300 rounded-lg p-4 w-64 z-30 lg:mr-64 lg:ml-80"
@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
 
             <div className="flex flex-col gap-4 mt-5">
               <button
-                onClick={() => router.push('/dashboard/accountsettings')}
+                onClick={() => router.push('/dashboard/settings/accountsettings')}
                 className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition"
               >
                 Account Settings
