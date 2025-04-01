@@ -44,20 +44,39 @@ export default function LandingPage(): JSX.Element {
           Create and customize your personal link hub in seconds.
         </p>
         <Link
-          href="/Signup"
+          href="/authentication/Signup"
           className="bg-gray-900 text-white px-8 py-3 rounded-full shadow-lg hover:bg-gray-800 text-lg"
         >
           Get Started
         </Link>
-        <div className="mt-12 w-full max-w-xl">
+        <div  className="mt-12 w-full max-w-xl p-5 flex gap-5">
+        <div>
           <Image
-            src="/hero-image.png"
+            src="/assets/first_girl.jpg"
             alt="Hero Image"
-            width={800}
-            height={500}
+            width={900}
+            height={800}
+            className="rounded-lg shadow-md w-full h-full"
+          />
+        </div>
+        <div className="gap-5 flex flex-col">
+        <Image
+            src="/assets/guy.jpg"
+            alt="Hero Image"
+            width={300}
+            height={200}
+            className="rounded-lg shadow-md w-full"
+          />
+          <Image
+            src="/assets/second_girl.jpg"
+            alt="Hero Image"
+            width={200}
+            height={100}
             className="rounded-lg shadow-md w-full"
           />
         </div>
+        </div>
+       
       </section>
 
       <section className="text-center py-16 bg-gray-100 w-full">
@@ -85,7 +104,7 @@ export default function LandingPage(): JSX.Element {
             </p>
             <div className="mt-5">
               <Link
-                href="/Signup"
+                href="/authentication/Signup"
                 className="bg-gray-900 text-white px-6 py-3 rounded-full shadow-lg hover:bg-gray-800 text-lg inline-block"
               >
                 Get Started for Free
@@ -95,11 +114,11 @@ export default function LandingPage(): JSX.Element {
 
           <div className="flex justify-center">
             <Image
-              src="/images/analytics.png"
+              src="/assets/analytics.jpg"
               alt="Analytics Image"
               width={600}
               height={400}
-              className="rounded-lg shadow-md w-full max-w-md lg:max-w-none"
+              className="rounded-lg shadow-md h-[400px] w-full max-w-md lg:max-w-none"
             />
           </div>
         </div>
@@ -120,7 +139,7 @@ export default function LandingPage(): JSX.Element {
       <section className="text-center py-16">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">Start Building Your Bio Page Today</h2>
         <div className="mt-10">
-          <Link href="/Signup" className="bg-yellow-500 text-white px-8 py-4 rounded-full shadow-lg hover:bg-yellow-600 text-lg ">
+          <Link href="/authentication/Signup" className="bg-yellow-500 text-white px-8 py-4 rounded-full shadow-lg hover:bg-yellow-600 text-lg ">
             Sign Up Now
           </Link>
         </div>
