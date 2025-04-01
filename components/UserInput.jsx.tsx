@@ -24,7 +24,7 @@ const UserInput: FC = () => {
                 className="h-[2rem] md:h-[3rem] text-gray-800 rounded-full outline-none w-[50%] md:w-[60%] lg:w-[70%] text-[10px] lg:text-base bg-transparent px-0 md:px-0  flex items-center ml-1 pl-2 md:my-[2px] xm:text-[10px] text-sm"
               />
             </div>
-            <Link href="/Signup">
+            <Link href="/authentication/Signup">
               <button className="text-[12px] text-gray-800 w-[100px] md:w-full md:text-base py-2 lg:px-4 px-0 rounded-sm">
                 Claim my link
               </button>
