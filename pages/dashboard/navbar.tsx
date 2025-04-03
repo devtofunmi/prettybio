@@ -97,10 +97,10 @@ const Navbar: React.FC = () => {
 
             <div className="flex flex-col gap-4 mt-5">
               <button
-                onClick={() => router.push('/dashboard/settings/accountsettings')}
+                onClick={() => router.push('/dashboard/settings/subscription-plan')}
                 className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition"
               >
-                Account Settings
+                Subscription Plan
               </button>
 
               <button
