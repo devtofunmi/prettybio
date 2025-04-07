@@ -55,7 +55,7 @@ const Header: FC = () => {
             </Link>
             <Link
               href="/authentication/Signup"
-              className="block text-gray-800 px-4 py-4 text-2xl rounded-full hover:bg-gray-800"
+              className="block text-gray-800 px-4 py-4 text-2xl rounded-full "
             >
               Sign Up
             </Link>
