@@ -54,18 +54,34 @@ const Signup: React.FC = () => {
     return true;
   };
 
-  const SignUp = () => {
+  const SignUp = async () => {
     if (!validateForm()) return;
-
+  
     setLoading(true);
-
-    // Simulating an async request (replace with your actual API call)
-    const signUpPromise = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("Signup successful!");
-      }, 1500);
+  
+    const formData = {
+      email,
+      username,
+      password,
+      confirmPassword,
+      setup_complete: false, 
+    };
+    
+    const signUpPromise = fetch("http://localhost:5000/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }).then((res) => {
+      if (!res.ok) {
+        return res.json().then((err) => {
+          throw new Error(err.error || "Signup failed.");
+        });
+      }
+      return res.json();
     });
-
+  
     toast.promise(signUpPromise, {
       loading: "Signing up...",
       success: () => {
@@ -74,11 +90,13 @@ const Signup: React.FC = () => {
         }, 2000);
         return "Signup successful! Redirecting...";
       },
-      error: "Signup failed. Please try again.",
+      error: (err) => err.message || "Signup failed. Please try again.",
     });
-
+  
     setLoading(false);
   };
+  
+  
 
   const handleSubmit = () => {
     SignUp();
