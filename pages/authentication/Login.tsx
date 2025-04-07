@@ -22,27 +22,55 @@ const Login: React.FC = () => {
     return true;
   };
 
-  const mockLogin = () => {
-    const mockUser = {
-      id: "1",
-      username: "tofunmi",
-      password: "123456",
-      setup_complete: true,
-    };
-
-    if (username === mockUser.username && password === mockUser.password) {
-      toast.success("Login successful! Redirecting...");
-
-      const userData = JSON.stringify([{ id: mockUser.id }]);
-      localStorage.setItem("data", userData);
-
-      setTimeout(() => {
-        router.push(mockUser.setup_complete ? "/dashboard" : "/authentication/Setup");
-      }, 1500);
-    } else {
-      toast.error("Incorrect username or password.");
+  const handleLogin = async () => {
+    if (!username || !password) {
+      toast.error("Please enter both username and password.");
+      return;
     }
+  
+    const loginPromise = fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    }).then(async (res) => {
+      const data = await res.json();
+      console.log("User ID from login:", data.userId);
+      if (!res.ok) {
+        throw new Error(data.error || "Login failed.");
+      }        
+      localStorage.setItem("userId", data.userId);
+      return data;
+    });
+  
+    toast.promise(loginPromise, {
+      loading: "Logging in...",
+      success: (data) => {
+        fetch(`http://localhost:5000/api/auth/user/${data.userId}`)
+        
+          .then((userRes) => userRes.json())
+          .then((userData) => {
+            setTimeout(() => {
+              if (!userData.setup_complete) {
+                router.push("/authentication/Setup");
+              } else {
+                router.push("/dashboard");
+              }
+            }, 1500);
+          })
+          .catch(() => {
+            toast.error("Failed to fetch user profile.");
+          });
+
+        return "Login successful! Redirecting...";
+      },
+      error: (err) => err.message || "Login failed. Please try again.",
+    });
   };
+
+  
+  
 
   const handleSubmit = () => {
     if (!validateForm()) return;
@@ -50,7 +78,7 @@ const Login: React.FC = () => {
     setLoading(true);
 
     setTimeout(() => {
-      mockLogin();
+      handleLogin();
       setLoading(false);
     }, 1000);
   };
