@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Toaster, toast } from "react-hot-toast";
 
 const Setup: React.FC = () => {
-  const [image, setImage] = useState<string>("");
+  const [userImage, setUserImage] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
@@ -25,7 +25,7 @@ const Setup: React.FC = () => {
 
     reader.onloadend = () => {
       if (typeof reader.result === "string") {
-        setImage(reader.result);
+        setUserImage(reader.result);
         uploadToCloudinary(file);
       } else {
         console.error("Unexpected result type:", typeof reader.result);
@@ -56,8 +56,9 @@ const Setup: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setImage(data.secure_url);
+        setUserImage(data.secure_url);
         toast.success("Image uploaded successfully!");
+        console.log(data.secure_url);
       } else {
         throw new Error(data.error.message);
       }
@@ -69,51 +70,54 @@ const Setup: React.FC = () => {
 
   const setUp = async () => {
     setLoading(true);
-
-    if (!image) {
-      toast.error("Please upload an image.");
+  
+    if (!userImage || !name || !userLinkName || !bio) {
+      toast.error("All fields are required.");
       setLoading(false);
       return;
     }
-    if (!name) {
-      toast.error("Please enter your name.");
-      setLoading(false);
-      return;
-    }
-    if (!userLinkName) {
-      toast.error("Please enter your link name.");
-      setLoading(false);
-      return;
-    }
-    if (!bio) {
-      toast.error("Please enter your bio.");
-      setLoading(false);
-      return;
-    }
-
+  
     try {
-      const storedData = localStorage.getItem("data");
-      const dataArray = storedData ? JSON.parse(storedData) : [];
-      const userId = dataArray[0]?.id;
+      const userId = localStorage.getItem("userId");
 
       if (!userId) {
         throw new Error("User ID not found");
       }
-
-
+  
+      const response = await fetch(`http://localhost:5000/api/auth/setup/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userImage: userImage,
+          name,
+          bio,
+          userLinkName,
+          setup_complete: true,
+        }),
+      });
+  
+      const result = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(result.error || "Setup failed");
+      }
+  
       toast.success("Setup successful!");
-
+  
       setTimeout(() => {
         router.push("/dashboard");
       }, 2000);
-
+  
     } catch (error) {
       console.error("Error during setup:", error);
       toast.error("Error during setup.");
     }
-
+  
     setLoading(false);
   };
+  
 
   const handleSubmit = () => {
     setUp();
@@ -122,25 +126,22 @@ const Setup: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white text-gray-900">
       <Toaster />
-
       <div className="absolute top-2 left-5 z-10">
         <Navbar />
       </div>
-
       <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 md:px-20">
         <h1 className="text-4xl font-bold text-gray-900 text-center mt-20 md:mt-5 mb-10">
           Setup Your Page
         </h1>
-
         <div className="w-full max-w-lg mx-auto">
           <div className="flex justify-center">
             <div
               className="relative w-32 h-32 border-2 border-pink-400 border-dashed rounded-full flex items-center justify-center cursor-pointer"
               onClick={handleButtonClick}
             >
-              {image ? (
+              {userImage ? (
                 <img
-                  src={image}
+                  src={userImage}
                   alt="Uploaded"
                   className="w-full h-full rounded-full object-cover"
                 />
@@ -190,7 +191,7 @@ const Setup: React.FC = () => {
               <button
                 className="w-full px-6 py-3 bg-transparent text-lg font-bold text-gray-800 hover:text-white"
                 onClick={handleSubmit}
-                disabled={loading}
+                disabled={loading || !userImage || !name || !bio || !userLinkName}
               >
                 {loading ? <LoadingSpinner /> : "Continue"}
               </button>
