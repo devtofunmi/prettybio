@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import DashboardLayout from './DashboardLayout';
 import {
   BarChart,
@@ -12,6 +13,7 @@ import {
 } from "recharts";
 
 const AnalyticsPage: React.FC = () => {
+  const [links, setLinks] = useState<LinkStat[]>([]);
   interface LinkStat {
     id: string;
     url: string;
