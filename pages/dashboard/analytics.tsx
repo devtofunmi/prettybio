@@ -12,6 +12,22 @@ import {
 } from "recharts";
 
 const AnalyticsPage: React.FC = () => {
+  interface LinkStat {
+    id: string;
+    url: string;
+    clickCount: number;
+  }
+  
+  interface SocialStat {
+    id: string;
+    url: string;
+    clickCount: number;
+  }
+  
+  interface PageView {
+    date: string;
+    views: number;
+  }
   return (
     <DashboardLayout>
       <div className="space-y-6">
