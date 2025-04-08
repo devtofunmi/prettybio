@@ -1,4 +1,15 @@
 import DashboardLayout from './DashboardLayout';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  CartesianGrid,
+} from "recharts";
 
 const AnalyticsPage: React.FC = () => {
   return (
@@ -14,6 +25,8 @@ const AnalyticsPage: React.FC = () => {
           <p className="text-gray-600">78,910</p>
         </div>
       </div>
+
+      
     </DashboardLayout>
   );
 };
