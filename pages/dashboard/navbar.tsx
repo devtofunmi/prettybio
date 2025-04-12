@@ -7,6 +7,7 @@ const Navbar: React.FC = () => {
   const router = useRouter();
   const [currentSection, setCurrentSection] = useState<string>('Dashboard');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,6 +23,32 @@ const Navbar: React.FC = () => {
 
     setCurrentSection(pathToTitle[router.pathname] || 'Dashboard');
   }, [router.pathname]);
+
+  interface UserData {
+    username: string;
+    userImage: string;
+    userLinkName: string;
+  }
+  
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = localStorage.getItem('userId');
+      if (!userId) return;
+
+      try {
+        const res = await fetch(`http://localhost:5000/api/profile/${userId}`);
+        if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+        const data = await res.json();
+        setUserData(data);
+      } catch (err) {
+        console.error('Error fetching user data', err);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+  
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -40,7 +67,7 @@ const Navbar: React.FC = () => {
         >
           <div className="w-10 h-10 rounded-full overflow-hidden  border-2  hover:scale-105 transition hover:border-pink-500">
             <Image
-              src="/assets/jay.jpg"
+              src={userData?.userImage || '/assets/jay.jpg'}
               alt="User Image"
               width={40}
               height={40}
@@ -81,14 +108,14 @@ const Navbar: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <p className="font-bold">Jay</p>
+                  <p className="font-bold">{userData?.username}</p>
                   <Link
                     className="text-[12px] cursor-pointer"
                     href="https://prettybio.netlify.app/okay"
                     target="_blank"
                   >
                     <p className="text-blue-500 hover:underline cursor-pointer">
-                      https://prettybio.netlify.app/okay
+                     {`https://prettybio.netlify.app/${userData?.userLinkName}`}
                     </p>
                   </Link>
                 </div>
