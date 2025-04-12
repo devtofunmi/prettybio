@@ -123,13 +123,14 @@ const Navbar: React.FC = () => {
                   <p className="font-bold">{userData?.username}</p>
                   <Link
                     className="text-[12px] cursor-pointer"
-                    href="https://prettybio.netlify.app/okay"
+                    href={`https://prettybio.netlify.app/${userData?.userLinkName}`}
                     target="_blank"
                   >
                     <p className="text-blue-500 hover:underline cursor-pointer">
-                     {`https://prettybio.netlify.app/${userData?.userLinkName}`}
+                      {`https://prettybio.netlify.app/${userData?.userLinkName}`}
                     </p>
                   </Link>
+
                 </div>
               </div>
             </div>
