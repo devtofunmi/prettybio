@@ -31,13 +31,24 @@ const Navbar: React.FC = () => {
   }
   
 
+  interface UserData {
+    username: string;
+    userImage: string;
+    userLinkName: string;
+  }
+  
   useEffect(() => {
     const fetchUserData = async () => {
-      const userId = localStorage.getItem('userId');
-      if (!userId) return;
-
+      const token = localStorage.getItem('accessToken');
+      if (!token) return;
+  
       try {
-        const res = await fetch(`http://localhost:5000/api/profile/${userId}`);
+        const res = await fetch('https://prettybio.up.railway.app/account/getaccount', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
         if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
         const data = await res.json();
         setUserData(data);
@@ -45,9 +56,10 @@ const Navbar: React.FC = () => {
         console.error('Error fetching user data', err);
       }
     };
-
+  
     fetchUserData();
   }, []);
+  
   
 
   const toggleModal = () => {
