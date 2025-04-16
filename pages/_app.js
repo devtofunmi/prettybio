@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import { useEffect } from 'react';
 import { initializeAOS } from '../utils/aos';
-import { ThemeProvider } from "next-themes"
+import { UserProvider } from '../context/UserContext';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -9,9 +9,9 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-  <ThemeProvider enableSystem={true} attribute="class">
-  <Component {...pageProps} />
-  </ThemeProvider>
+    <UserProvider>
+      <Component {...pageProps} />
+    </UserProvider>
   )
 }
 
