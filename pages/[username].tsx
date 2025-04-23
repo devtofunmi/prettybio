@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import Image from "next/image";
 import { useRouter } from "next/router";
