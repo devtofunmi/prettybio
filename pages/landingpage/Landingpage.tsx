@@ -1,154 +1,250 @@
+"use client";
+import { Palette, BarChart3, Share2 } from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "../../components/Footer";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 import Header from "../../components/Header";
-import { JSX } from "react";
+import Footer from "../../components/Footer";
 
-interface Feature {
-  id: string;
-  title: string;
-  desc: string;
-  img: string;
-}
+export default function HomePage() {
+  const [sliderRef] = useKeenSlider<HTMLDivElement>({
+    loop: true,
+    mode: "free",
+    slides: { perView: 6, spacing: 16 },
+    renderMode: "performance",
+    breakpoints: {
+      "(max-width: 1024px)": { slides: { perView: 3 } },
+      "(max-width: 640px)": { slides: { perView: 1.2 } },
+    },
+    created(slider) {
+      let timeout: NodeJS.Timeout;
+      let mouseOver = false;
 
-interface Testimonial {
-  text: string;
-  author: string;
-}
+      function clearNextTimeout() {
+        clearTimeout(timeout);
+      }
 
-export default function LandingPage(): JSX.Element {
-  const features: Feature[] = [
-    { id: "1", title: "Custom Themes", desc: "Pick a theme or design your own", img: "/themes.png" },
-    { id: "2", title: "Embed Apps", desc: "Embed your favorite apps and content", img: "/embed-apps.png" },
-    { id: "3", title: "Advanced Analytics", desc: "Track clicks, engagement & revenue", img: "/stats.png" },
-    { id: "4", title: "Fast & Secure", desc: "Optimized for performance", img: "/speed.png" },
-    { id: "5", title: "SEO Optimized", desc: "Get discovered faster", img: "/seo-optimized.png" },
-    { id: "6", title: "QR Code Generator", desc: "Share your bio with ease", img: "/qr-code.png" },
-  ];
+      function nextTimeout() {
+        clearTimeout(timeout);
+        if (mouseOver) return;
+        timeout = setTimeout(() => {
+          slider.next();
+        }, 2000);
+      }
 
-  const testimonials: Testimonial[] = [
-    { text: "PrettyBio has transformed how I share my content. It's simple and effective!", author: "Xing." },
-    { text: "A must-have tool for anyone looking to streamline their online presence.", author: "Josh." },
-    { text: "Finally, a bio link tool that’s fast and easy to use. I love it!", author: "Phantom." },
-    { text: "My followers love how easy it is to find all my links in one place!", author: "Mike." },
+      slider.on("created", () => {
+        slider.container.addEventListener("mouseover", () => {
+          mouseOver = true;
+          clearNextTimeout();
+        });
+        slider.container.addEventListener("mouseout", () => {
+          mouseOver = false;
+          nextTimeout();
+        });
+      });
+
+      slider.on("dragStarted", clearNextTimeout);
+      slider.on("animationEnded", nextTimeout);
+      slider.on("updated", nextTimeout);
+
+      nextTimeout();
+    },
+  });
+
+  const testimonials = [
+    { quote: "PrettyBio changed how I share my links online.", avatar: "https://i.pravatar.cc/100?img=1", name: "Alice" },
+    { quote: "A must-have tool for every creator.", avatar: "https://i.pravatar.cc/100?img=2", name: "Ben" },
+    { quote: "My bio page finally looks the way I want.", avatar: "https://i.pravatar.cc/100?img=3", name: "Clara" },
+    { quote: "Analytics gave me real insight into my traffic.", avatar: "https://i.pravatar.cc/100?img=4", name: "David" },
+    { quote: "Love the themes and customization options!", avatar: "https://i.pravatar.cc/100?img=5", name: "Ella" },
+    { quote: "Simple, clean, and effective.", avatar: "https://i.pravatar.cc/100?img=6", name: "Frank" },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white text-gray-900">
-      <Header />
-      <section className="text-center px-6 py-32 mt-20 flex flex-col items-center w-full">
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-6 leading-tight ">
-          Your Bio, Your Links, One Simple Page
-        </h1>
-        <p className="text-xl text-gray-600 mb-8">
-          Create and customize your personal link hub in seconds.
-        </p>
-        <Link
-          href="/authentication/Signup"
-          className="bg-gray-900 text-white px-8 py-3 rounded-full shadow-lg hover:bg-gray-800 text-lg"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative overflow-x-hidden bg-white text-black"
+    >
+      <nav className="fixed top-0 z-40 w-full bg-white/80 backdrop-blur-md px-6 py-4 flex justify-between items-center shadow-md">
+        <Header />
+      </nav>
+
+      {/* Hero Section */}
+      <section className="min-h-screen flex flex-col justify-center items-center text-center pt-32 px-4 bg-gradient-to-br from-purple-100 to-blue-100">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 40 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 1 }}
         >
-          Get Started
-        </Link>
-        <div  className="mt-12 w-full max-w-xl p-5 flex gap-5">
-        <div>
-          <Image
-            src="/assets/first_girl.jpg"
-            alt="Hero Image"
-            width={900}
-            height={800}
-            className="rounded-lg shadow-md w-full h-full"
-          />
-        </div>
-        <div className="gap-5 flex flex-col">
-        <Image
-            src="/assets/guy.jpg"
-            alt="Hero Image"
-            width={300}
-            height={200}
-            className="rounded-lg shadow-md w-full"
-          />
-          <Image
-            src="/assets/second_girl.jpg"
-            alt="Hero Image"
-            width={200}
-            height={100}
-            className="rounded-lg shadow-md w-full"
-          />
-        </div>
-        </div>
-       
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">
+            Your Bio, Your Links, One Simple Page
+          </h2>
+          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-gray-700">
+            Build a stunning, customizable bio page in minutes. Share all your links with style.
+          </p>
+          <Link href="/authentication/Signup" className="bg-gray-900 text-white px-8 py-3 rounded-full shadow-lg hover:bg-gray-800 text-lg">
+            Get Started
+          </Link>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="mt-12"
+        >
+          <Image src="/assets/linkbio.png" alt="PrettyBio UI" width={500} height={500} className="shadow-2xl" />
+        </motion.div>
       </section>
 
-      <section className="text-center py-16 bg-gray-100 w-full">
-        <h2 className="text-4xl font-bold text-gray-900 mb-6">Powerful Features, Built for Growth.</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
-          {features.map(({ id, title, desc, img }) => (
-            <div key={id} className="p-6 bg-white shadow-md rounded-lg border border-gray-300 text-center">
-              <Image src={img} alt={title} width={100} height={100} className="mx-auto mb-4" />
-              <h3 className="text-2xl font-semibold text-gray-800 mb-2">{title}</h3>
-              <p className="text-lg text-gray-600">{desc}</p>
-            </div>
-          ))}
-        </div>
+      {/* Features Section */}
+      <section className="py-24 px-6 bg-gray-50">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 40 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-5xl mx-auto text-center"
+        >
+          <h3 className="text-3xl font-bold mb-6 text-gray-900">Why PrettyBio?</h3>
+          <p className="mb-12 text-gray-600">
+            Packed with features designed for creators, brands and hustlers.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature Card 1 */}
+            {[{
+              icon: <Palette className="w-5 h-5" />,
+              title: "Custom Themes",
+              text: "Personalize your bio page with beautiful themes and styles that reflect you.",
+              bg: "bg-purple-100 text-purple-700"
+            }, {
+              icon: <BarChart3 className="w-5 h-5" />,
+              title: "Analytics",
+              text: "Track total views, clicks and discover what links your audience loves.",
+              bg: "bg-blue-100 text-blue-700"
+            }, {
+              icon: <Share2 className="w-5 h-5" />,
+              title: "Social Integrations",
+              text: "Connect all your socials in one place and make it easy for people to reach you.",
+              bg: "bg-green-100 text-green-700"
+            }].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ delay: i * 0.2, duration: 0.6 }}
+                className="bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-lg transition"
+              >
+                <div className={`flex items-center justify-center w-12 h-12 ${item.bg} rounded-full mb-4 mx-auto`}>
+                  {item.icon}
+                </div>
+                <h4 className="font-semibold text-lg text-gray-800 mb-2">{item.title}</h4>
+                <p className="text-gray-600 text-sm">{item.text}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
+      {/* Engagement Section */}
       <section className="py-16 px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 40 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.8 }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto items-center"
+        >
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Gain Insights, Optimize Engagement, and Drive Growth.
             </h2>
-            <p className="text-lg text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6">
               Monitor audience engagement, track revenue trends, and identify what drives conversions.
               Leverage real-time insights to optimize your strategy and keep your audience engaged.
             </p>
             <div className="mt-5">
-              <Link
-                href="/authentication/Signup"
-                className="bg-gray-900 text-white px-6 py-3 rounded-full shadow-lg hover:bg-gray-800 text-lg inline-block"
-              >
+              <Link href="/authentication/Signup" className="bg-gray-900 text-white px-6 py-3 rounded-full shadow-lg hover:bg-gray-800 text-lg inline-block">
                 Get Started for Free
               </Link>
             </div>
           </div>
-
           <div className="flex justify-center">
-            <Image
-              src="/assets/analytics.jpg"
-              alt="Analytics Image"
-              width={600}
-              height={400}
-              className="rounded-lg shadow-md h-[400px] w-full max-w-md lg:max-w-none"
-            />
+            <Image src="/assets/bg.png" alt="Analytics Image" width={300} height={300} className="rounded-lg shadow-md" />
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      <section className="bg-white py-16 text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-8">What Our Users Say</h2>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-6">
-          {testimonials.map(({ text, author }, index) => (
-            <div key={index} className="p-6 bg-gray-50 shadow-md rounded-lg">
-              <p className="text-gray-600 italic text-lg">{text}</p>
-              <p className="text-gray-800 font-semibold mt-4 text-xl">- {author}</p>
-            </div>
-          ))}
-        </div>
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-24 px-6 bg-gray-100">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-6xl mx-auto text-center"
+        >
+          <h3 className="text-3xl font-bold mb-10 text-gray-900">Loved by creators</h3>
+          <div ref={sliderRef} className="keen-slider gap-2 md:gap-0">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="keen-slider__slide bg-white border border-gray-200 p-6 rounded-xl shadow flex flex-col items-center text-center"
+              >
+                <Image src={t.avatar} alt={t.name} width={60} height={60} className="rounded-full mb-4" />
+                <p className="italic text-gray-700">“{t.quote}”</p>
+                <span className="block mt-2 font-semibold text-gray-900">{t.name}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
+      {/* Final CTA Section */}
       <section className="text-center py-16">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">Start Building Your Bio Page Today</h2>
         <div className="mt-10">
-          <Link href="/authentication/Signup" className="bg-yellow-500 text-white px-8 py-4 rounded-full shadow-lg hover:bg-yellow-600 text-lg ">
+          <Link href="/authentication/Signup" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-full shadow-lg hover:bg-indigo-700 transition text-lg">
             Sign Up Now
           </Link>
         </div>
       </section>
 
+      {/* Floating Action Button */}
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="fixed bottom-6 right-6 z-50"
+      >
+        <Link href="/authentication/Signup">
+          <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:scale-105 transition">
+            Try PrettyBio
+          </button>
+        </Link>
+      </motion.div>
+
       <Footer />
-    </div>
+    </motion.div>
   );
 }
+
+
 
 
 
