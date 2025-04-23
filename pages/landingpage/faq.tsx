@@ -50,6 +50,13 @@ const faqs = [
   },
 ];
 
+const fadeInUp = {
+  initial: { opacity: 0, y: 50 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -50 },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
+
 export default function FAQPage() {
   const [active, setActive] = useState<number | null>(null);
 
@@ -61,20 +68,33 @@ export default function FAQPage() {
     <div className="min-h-screen bg-white text-gray-900 flex flex-col">
       <Header />
 
-      {/* Hero */}
-      <section className="px-6 py-20 text-center bg-gradient-to-b from-pink-300 to-pink-200">
+      {/* Hero Section with Animation */}
+      <motion.section
+        className="px-6 py-20 text-center bg-gradient-to-b from-pink-300 to-pink-200"
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: false }}
+        transition={fadeInUp.transition}
+        variants={fadeInUp}
+      >
         <h1 className="text-5xl md:text-6xl font-extrabold mb-4 mt-16">Got Questions?</h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
           We’ve got answers. If you’re still wondering about something, this is a great place to start.
         </p>
-      </section>
+      </motion.section>
 
       {/* Accordion */}
       <section className="px-6 py-16 max-w-4xl mx-auto w-full">
-        {faqs.map((item) => (
-          <div
+        {faqs.map((item, idx) => (
+          <motion.div
             key={item.id}
             className="border-b border-gray-200 pb-4 mb-6"
+            initial="initial"
+            whileInView="animate"
+            exit="exit"
+            viewport={{ once: false }}
+            transition={{ duration: 0.4 + idx * 0.05 }}
+            variants={fadeInUp}
           >
             <button
               onClick={() => toggleActive(item.id)}
@@ -103,12 +123,19 @@ export default function FAQPage() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </motion.div>
         ))}
       </section>
 
-      {/* CTA */}
-      <section className="text-center px-6 py-20 bg-gradient-to-br from-[#f0f4ff] to-white">
+      {/* CTA Section with Animation */}
+      <motion.section
+        className="text-center px-6 py-20 bg-gradient-to-br from-[#f0f4ff] to-white"
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: false }}
+        transition={fadeInUp.transition}
+        variants={fadeInUp}
+      >
         <h2 className="text-4xl md:text-5xl font-bold mb-4">Still unsure?</h2>
         <p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
           Start exploring PrettyBio for free and see how easy it is to build your online presence.
@@ -119,11 +146,12 @@ export default function FAQPage() {
         >
           Try PrettyBio Now
         </Link>
-      </section>
+      </motion.section>
 
       <Footer />
     </div>
   );
 }
+
 
 

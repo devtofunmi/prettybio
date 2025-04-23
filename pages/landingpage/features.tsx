@@ -9,17 +9,17 @@ import { motion } from "framer-motion";
 
 const leftFeatures = [
   {
-    icon: <User className="" />,
+    icon: <User />,
     title: "Personal URL",
     description: "Create your personal PrettyBio URL and use it in your social bios.",
   },
   {
-    icon: <Link className="" />,
+    icon: <Link />,
     title: "Unlimited Links",
     description: "Add and edit as many links as you like, anytime.",
   },
   {
-    icon: <Palette className="" />,
+    icon: <Palette />,
     title: "Elegant & Customizable",
     description: "Give your bio page a clean, stylish look with customizable themes.",
   },
@@ -27,17 +27,17 @@ const leftFeatures = [
 
 const rightFeatures = [
   {
-    icon: <Lock className="" />,
+    icon: <Lock />,
     title: "Secure & Private",
     description: "We respect your privacy. No shady tracking or data selling.",
   },
   {
-    icon: <Share2 className="" />,
+    icon: <Share2 />,
     title: "Social First",
     description: "Link all your social accounts to one beautiful, optimized page.",
   },
   {
-    icon: <Globe className="" />,
+    icon: <Globe />,
     title: "Web-Based",
     description: "No installs needed. Works perfectly on any browser or device.",
   },
@@ -62,7 +62,7 @@ export default function FeaturesPage() {
         whileInView="whileInView"
         exit="exit"
         transition={fadeInUp.transition}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         variants={fadeInUp}
       >
         <h1 className="text-5xl md:text-6xl font-extrabold mb-4 mt-16">
@@ -86,14 +86,14 @@ export default function FeaturesPage() {
                 whileInView="whileInView"
                 exit="exit"
                 transition={{ duration: 0.5 + idx * 0.1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 variants={fadeInUp}
               >
                 <div className="text-right">
                   <h4 className="font-bold text-gray-900 text-lg">{feat.title}</h4>
                   <p className="text-gray-400 text-sm mt-2">{feat.description}</p>
                 </div>
-                <div className="bg-black/10 p-2 rounded-full w-10 h-10 ">{feat.icon}</div>
+                <div className="bg-black/10 p-2 rounded-full w-10 h-10">{feat.icon}</div>
               </motion.div>
             ))}
           </div>
@@ -105,7 +105,7 @@ export default function FeaturesPage() {
             whileInView="whileInView"
             exit="exit"
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             variants={fadeInUp}
           >
             <Image
@@ -127,10 +127,10 @@ export default function FeaturesPage() {
                 whileInView="whileInView"
                 exit="exit"
                 transition={{ duration: 0.5 + idx * 0.1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 variants={fadeInUp}
               >
-                <div className="bg-black/10 p-2 rounded-full w-10 h-10 ">{feat.icon}</div>
+                <div className="bg-black/10 p-2 rounded-full w-10 h-10">{feat.icon}</div>
                 <div>
                   <h4 className="font-bold text-gray-900 text-lg">{feat.title}</h4>
                   <p className="text-gray-400 text-sm mt-2">{feat.description}</p>
@@ -148,7 +148,7 @@ export default function FeaturesPage() {
         whileInView="whileInView"
         exit="exit"
         transition={fadeInUp.transition}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         variants={fadeInUp}
       >
         <h2 className="text-4xl md:text-5xl font-bold mb-4">Launch Your Online Presence</h2>
@@ -160,5 +160,6 @@ export default function FeaturesPage() {
     </div>
   );
 }
+
 
 
