@@ -6,11 +6,16 @@ import Navbar from "../../components/Navbar";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { useUser } from "../../context/UserContext";
+import api from "../../lib/api";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const { refetchUser } = useUser();
 
   const router = useRouter();
 
@@ -22,56 +27,83 @@ const Login: React.FC = () => {
     return true;
   };
 
+  type TokenPayload = {
+    sub: string;
+    exp: number;
+  };
+
   const handleLogin = async () => {
     if (!username || !password) {
       toast.error("Please enter both username and password.");
       return;
     }
   
-    const loginPromise = fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    }).then(async (res) => {
-      const data = await res.json();
-      console.log("User ID from login:", data.userId);
-      if (!res.ok) {
-        throw new Error(data.error || "Login failed.");
-      }        
-      localStorage.setItem("userId", data.userId);
-      return data;
+    const loginPromise = api.post("/auth/login", {
+      username,
+      password,
+    }).then((res) => {
+      const { accessToken } = res.data;
+  
+      if (
+        !accessToken ||
+        typeof accessToken !== "string" ||
+        accessToken.split(".").length !== 3
+      ) {
+        throw new Error("Received malformed or missing access token.");
+      }
+  
+      let decoded: TokenPayload;
+      try {
+        decoded = jwtDecode(accessToken);
+      } catch (err) {
+        throw new Error("Failed to decode access token.");
+      }
+  
+      const userId = decoded.sub;
+      if (!userId) {
+        throw new Error("User ID not found in token.");
+      }
+  
+      localStorage.setItem("accessToken", accessToken);
+  
+      return { accessToken, userId };
     });
   
-    toast.promise(loginPromise, {
-      loading: "Logging in...",
-      success: (data) => {
-        fetch(`http://localhost:5000/api/auth/user/${data.userId}`)
-        
-          .then((userRes) => userRes.json())
-          .then((userData) => {
-            setTimeout(() => {
-              if (!userData.setup_complete) {
-                router.push("/authentication/Setup");
-              } else {
-                router.push("/dashboard");
-              }
-            }, 1500);
-          })
-          .catch(() => {
-            toast.error("Failed to fetch user profile.");
+    toast
+      .promise(loginPromise, {
+        loading: "Logging in...",
+        success: "Login successful! Redirecting...",
+        error: (err) => err.message || "Login failed. Please try again.",
+      })
+      .then(async ({ accessToken }) => {
+        try {
+          //  Call refetchUser to update context before routing
+          await refetchUser();
+  
+          // Optional: If needed, re-fetch or rely on context
+          const profileRes = await api.get(`/account`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           });
-
-        return "Login successful! Redirecting...";
-      },
-      error: (err) => err.message || "Login failed. Please try again.",
-    });
+  
+          const user = profileRes.data.user;
+  
+          setTimeout(() => {
+            if (!user?.setup_complete) {
+              router.push("/authentication/Setup");
+            } else {
+              router.push("/dashboard");
+            }
+          }, 1500);
+        } catch (err) {
+          toast.error("Failed to fetch user profile.");
+          console.error("Fetch profile error:", err);
+        }
+      });
   };
-
   
   
-
   const handleSubmit = () => {
     if (!validateForm()) return;
 
@@ -142,7 +174,7 @@ const Login: React.FC = () => {
 
       <div className="hidden lg:block w-1/2 relative">
         <Image
-          src="https://media.istockphoto.com/id/2174175055/photo/a-businessman-use-generative-engine-optimization-on-his-smartphone-to-view-search-results.webp?s=1024x1024&w=is&k=20&c=HCEOpEPqIJq8a0awaQlbKOVu5eFg4TYkhr9hmHYKD0A="
+          src="/assets/linkbio.png"
           alt="Login Illustration"
           layout="fill"
           objectFit="cover"
