@@ -55,7 +55,6 @@ export default function FeaturesPage() {
     <div className="min-h-screen bg-white text-gray-900 flex flex-col">
       <Header />
 
-      {/* Hero */}
       <motion.section
         className="px-6 py-20 text-center bg-gradient-to-b from-pink-300 to-pink-200"
         initial="initial"
@@ -141,7 +140,6 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <motion.section
         className="text-center px-6 py-20 bg-gradient-to-br from-[#f0f4ff] to-white"
         initial="initial"
