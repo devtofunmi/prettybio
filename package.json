@@ -35,7 +35,9 @@
     "tailwindcss-dark-mode": "^1.1.7"
   },
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "@types/react": "^19.1.2",
-    "@types/recharts": "^1.8.29"
+    "@types/recharts": "^1.8.29",
+    "typescript": "^5.8.3"
   }
 }
