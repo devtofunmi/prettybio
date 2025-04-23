@@ -1,51 +1,164 @@
-import Image from "next/image";
+"use client";
 import React from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import UserInput from "../../components/UserInput.jsx";
+import { User, Link, Palette, Lock, Share2, Globe } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
+const leftFeatures = [
+  {
+    icon: <User className="" />,
+    title: "Personal URL",
+    description: "Create your personal PrettyBio URL and use it in your social bios.",
+  },
+  {
+    icon: <Link className="" />,
+    title: "Unlimited Links",
+    description: "Add and edit as many links as you like, anytime.",
+  },
+  {
+    icon: <Palette className="" />,
+    title: "Elegant & Customizable",
+    description: "Give your bio page a clean, stylish look with customizable themes.",
+  },
+];
 
+const rightFeatures = [
+  {
+    icon: <Lock className="" />,
+    title: "Secure & Private",
+    description: "We respect your privacy. No shady tracking or data selling.",
+  },
+  {
+    icon: <Share2 className="" />,
+    title: "Social First",
+    description: "Link all your social accounts to one beautiful, optimized page.",
+  },
+  {
+    icon: <Globe className="" />,
+    title: "Web-Based",
+    description: "No installs needed. Works perfectly on any browser or device.",
+  },
+];
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 50 },
+  whileInView: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -50 },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
 
 export default function FeaturesPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <div className=" text-gray-900 px-6 py-24">
-             <Header />     
-      <h1 className="text-4xl font-bold text-center mb-10">Why PrettyBio?</h1>
-       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
-                {[
-                  { id: "themes", title: "Custom Themes", desc: "Pick a theme or design your own", img: "/themes.png" },
-                  { id: "embed-apps", title: "Embed Apps", desc: "Embed your favorite apps and content", img: "/embed-apps.png" },
-                  { id: "stats", title: "Advanced Analytics", desc: "Track clicks, engagement & revenue", img: "/stats.png" },
-                  { id: "speed", title: "Fast & Secure", desc: "Optimized for performance", img: "/speed.png" },
-                  { id: "seo-optimized", title: "SEO Optimized", desc: "Get discovered faster", img: "/seo-optimized.png" },
-                  { id: "qr-code", title: "QR Code Generator", desc: "Share your bio with ease", img: "/qr-code.png" },
-                  { id: "custom-links", title: "Custom Links", description: "Easily personalize your bio page with unique links and styles.", img: "/custom.png" },
-                  { id: "analytics", title: "Analytics", description: "Track clicks and engagement with built-in analytics.", img: "/analytics.png" },
-                  { id: "mobile-friendly", title: "Mobile Friendly", description: "Optimized for all devices, ensuring a seamless experience.", img: "/mobile.png" },
+    <div className="min-h-screen bg-white text-gray-900 flex flex-col">
+      <Header />
 
-                ].map(({ id, title, desc, img }) => (
-                  <div key={id} className="p-6 bg-white shadow-md rounded-lg border border-gray-300 text-center">
-                    <Image src={img} alt={title} width={100} height={100} className="mx-auto mb-4" />
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-2">{title}</h3>
-                    <p className="text-lg text-gray-600">{desc}</p>
-                  </div>
-                ))}
-              </div>
-    </div>
-    <div>
-      <h1 className="text-gray-900 text-5xl font-bold text-center ">
-      Launch Your Online Presence 
-      </h1>
-      <h1 className="text-gray-900 mt-3  text-5xl font-bold text-center mb-10 ">
-     with Confidence Today
-      </h1>
-      <div>
+      {/* Hero */}
+      <motion.section
+        className="px-6 py-20 text-center bg-gradient-to-b from-pink-300 to-pink-200"
+        initial="initial"
+        whileInView="whileInView"
+        exit="exit"
+        transition={fadeInUp.transition}
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-4 mt-16">
+          Everything You Need in One Bio Link
+        </h1>
+        <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+          PrettyBio helps you stand out with customizable design, analytics, and link management that’s actually fun to use.
+        </p>
+      </motion.section>
+
+      {/* Features */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between">
+          {/* Left Features */}
+          <div className="space-y-10 flex-1">
+            {leftFeatures.map((feat, idx) => (
+              <motion.div
+                key={idx}
+                className="flex items-start justify-between gap-8"
+                initial="initial"
+                whileInView="whileInView"
+                exit="exit"
+                transition={{ duration: 0.5 + idx * 0.1 }}
+                viewport={{ once: true }}
+                variants={fadeInUp}
+              >
+                <div className="text-right">
+                  <h4 className="font-bold text-gray-900 text-lg">{feat.title}</h4>
+                  <p className="text-gray-400 text-sm mt-2">{feat.description}</p>
+                </div>
+                <div className="bg-black/10 p-2 rounded-full w-10 h-10 ">{feat.icon}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Center Image */}
+          <motion.div
+            className="hidden md:flex justify-center flex-1"
+            initial="initial"
+            whileInView="whileInView"
+            exit="exit"
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <Image
+              src="/assets/bg.png"
+              alt="PrettyBio Preview"
+              className="w-[250px] h-auto rounded-xl border border-gray-700 shadow-lg"
+              width={300}
+              height={300}
+            />
+          </motion.div>
+
+          {/* Right Features */}
+          <div className="space-y-10 flex-1 mt-16 md:mt-0">
+            {rightFeatures.map((feat, idx) => (
+              <motion.div
+                key={idx}
+                className="flex items-start gap-8"
+                initial="initial"
+                whileInView="whileInView"
+                exit="exit"
+                transition={{ duration: 0.5 + idx * 0.1 }}
+                viewport={{ once: true }}
+                variants={fadeInUp}
+              >
+                <div className="bg-black/10 p-2 rounded-full w-10 h-10 ">{feat.icon}</div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-lg">{feat.title}</h4>
+                  <p className="text-gray-400 text-sm mt-2">{feat.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <motion.section
+        className="text-center px-6 py-20 bg-gradient-to-br from-[#f0f4ff] to-white"
+        initial="initial"
+        whileInView="whileInView"
+        exit="exit"
+        transition={fadeInUp.transition}
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">Launch Your Online Presence</h2>
+        <h3 className="text-4xl md:text-5xl font-bold text-indigo-600 mb-10">With Confidence Today</h3>
         <UserInput />
-      </div>
+      </motion.section>
+
+      <Footer />
     </div>
-    <Footer />
-    </div>
-    
   );
 }
+
+
