@@ -6,13 +6,14 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import Navbar from "../../components/Navbar";
 import Image from "next/image";
 import { Toaster, toast } from "react-hot-toast";
+import axios from "axios";
 
 const Setup: React.FC = () => {
-  const [userImage, setUserImage] = useState<string>("");
+  const [image, setUserImage] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
-  const [userLinkName, setUserLinkName] = useState<string>("");
+  const [user_link_name, setUserLinkName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
 
   const router = useRouter();
@@ -68,57 +69,48 @@ const Setup: React.FC = () => {
     }
   };
 
-  const setUp = async () => {
-    setLoading(true);
-  
-    if (!userImage || !name || !userLinkName || !bio) {
-      toast.error("All fields are required.");
-      setLoading(false);
-      return;
-    }
-  
-    try {
-      const userId = localStorage.getItem("userId");
+   const api = axios.create({
+      baseURL: "https://prettybioo.up.railway.app",
+    });
 
-      if (!userId) {
-        throw new Error("User ID not found");
+    const setUp = async () => {
+      setLoading(true);
+    
+      if (!image || !name || !user_link_name || !bio) {
+        toast.error("All fields are required.");
+        setLoading(false);
+        return;
       }
-  
-      const response = await fetch(`http://localhost:5000/api/auth/setup/${userId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userImage: userImage,
+    
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) throw new Error("No access token found.");
+    
+        const response = await api.patch("/auth/setup", {
+          image,
           name,
           bio,
-          userLinkName,
+          user_link_name,
           setup_complete: true,
-        }),
-      });
-  
-      const result = await response.json();
-  
-      if (!response.ok) {
-        throw new Error(result.error || "Setup failed");
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+    
+        toast.success("Setup successful!");
+    
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 2000);
+      } catch (error: any) {
+        console.error("Error during setup:", error);
+        toast.error(error.response?.data?.error || "Error during setup.");
       }
-  
-      toast.success("Setup successful!");
-  
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 2000);
-  
-    } catch (error) {
-      console.error("Error during setup:", error);
-      toast.error("Error during setup.");
-    }
-  
-    setLoading(false);
-  };
-  
-
+    
+      setLoading(false);
+    };
+      
   const handleSubmit = () => {
     setUp();
   };
@@ -139,9 +131,9 @@ const Setup: React.FC = () => {
               className="relative w-32 h-32 border-2 border-pink-400 border-dashed rounded-full flex items-center justify-center cursor-pointer"
               onClick={handleButtonClick}
             >
-              {userImage ? (
-                <img
-                  src={userImage}
+              {image ? (
+                <Image
+                  src={image}
                   alt="Uploaded"
                   className="w-full h-full rounded-full object-cover"
                 />
@@ -172,7 +164,7 @@ const Setup: React.FC = () => {
                 type="text"
                 placeholder="yourname"
                 className="flex-1 py-3 bg-transparent focus:outline-none"
-                value={userLinkName}
+                value={user_link_name}
                 onChange={(e) => setUserLinkName(e.target.value)}
               />
             </div>
@@ -191,7 +183,7 @@ const Setup: React.FC = () => {
               <button
                 className="w-full px-6 py-3 bg-transparent text-lg font-bold text-gray-800 hover:text-white"
                 onClick={handleSubmit}
-                disabled={loading || !userImage || !name || !bio || !userLinkName}
+                disabled={loading || !image || !name || !bio || !user_link_name}
               >
                 {loading ? <LoadingSpinner /> : "Continue"}
               </button>
@@ -202,7 +194,7 @@ const Setup: React.FC = () => {
 
       <div className="hidden lg:block w-1/2 relative">
         <Image
-          src="https://media.istockphoto.com/id/2174175055/photo/a-businessman-use-generative-engine-optimization-on-his-smartphone-to-view-search-results.webp?s=1024x1024&w=is&k=20&c=HCEOpEPqIJq8a0awaQlbKOVu5eFg4TYkhr9hmHYKD0A="
+          src="/assets/linkbio.png"
           alt="Setup Illustration"
           layout="fill"
           objectFit="cover"
