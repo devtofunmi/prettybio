@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { FaLink, FaChartBar, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import router from 'next/router';
+import toast from 'react-hot-toast';
 
 const Sidebar: React.FC = () => {
   return (
@@ -20,7 +22,13 @@ const Sidebar: React.FC = () => {
             <Link href="/dashboard/settings/settings" className="flex items-center gap-4 py-3 hover:bg-gray-700 px-4 rounded-lg">
               <FaCog /> Settings
             </Link>
-            <Link href="/logout" className="flex items-center gap-4 py-3 hover:bg-red-600 px-4 rounded-lg">
+            <Link 
+              onClick={() => {
+                    localStorage.removeItem('accessToken');
+                    toast.success('You’ve been logged out!');
+                    router.push('/authentication/Login');
+                  }}
+               href="/authentication/Login" className="flex items-center gap-4 py-3 hover:bg-red-600 px-4 rounded-lg">
               <FaSignOutAlt /> Logout
             </Link>
           </nav>
@@ -37,7 +45,7 @@ const Sidebar: React.FC = () => {
           <FaChartBar className="text-lg" />
           <span className="text-xs">Analytics</span>
         </Link>
-        <Link href="/dashboard/settings/+settings" className="flex flex-col items-center">
+        <Link href="/dashboard/settings/settings" className="flex flex-col items-center">
           <FaCog className="text-lg" />
           <span className="text-xs">Settings</span>
         </Link>
