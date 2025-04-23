@@ -3,67 +3,167 @@ import { AiOutlineShareAlt } from "react-icons/ai";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import ShareModal from "../components/ShareModal";
-import { FaTwitter, FaInstagram, FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
+import LoadingSpinner from "../components/LoadingSpinner";
+import {
+  FaTwitter,
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
+  FaGithub,
+  FaYoutubeSquare,
+  FaPinterest,
+  FaReddit,
+  FaTiktok,
+  FaWhatsapp,
+} from "react-icons/fa";
 
-const mockUser = {
-  username: "Jay",
-  bio: "Building awesome things with code 🚀",
-  image: "/assets/jay.jpg",
-  links: [
-    { id: "1", link_name: "GitHub", link_url: "https://github.com" },
-    { id: "2", link_name: "LinkedIn", link_url: "https://linkedin.com" },
-    { id: "3", link_name: "Portfolio", link_url: "https://johndoe.com" },
-  ],
-  socials: [
-    { id: "1", platform: "Twitter", url: "https://twitter.com/codebreak_er", icon: <FaTwitter /> },
-    { id: "2", platform: "Instagram", url: "https://instagram.com/iamnattyjay", icon: <FaInstagram /> },
-    { id: "3", platform: "Facebook", url: "https://facebook.com/jay", icon: <FaFacebook /> },
-    { id: "4", platform: "LinkedIn", url: "https://linkedin.com/in/jay", icon: <FaLinkedin /> },
-    { id: "5", platform: "GitHub", url: "https://github.com/devtofunmi", icon: <FaGithub /> },
-  ],
+const platformIcons: Record<string, JSX.Element> = {
+  Twitter: <FaTwitter />,
+  Instagram: <FaInstagram />,
+  Facebook: <FaFacebook />,
+  LinkedIn: <FaLinkedin />,
+  GitHub: <FaGithub />,
+  Youtube: <FaYoutubeSquare />,
+  Pinterest: <FaPinterest />,
+  Reddit: <FaReddit />,
+  TikTok: <FaTiktok />,
+  WhatsApp: <FaWhatsapp />,
+};
+
+const themes: Record<
+  string,
+  { bg: string; text: string; linkBg: string; linkText: string }
+> = {
+  light: {
+    bg: "bg-white",
+    text: "text-black",
+    linkBg: "bg-gray-100",
+    linkText: "text-black",
+  },
+  dark: {
+    bg: "bg-[#202125]",
+    text: "text-white",
+    linkBg: "bg-[#202125]",
+    linkText: "text-white",
+  },
+  ocean: {
+    bg: "bg-teal-700",
+    text: "text-white",
+    linkBg: "bg-teal-600",
+    linkText: "text-white",
+  },
+  forest: {
+    bg: "bg-green-800",
+    text: "text-white",
+    linkBg: "bg-green-700",
+    linkText: "text-white",
+  },
+  sunset: {
+    bg: "bg-red-600",
+    text: "text-white",
+    linkBg: "bg-red-700",
+    linkText: "text-white",
+  },
+  lavender: {
+    bg: "bg-indigo-600",
+    text: "text-white",
+    linkBg: "bg-indigo-500",
+    linkText: "text-white",
+  },
 };
 
 const Profile: React.FC = () => {
   const router = useRouter();
-  const { username } = router.query;
+  const { username: userLinkName } = router.query;
 
   const [shareModal, setShareModal] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [userData, setUserData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (!userLinkName) return;
 
-  if (!mounted) return null;
+    const fetchUserData = async () => {
+      try {
+        const res = await fetch(
+          `https://prettybioo.up.railway.app/profile/${userLinkName}`
+        );
+        const data = await res.json();
 
-  const shareUrl = `https://prettybio.netlify.app/${mockUser.username}`;
+        if (res.ok) {
+          setUserData(data);
+        } else {
+          router.push("/404");
+        }
+      } catch (err) {
+        // console.error("Fetch error:", err);
+        router.push("/404");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [userLinkName, router]);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+
+  if (!userData) return null;
+
+  const shareUrl = `https://prettybio.netlify.app/${userLinkName}`;
+  const theme = themes[userData.theme] || themes.light;
+
+  const socialLinks = userData.socials?.length ? (
+    <div
+      className={`flex justify-center space-x-4 ${
+        userData.socialPosition === "top" ? "mt-4" : "mt-6"
+      }`}
+    >
+      {userData.socials.map((social: any) => (
+        <a
+          key={social.id}
+          href={social.url}
+          target="_blank"
+          rel="noreferrer"
+          className={`${theme.text} hover:scale-110 transition transform duration-300 text-3xl`}
+        >
+          {platformIcons[social.platform]}
+        </a>
+      ))}
+    </div>
+  ) : null;
 
   return (
-    <div className="h-screen  md:h-full bg-gray-100 flex md:justify-center p-5">
-      <div className="w-full max-w-xl p-6 text-center">
+    <div
+      className={`min-h-screen ${theme.bg} ${theme.text} flex flex-col p-4`}
+    >
+      <div className="fixed top-5 left-5 lg:left-[300px] z-50">
+        <button
+          className={`${theme.text} hover:scale-105 transition rounded-full shadow-md w-10 h-10 flex items-center justify-center`}
+          onClick={() => setShareModal(true)}
+        >
+          <AiOutlineShareAlt size={24} />
+        </button>
+      </div>
 
-     
-        <div className="bg-white rounded-full flex justify-center shadow-md w-10 h-10">
-          <button
-            className="text-black hover:scale-105 transition"
-            onClick={() => setShareModal(true)}
-          >
-            <AiOutlineShareAlt size={24} />
-          </button>
-        </div>
+      {shareModal && (
+        <ShareModal
+          theme={theme}
+          onClose={() => setShareModal(false)}
+          shareUrl={shareUrl}
+        />
+      )}
 
-        
-        {shareModal && (
-          <ShareModal
-            onClose={() => setShareModal(false)}
-            shareUrl={shareUrl}
-          />
-        )}
-
-        
-        <div className="w-28 h-28 rounded-full shadow-md overflow-hidden mx-auto mt-8">
+      
+      <main className="flex-grow flex flex-col items-center text-center max-w-xl mx-auto w-full">
+        <div className="w-28 h-28 rounded-full shadow-md overflow-hidden mt-16">
           <Image
-            src={mockUser.image}
+            src={userData.image || "/default-profile.png"}
             alt="User"
             width={112}
             height={112}
@@ -71,56 +171,43 @@ const Profile: React.FC = () => {
           />
         </div>
 
-        <h1 className="text-2xl text-black font-bold mt-4">
-          {mockUser.username}
-        </h1>
-        <p className="text-black mt-2">{mockUser.bio}</p>
+        <h1 className="text-2xl font-bold mt-4">{userData.username}</h1>
+        <p className="mt-2">{userData.bio}</p>
+   
+        {userData.socialPosition === "top" && socialLinks}
 
-        
-        <div className="flex justify-center space-x-4 mt-4">
-          {mockUser.socials.map((social) => (
-            <a
-              key={social.id}
-              href={social.url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-black hover:scale-110 transition transform duration-300"
-            >
-              <span className="text-3xl">{social.icon}</span>
-            </a>
-          ))}
+        {userData.links?.length > 0 && (
+          <div className="mt-6 mb-5 space-y-4 px-4 w-full">
+            {userData.links.map((link: any) => (
+              <a
+                key={link.id}
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className={`block ${theme.linkBg} ${theme.linkText} shadow-md py-3 px-6  rounded-full text-[18px] hover:scale-105 transition duration-300`}
+              >
+                {link.title}
+              </a>
+            ))}
+          </div>
+        )}
+
+        <div className="mb-5">
+        {userData.socialPosition === "bottom" && socialLinks}
         </div>
 
-       
-        <div className="mt-6 space-y-4">
-          {mockUser.links.map((link) => (
-            <a
-              key={link.id}
-              href={link.link_url}
-              target="_blank"
-              rel="noreferrer"
-              className="block bg-white shadow-md text-black py-3 px-6 rounded-full text-[18px] hover:scale-105 transition duration-300"
-            >
-              {link.link_name}
-            </a>
-          ))}
-        </div>
+      </main>
 
-       
-        <footer className="mt-20">
-          <a
-            href="http://prettybio.netlify.app"
-            className="text-sm text-gray-500 hover:text-black"
-          >
-            PrettyBio
-          </a>
-        </footer>
-      </div>
+      <footer className="text-center pb-4">
+        <a
+          href="http://prettybio.netlify.app"
+          className={`text-sm ${theme.linkText} hover:underline transition duration-300`}
+        >
+          PrettyBio
+        </a>
+      </footer>
     </div>
   );
 };
 
 export default Profile;
-
-
-
