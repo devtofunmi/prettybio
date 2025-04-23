@@ -6,7 +6,7 @@ const Navbar: FC = () => {
     <div className="flex bg-white">
       <div>
         <Link href="/">
-          <h2 className="text-2xl font-bold text-gray-800">PrettyBio</h2>
+          <h2 className="text-xl font-bold text-gray-800">PrettyBio</h2>
         </Link>
       </div>
     </div>
