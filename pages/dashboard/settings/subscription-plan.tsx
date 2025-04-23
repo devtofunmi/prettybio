@@ -16,7 +16,7 @@ const SubscriptionPlan: React.FC = () => {
             </GradientBorder>
             <p className="text-gray-600 font-bold">$0 per month</p>
           </div>
-          <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+          <button disabled className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
             Upgrade
           </button>
         </div>
@@ -38,7 +38,7 @@ const SubscriptionPlan: React.FC = () => {
             Deleting your account permanently deletes your page and all your data.
           </p>
 
-          <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition">
+          <button disabled className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition">
             Delete Account
           </button>
         </div>
