@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineLink } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { FaTwitter, FaFacebook, FaEnvelope } from "react-icons/fa";
 
 interface ShareModalProps {
   onClose: () => void;
   shareUrl: string;
+  theme: {
+    bg: string;
+    text: string;
+    linkBg: string;
+    linkText: string;
+  };
 }
 
-const ShareModal: React.FC<ShareModalProps> = ({ onClose, shareUrl }) => {
+const ShareModal: React.FC<ShareModalProps> = ({ onClose, shareUrl, theme }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -38,23 +44,22 @@ const ShareModal: React.FC<ShareModalProps> = ({ onClose, shareUrl }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className="bg-white text-black w-96 rounded-lg shadow-lg p-6 relative">
-        
+      <div className={`w-96 rounded-lg shadow-lg p-6 relative ${theme.bg} ${theme.text}`}>
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          className="absolute top-4 right-4"
         >
           <AiOutlineClose size={20} />
         </button>
 
         <h2 className="text-lg font-semibold mb-4">Share this biolink</h2>
 
-        <div className="flex items-center justify-between border p-3 rounded-md shadow-sm">
+        <div className={`flex items-center justify-between border p-3 rounded-md shadow-sm ${theme.linkBg}`}>
           <input
             type="text"
             readOnly
             value={shareUrl}
-            className="w-full bg-white text-sm p-2 outline-none"
+            className={`w-full ${theme.bg} text-sm p-2 outline-none ${theme.text}`}
           />
           <button
             className="ml-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
@@ -64,7 +69,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ onClose, shareUrl }) => {
           </button>
         </div>
 
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-between mt-4  gap-2">
           <button
             onClick={shareOnTwitter}
             className="flex items-center gap-2 bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 transition"
