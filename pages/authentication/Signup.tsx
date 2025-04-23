@@ -57,6 +57,25 @@ const Signup: React.FC = () => {
   const SignUp = async () => {
     if (!validateForm()) return;
   
+    //  Password validation
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
+  
+    const hasNumber = /\d/.test(password);
+    const hasLetter = /[a-zA-Z]/.test(password);
+  
+    if (!hasNumber || !hasLetter) {
+      toast.error("Password must contain at least one letter and one number.");
+      return;
+    }
+  
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+  
     setLoading(true);
   
     const formData = {
@@ -64,10 +83,10 @@ const Signup: React.FC = () => {
       username,
       password,
       confirmPassword,
-      setup_complete: false, 
+      setup_complete: false,
     };
-    
-    const signUpPromise = fetch("http://localhost:5000/api/auth/signup", {
+  
+    const signUpPromise = fetch("https://prettybioo.up.railway.app/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -189,7 +208,7 @@ const Signup: React.FC = () => {
       
       <div className="hidden lg:block w-1/2 relative">
         <Image
-          src="https://media.istockphoto.com/id/2174175055/photo/a-businessman-use-generative-engine-optimization-on-his-smartphone-to-view-search-results.webp?s=1024x1024&w=is&k=20&c=HCEOpEPqIJq8a0awaQlbKOVu5eFg4TYkhr9hmHYKD0A="
+          src="/assets/linkbio.png"
           alt="Signup Illustration"
           layout="fill"
           objectFit="cover"
