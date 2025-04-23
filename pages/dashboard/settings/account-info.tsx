@@ -12,10 +12,10 @@ const AccountInfoPage: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [bio, setBio] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [userLinkName, setUserLinkName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [username, setUserName] = useState<string>("");
 
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -71,24 +71,73 @@ const AccountInfoPage: React.FC = () => {
     }
   };
 
-  const handleSaveChanges = () => {
-    if (!image) {
-      toast.error("Please upload an image.");
-      return;
+  const handleSaveChanges = async () => {
+    const updates: Record<string, string> = {};
+  
+    if (name.trim()) updates.name = name.trim();
+    if (bio.trim()) updates.bio = bio.trim();
+    if (userLinkName.trim()) updates.userLinkName = userLinkName.trim();
+    if (image.trim()) updates.image = image.trim();
+    if (username.trim()) updates.username = username.trim();
+  
+    if (password.trim()) {
+      if (password.length < 6) {
+        return toast.error("Password must be at least 6 characters.");
+      }
+  
+      const hasNumber = /\d/.test(password);
+      const hasLetter = /[a-zA-Z]/.test(password);
+  
+      if (!hasNumber || !hasLetter) {
+        return toast.error("Password must contain at least one letter and one number.");
+      }
+  
+      updates.password = password;
     }
-    if (!bio || !username || !email || !password || !name) {
-      toast.error("All fields are required.");
-      return;
+  
+    if (Object.keys(updates).length === 0) {
+      return toast.error("No changes made.");
     }
-
+  
     setLoading(true);
+  
+    try {
+      const token = localStorage.getItem("accessToken");
+  
+      if (!token) {
+        throw new Error("No token found.");
+      }
+  
+      const res = await fetch(`https://prettybioo.up.railway.app/account`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updates),
+      });
+  
+      if (!res.ok) throw new Error("Failed to update account.");
+  
+      const data = await res.json();
+      toast.success(data.message || "Changes saved!");
+  
+      //  Reset only updated fields
+      if (updates.name) setName("");
+      if (updates.bio) setBio("");
+      if (updates.userLinkName) setUserLinkName("");
+      if (updates.image) setImage("");
+      if (updates.password) setPassword("");
 
-    setTimeout(() => {
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to save changes.");
+    } finally {
       setLoading(false);
-      toast.success("Changes saved successfully!");
-    }, 2000);
+    }
   };
-
+  
+  
   return (
     <DashboardLayout>
       <Toaster />
@@ -126,6 +175,18 @@ const AccountInfoPage: React.FC = () => {
               </div>
             </div>
 
+            <div className="border p-4 rounded-lg hover:shadow-md mt-5">
+              <input
+                type="text"
+                placeholder="Change name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="mt-2 bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
+              />
+            </div>
+
+          
+
             
             <div className="border p-4 rounded-lg hover:shadow-md mt-5">
               <input
@@ -140,22 +201,24 @@ const AccountInfoPage: React.FC = () => {
             <div className="border p-4 rounded-lg hover:shadow-md mt-5">
               <input
                 type="text"
+                placeholder="Change userlinkname"
+                value={userLinkName}
+                onChange={(e) => setUserLinkName(e.target.value)}
+                className="mt-2 bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
+              />
+            </div>
+            
+            <div className="border p-4 rounded-lg hover:shadow-md mt-5">
+              <input
+                type="text"
                 placeholder="Change username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={name}
+                onChange={(e) => setUserName(e.target.value)}
                 className="mt-2 bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               />
             </div>
 
-            <div className="border p-4 rounded-lg hover:shadow-md mt-5">
-              <input
-                type="email"
-                placeholder="Change email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-2 bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
-              />
-            </div>
+            
 
             <div className="border p-4 rounded-lg hover:shadow-md mt-5">
               <input
@@ -167,15 +230,9 @@ const AccountInfoPage: React.FC = () => {
               />
             </div>
 
-            <div className="border p-4 rounded-lg hover:shadow-md mt-5">
-              <input
-                type="text"
-                placeholder="Change name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="mt-2 bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
-              />
-            </div>
+           
+
+           
 
           
             <div className="mb-20 mt-5">
