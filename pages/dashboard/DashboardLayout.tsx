@@ -2,6 +2,8 @@ import Sidebar from '../../components/Sidebar';
 import MobilePreview from '../../components/MobilePreview';
 import { ReactNode } from 'react';
 import Navbar from './navbar';
+import { useUser } from '../../context/UserContext';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -12,8 +14,15 @@ interface DashboardLayoutProps {
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
   showMobilePreview = false,
-  userLinkName = 'your-username',
 }) => {
+  const { user, loading } = useUser();
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
   return (
     <div className="flex min-h-screen bg-gray-50 relative">
       <Sidebar />
@@ -26,9 +35,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           {showMobilePreview && (
             <div>
               <div className="lg:hidden order-1 mb-8 bg-gray-50">
-                <h3 className="text-lg font-semibold mb-4">Mobile Preview</h3>
-                <div>
-                  <MobilePreview userLinkName={userLinkName} />
+                <div className='mt-5'>
+                  <MobilePreview userLinkName={user?.userLinkName} />
                 </div>
               </div>
             </div>
@@ -44,9 +52,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       {showMobilePreview && (
         <div className="hidden lg:block w-80 h-screen text-gray-800 bg-white shadow-md fixed right-0 top-0 z-10">
           <div className="p-4 h-full flex flex-col">
-            <h3 className="text-lg font-semibold mb-4">Mobile Preview</h3>
-            <div className="flex-1">
-              <MobilePreview userLinkName={userLinkName} />
+            <div className="flex-1 mt-5">
+              <MobilePreview userLinkName={user?.userLinkName} />
             </div>
           </div>
         </div>
