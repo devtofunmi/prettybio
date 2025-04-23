@@ -16,7 +16,7 @@ const leftFeatures = [
   {
     icon: <Link />,
     title: "Unlimited Links",
-    description: "Add and edit as many links as you like, anytime.",
+    description: "Add as many links as you like, anytime.",
   },
   {
     icon: <Palette />,
