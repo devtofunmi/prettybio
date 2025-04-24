@@ -44,7 +44,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ onClose, shareUrl, theme }) => 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className={`w-96 rounded-lg shadow-lg p-6 relative ${theme.bg} ${theme.text}`}>
+      <div className={`md:w-96 w-80 rounded-lg shadow-lg p-6 relative ${theme.bg} ${theme.text}`}>
         <button
           onClick={onClose}
           className="absolute top-4 right-4"
@@ -74,21 +74,21 @@ const ShareModal: React.FC<ShareModalProps> = ({ onClose, shareUrl, theme }) => 
             onClick={shareOnTwitter}
             className="flex items-center gap-2 bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 transition"
           >
-            <FaTwitter /> Twitter
+            <FaTwitter />
           </button>
 
           <button
             onClick={shareOnFacebook}
             className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
           >
-            <FaFacebook /> Facebook
+            <FaFacebook /> 
           </button>
 
           <button
             onClick={shareViaEmail}
             className="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
           >
-            <FaEnvelope /> Email
+            <FaEnvelope />
           </button>
         </div>
       </div>
