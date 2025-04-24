@@ -154,7 +154,7 @@ const Signup: React.FC = () => {
               className="bg-transparent border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               placeholder="Username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value.toLowerCase())}
             />
           </div>
 
