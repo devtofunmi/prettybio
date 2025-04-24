@@ -10,6 +10,7 @@ import GradientBorderr from "../../components/GradientBorder";
 import { Toaster, toast } from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useUser } from "../../context/UserContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 
 interface Link {
@@ -421,10 +422,19 @@ const LinksPage: React.FC = () => {
               )}
             </div>
     
-            
+           <AnimatePresence>         
             {isLinkModalOpen && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-80 md:w-96">
+              <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <motion.div 
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="bg-white p-6 rounded-lg shadow-lg w-80 md:w-96">
                   <div className="flex justify-between items-center">
                     <h2 className="text-lg">Add Link</h2>
                     <FaTimes
@@ -443,14 +453,25 @@ const LinksPage: React.FC = () => {
                   </GradientBorderr>
                   </div>
                   
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             )}
-    
+            </AnimatePresence>
             
+    
+            <AnimatePresence>
             {isSocialModalOpen && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] md:w-96">
+              <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="bg-white p-6 rounded-lg shadow-lg w-[350px] md:w-96">
                   <div className="flex justify-between items-center">
                     <h2 className="text-lg">Add Social Link</h2>
                     <FaTimes
@@ -496,9 +517,11 @@ const LinksPage: React.FC = () => {
                       </div>
                     )}
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             )}
+            </AnimatePresence>
+           
           </section>
         </DashboardLayout>
   );
