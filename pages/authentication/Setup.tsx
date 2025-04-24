@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {  useState, useRef } from "react";
 import { MdOutlinePhotoCameraBack } from "react-icons/md";
 import { useRouter } from "next/router";
 import GradientBorder from "../../components/GradientBorder";
@@ -134,6 +134,7 @@ const Setup: React.FC = () => {
               {image ? (
                 <Image
                   src={image}
+                  width={100} height={100}
                   alt="Uploaded"
                   className="w-full h-full rounded-full object-cover"
                 />
