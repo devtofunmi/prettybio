@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
         >
           <div className="w-10 h-10 rounded-full overflow-hidden border-2 hover:scale-105 transition hover:border-pink-500">
             <Image
-              src={user?.image || '/assets/jay.jpg'}
+              src={user?.image || '/assets/default.jpg'}
               alt="User Image"
               width={40}
               height={40}
@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-pink-500">
                 <Image
-                  src={user?.image || '/assets/jay.jpg'}
+                  src={user?.image || '/assets/default.jpg'}
                   alt="User Image"
                   width={40}
                   height={40}
