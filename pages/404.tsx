@@ -7,9 +7,9 @@ const Custom404: React.FC = () => {
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="text-center p-5">
-        <h1 className="text-4xl font-bold text-gray-700">404 - Page Not Found</h1>
+        <h1 className="text-4xl font-bold text-gray-700">Oops! Something went wrong</h1>
         <p className="text-xl text-gray-500 mt-4">
-          The user page you are looking for doesn&apos;t exist or has been removed.
+          The user page or page you are looking for doesn&apos;t exist or has been removed.
         </p>
         <button
           onClick={() => router.push("/")}
