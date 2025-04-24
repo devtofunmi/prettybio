@@ -174,7 +174,7 @@ const Login: React.FC = () => {
 
       <div className="hidden lg:block w-1/2 relative">
         <Image
-          src="/assets/linkbio.png"
+          src="/assets/auth.png"
           alt="Login Illustration"
           layout="fill"
           objectFit="cover"
