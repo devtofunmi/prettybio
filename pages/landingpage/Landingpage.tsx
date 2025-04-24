@@ -102,7 +102,7 @@ export default function HomePage() {
           transition={{ delay: 0.5, duration: 1 }}
           className="mt-12"
         >
-          <Image src="/assets/linkbio.png" alt="PrettyBio UI" width={500} height={500} className="shadow-2xl" />
+          <Image src="/assets/hero.png" alt="PrettyBio UI" width={500} height={500} />
         </motion.div>
       </section>
 
@@ -184,7 +184,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="flex justify-center">
-            <Image src="/assets/bg.png" alt="Analytics Image" width={300} height={300} className="rounded-lg shadow-md" />
+            <Image src="/assets/features.png" alt="Analytics Image" width={300} height={300} />
           </div>
         </motion.div>
       </section>
