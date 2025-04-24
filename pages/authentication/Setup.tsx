@@ -90,7 +90,7 @@ const Setup: React.FC = () => {
           image,
           name,
           bio,
-          user_link_name,
+          userLinkName,
           setup_complete: true,
         }, {
           headers: {
