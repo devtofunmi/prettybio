@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa';
 import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import { Toaster, toast } from "react-hot-toast";
 import { useUser } from '../../../context/UserContext';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 
@@ -79,6 +79,7 @@ const PreferencesPage: React.FC = () => {
 
   return (
     <DashboardLayout>
+      <Toaster />
       <div className="text-gray-800 min-h-screen px-4 md:px-10">
         <button
           onClick={() => router.push('/dashboard/settings/settings')}
