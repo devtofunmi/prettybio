@@ -92,11 +92,21 @@ const Profile: React.FC = () => {
 
         if (res.ok) {
           setUserData(data);
+
+          // Anonymous Page View Tracking
+          await fetch(`https://prettybioo.up.railway.app/analytics/page-view`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: userLinkName,
+            }),
+          });
         } else {
           router.push("/404");
         }
       } catch (err) {
-        // console.error("Fetch error:", err);
         router.push("/404");
       } finally {
         setLoading(false);
@@ -130,6 +140,14 @@ const Profile: React.FC = () => {
           href={social.url}
           target="_blank"
           rel="noreferrer"
+          onClick={async () => {
+            await fetch(
+              `https://prettybioo.up.railway.app/analytics/click/social/${social.id}`,
+              {
+                method: "POST",
+              }
+            );
+          }}
           className={`${theme.text} hover:scale-110 transition transform duration-300 text-3xl`}
         >
           {platformIcons[social.platform]}
@@ -139,9 +157,7 @@ const Profile: React.FC = () => {
   ) : null;
 
   return (
-    <div
-      className={`min-h-screen ${theme.bg} ${theme.text} flex flex-col p-4`}
-    >
+    <div className={`min-h-screen ${theme.bg} ${theme.text} flex flex-col p-4`}>
       <div className="fixed top-5 left-5 lg:left-[300px] z-50">
         <button
           className={`${theme.text} hover:scale-105 transition rounded-full shadow-md w-10 h-10 flex items-center justify-center`}
@@ -159,11 +175,10 @@ const Profile: React.FC = () => {
         />
       )}
 
-      
       <main className="flex-grow flex flex-col items-center text-center max-w-xl mx-auto w-full">
         <div className="w-28 h-28 rounded-full shadow-md overflow-hidden mt-16">
           <Image
-            src={userData.image || "/default-profile.png"}
+            src={userData.image || "/default.png"}
             alt="User"
             width={112}
             height={112}
@@ -173,7 +188,7 @@ const Profile: React.FC = () => {
 
         <h1 className="text-2xl font-bold mt-4">{userData.username}</h1>
         <p className="mt-2">{userData.bio}</p>
-   
+
         {userData.socialPosition === "top" && socialLinks}
 
         {userData.links?.length > 0 && (
@@ -184,7 +199,15 @@ const Profile: React.FC = () => {
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                className={`block ${theme.linkBg} ${theme.linkText} shadow-md py-3 px-6  rounded-full text-[18px] hover:scale-105 transition duration-300`}
+                onClick={async () => {
+                  await fetch(
+                    `https://prettybioo.up.railway.app/analytics/click/link/${link.id}`,
+                    {
+                      method: "POST",
+                    }
+                  );
+                }}
+                className={`block ${theme.linkBg} ${theme.linkText} shadow-md py-3 px-6 rounded-full text-[18px] hover:scale-105 transition duration-300`}
               >
                 {link.title}
               </a>
@@ -193,9 +216,8 @@ const Profile: React.FC = () => {
         )}
 
         <div className="mb-5">
-        {userData.socialPosition === "bottom" && socialLinks}
+          {userData.socialPosition === "bottom" && socialLinks}
         </div>
-
       </main>
 
       <footer className="text-center pb-4">
