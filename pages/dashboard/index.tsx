@@ -424,7 +424,7 @@ const LinksPage: React.FC = () => {
             
             {isLinkModalOpen && (
               <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-80 md:w-96">
                   <div className="flex justify-between items-center">
                     <h2 className="text-lg">Add Link</h2>
                     <FaTimes
@@ -450,7 +450,7 @@ const LinksPage: React.FC = () => {
             
             {isSocialModalOpen && (
               <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] md:w-96">
                   <div className="flex justify-between items-center">
                     <h2 className="text-lg">Add Social Link</h2>
                     <FaTimes
@@ -465,7 +465,7 @@ const LinksPage: React.FC = () => {
                         <button
                           key={platform.name}
                           onClick={() => handleSelectPlatform(platform.name)}
-                          className="text-lg font-semibold text-blue-600 hover:text-blue-800"
+                          className="md:text-lg text-md font-semibold text-blue-600 hover:text-blue-800"
                         >
                           {platform.icon}
                         </button>
