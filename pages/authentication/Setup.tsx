@@ -194,7 +194,7 @@ const Setup: React.FC = () => {
 
       <div className="hidden lg:block w-1/2 relative">
         <Image
-          src="/assets/linkbio.png"
+          src="/assets/auth.png"
           alt="Setup Illustration"
           layout="fill"
           objectFit="cover"
