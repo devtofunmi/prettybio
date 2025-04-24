@@ -13,7 +13,7 @@ const Setup: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
-  const [user_link_name, setUserLinkName] = useState<string>("");
+  const [userLinkName, setUserLinkName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
 
   const router = useRouter();
@@ -76,7 +76,7 @@ const Setup: React.FC = () => {
     const setUp = async () => {
       setLoading(true);
     
-      if (!image || !name || !user_link_name || !bio) {
+      if (!image || !name || !userLinkName || !bio) {
         toast.error("All fields are required.");
         setLoading(false);
         return;
@@ -164,7 +164,7 @@ const Setup: React.FC = () => {
                 type="text"
                 placeholder="yourname"
                 className="flex-1 py-3 bg-transparent focus:outline-none"
-                value={user_link_name}
+                value={userLinkName}
                 onChange={(e) => setUserLinkName(e.target.value)}
               />
             </div>
@@ -183,7 +183,7 @@ const Setup: React.FC = () => {
               <button
                 className="w-full px-6 py-3 bg-transparent text-lg font-bold text-gray-800 hover:text-white"
                 onClick={handleSubmit}
-                disabled={loading || !image || !name || !bio || !user_link_name}
+                disabled={loading || !image || !name || !bio || !userLinkName}
               >
                 {loading ? <LoadingSpinner /> : "Continue"}
               </button>
