@@ -18,13 +18,13 @@ const faqs = [
     id: 2,
     question: "How many links should I have on my PrettyBio?",
     answer:
-      "It depends on your goal. Prioritize the most relevant links and avoid clutter. A well-organized layout makes it easier for visitors to find what matters.",
+      "It depends on your goal. Prioritize the most relevant links and avoid clutter. A well organized layout makes it easier for visitors to find what matters.",
   },
   {
     id: 3,
     question: "Do I need a website to use PrettyBio?",
     answer:
-      "Not at all. PrettyBio gives you a beautiful landing page for your links—no website or coding needed.",
+      "Not at all. PrettyBio gives you a beautiful landing page for your links no website or coding needed.",
   },
   {
     id: 4,
@@ -35,8 +35,9 @@ const faqs = [
     id: 6,
     question: "Should I add this link to my Instagram posts?",
     answer:
-      "No. Instagram doesn’t support clickable links in captions. Instead, use your bio link to direct people properly.",
+      "Nope Instagram doesn't allow clickable links in captions. Instead, drop it in your bio. It’s like your personal landing page  make it count!"
   },
+  
   {
     id: 7,
     question: "Is my data safe?",
