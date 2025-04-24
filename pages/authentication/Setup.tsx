@@ -166,7 +166,7 @@ const Setup: React.FC = () => {
                 placeholder="yourname"
                 className="flex-1 py-3 bg-transparent focus:outline-none"
                 value={userLinkName}
-                onChange={(e) => setUserLinkName(e.target.value)}
+                onChange={(e) => setUserLinkName(e.target.value.toLowerCase())}
               />
             </div>
 
