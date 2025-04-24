@@ -108,9 +108,9 @@ export default function FeaturesPage() {
             variants={fadeInUp}
           >
             <Image
-              src="/assets/bg.png"
+              src="/assets/features.png"
               alt="PrettyBio Preview"
-              className="w-[250px] h-auto rounded-xl border border-gray-700 shadow-lg"
+              className="w-[250px] h-auto"
               width={300}
               height={300}
             />
