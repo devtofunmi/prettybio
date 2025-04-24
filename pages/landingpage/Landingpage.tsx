@@ -167,30 +167,37 @@ export default function HomePage() {
           exit={{ opacity: 0, y: 40 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto items-center"
+          className="max-w-6xl text-center mx-auto flex flex-col lg:flex-row items-center justify-between gap-5"
         >
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Gain Insights, Optimize Engagement, and Drive Growth.
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Monitor audience engagement, track revenue trends, and identify what drives conversions.
-              Leverage real-time insights to optimize your strategy and keep your audience engaged.
-            </p>
+          <h2 className="text-xl hidden md:flex font-bold text-gray-900">
+          “Track clicks, views, and engagement  all from one powerful dashboard.”</h2>
+          </div>
+          
+          <div className="hidden md:flex">
+            <Image src="/assets/features.png" alt="Analytics Image" width={500} height={500} />
+          </div>
+
+          <div>
+               <h2 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
+               See what works. Fix what doesn’t.
+                </h2>
+                <p className="text-gray-600 mb-6 text-lg">
+                  Dive into real time analytics that show you what your audience loves.
+                  Track link clicks, popular content, and social interactions all from one intuitive dashboard.
+                </p>
             <div className="mt-5">
-              <Link href="/authentication/Signup" className="bg-gray-900 text-white px-6 py-3 rounded-full shadow-lg hover:bg-gray-800 text-lg inline-block">
-                Get Started for Free
+              <Link href="/authentication/Signup" className="bg-gray-900 w-full text-white px-6 py-3 text-center rounded-full shadow-lg hover:bg-gray-800 text-lg inline-block">
+              Start Tracking for Free
               </Link>
             </div>
           </div>
-          <div className="flex justify-center">
-            <Image src="/assets/features.png" alt="Analytics Image" width={300} height={300} />
-          </div>
+
         </motion.div>
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-24 px-6 bg-gray-100">
+      <section className="py-24 px-12 bg-gray-100">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
