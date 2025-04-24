@@ -5,6 +5,7 @@ import { MdOutlinePhotoCameraBack } from "react-icons/md";
 import { useRef, useState } from 'react';
 import { Toaster, toast } from "react-hot-toast";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import Image from 'next/image';
 
 const AccountInfoPage: React.FC = () => {
   const router = useRouter();
@@ -158,7 +159,9 @@ const AccountInfoPage: React.FC = () => {
                 onClick={handleButtonClick}
               >
                 {image ? (
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
                     src={image}
                     alt="Uploaded"
                     className="w-full h-full rounded-full object-cover"
@@ -203,7 +206,7 @@ const AccountInfoPage: React.FC = () => {
                 type="text"
                 placeholder="Change userlinkname"
                 value={userLinkName}
-                onChange={(e) => setUserLinkName(e.target.value)}
+                onChange={(e) => setUserLinkName(e.target.value.toLowerCase())}
                 className="mt-2 bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               />
             </div>
@@ -213,7 +216,7 @@ const AccountInfoPage: React.FC = () => {
                 type="text"
                 placeholder="Change username"
                 value={name}
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => setUsername(e.target.value.toLowerCase())}
                 className="mt-2 bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               />
             </div>
