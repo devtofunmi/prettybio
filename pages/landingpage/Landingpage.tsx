@@ -197,7 +197,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 px-12 bg-gray-100">
+      <section className="py-24 px-0 bg-gray-100">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
