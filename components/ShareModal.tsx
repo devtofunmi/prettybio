@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaTwitter, FaFacebook, FaEnvelope } from "react-icons/fa";
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 interface ShareModalProps {
   onClose: () => void;
@@ -43,8 +45,18 @@ const ShareModal: React.FC<ShareModalProps> = ({ onClose, shareUrl, theme }) => 
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className={`md:w-96 w-80 rounded-lg shadow-lg p-6 relative ${theme.bg} ${theme.text}`}>
+    <AnimatePresence>
+      <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+      <motion.div
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.8, opacity: 0 }}
+      transition={{ duration: 0.2 }}
+       className={`md:w-96 w-80 rounded-lg shadow-lg p-6 relative ${theme.bg} ${theme.text}`}>
         <button
           onClick={onClose}
           className="absolute top-4 right-4"
@@ -91,8 +103,10 @@ const ShareModal: React.FC<ShareModalProps> = ({ onClose, shareUrl, theme }) => 
             <FaEnvelope />
           </button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
+    </AnimatePresence>
+    
   );
 };
 
