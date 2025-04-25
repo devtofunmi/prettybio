@@ -16,7 +16,7 @@ export default function HomePage() {
     renderMode: "performance",
     breakpoints: {
       "(max-width: 1024px)": { slides: { perView: 3 } },
-      "(max-width: 640px)": { slides: { perView: 1.2 } },
+      "(max-width: 640px)": { slides: { perView: 1 } },
     },
     created(slider) {
       let timeout: NodeJS.Timeout;
