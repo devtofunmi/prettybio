@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 export default function HomePage() {
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     loop: true,
-    mode: "free",
+    mode: "free-snap",
     slides: { perView: 6, spacing: 16 },
     renderMode: "performance",
     breakpoints: {
