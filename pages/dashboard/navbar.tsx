@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useUser } from '../../context/UserContext';
 import toast from 'react-hot-toast';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
   const router = useRouter();
@@ -71,10 +72,14 @@ const Navbar: React.FC = () => {
             ▼
           </span>
         </div>
-
-        {isModalOpen && (
-          <div
-            className="absolute top-14 right-0 w-72 bg-white shadow-xl border border-gray-200 rounded-lg p-4 z-30"
+         <AnimatePresence>
+         {isModalOpen && (
+          <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-14 right-0 w-72 bg-white shadow-xl border border-gray-200 rounded-lg p-4 z-30"
           >
             <div className="block md:hidden mb-2">
               <Link href="/">
@@ -119,8 +124,10 @@ const Navbar: React.FC = () => {
                 Logout
               </button>
             </div>
-          </div>
+          </motion.div>
         )}
+         </AnimatePresence>
+        
       </div>
     </nav>
   );
