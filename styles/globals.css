@@ -2,26 +2,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* 
 ::-webkit-scrollbar {
   width:8px;
   background-color: #2b2c31;
-}
-::-webkit-scrollbar-thumb {
+} */
+/* ::-webkit-scrollbar-thumb {
   width: 2px;
   border-radius: 20px;
   background-color: #202125;
+} */
+
+/* Hides the scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-/* ::-webkit-scrollbar-horizontal {
-  width:0px;
-  background-color: "transparent";
-} */
-/* ::-webkit-scrollbar {
-  width:0px;
-  background-color: "transparent";
- 
-} */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* For Internet Explorer 10+ */
+  scrollbar-width: none;     /* For Firefox */
+}
+
 
 .dark {
   background-color: rgb(12, 12, 12);

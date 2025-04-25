@@ -1,23 +1,25 @@
 import React from 'react';
 
 interface MobilePreviewProps {
-userLinkName: string;
+  userLinkName: string;
 }
 
 const MobilePreview: React.FC<MobilePreviewProps> = ({ userLinkName }) => {
-return (
-<div className="flex justify-center items-center h-full">
-<div className="bg-gray-200 border-5 border-gray-700 rounded-2xl overflow-hidden   
-max-w-[250px] h-[50vh] lg:w-[250px] lg:h-[500px]   
-lg:shadow-lg shadow-none ">
-<iframe
-scrolling="no"
-className="w-full h-full"
-src={https://prettybio.netlify.app/${userLinkName}}
-/>
-</div>
-</div>
-);
+  return (
+    <div className="flex justify-center items-center h-full">
+      <div className="relative bg-[#f5f5f5] w-[300px] h-[500px] md:h-[500px] rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-300">
+        <div className="w-full h-screen overflow-auto scrollbar-hide">
+          <iframe
+            title="Mobile Preview"
+            src={`https://prettybio.netlify.app/${userLinkName}`}
+            className="w-[375px] h-[667px] origin-top-left scale-[0.8]"
+            style={{ transformOrigin: 'top left', border: 'none' }}
+          />
+        </div>
+        
+      </div>
+    </div>
+  );
 };
 
 export default MobilePreview;
