@@ -50,7 +50,7 @@ const Footer: FC = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link href="mailto:prettybio@gmail.com" className="hover:text-white">
+                    <Link href="mailto:pretttybio@gmail.com" className="hover:text-white">
                       Contact
                     </Link>
                   </li>
@@ -62,7 +62,7 @@ const Footer: FC = () => {
               <>
                 <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
                 <div className="flex justify-center md:justify-start space-x-4">
-                  <Link href="https://twitter.com" target="_blank" className="text-xl hover:text-blue-500">
+                  <Link href="https://twitter.com/pretttybio" target="_blank" className="text-xl hover:text-blue-500">
                     <FaTwitter />
                   </Link>
                   <Link href="https://instagram.com" target="_blank" className="text-xl hover:text-pink-500">
