@@ -7,6 +7,7 @@ import Navbar from "../../components/Navbar";
 import Image from "next/image";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
+import { useUser } from "../../context/UserContext";
 
 const Setup: React.FC = () => {
   const [image, setUserImage] = useState<string>("");
@@ -15,6 +16,7 @@ const Setup: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [userLinkName, setUserLinkName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+  const { refetchUser } = useUser();
 
   const router = useRouter();
 
@@ -98,7 +100,9 @@ const Setup: React.FC = () => {
           },
         });
     
-        toast.success("Setup successful!");
+         toast.success("Setup successful!");
+         //Refetch user context after successful setup
+         await refetchUser();
     
         setTimeout(() => {
           router.push("/dashboard");
