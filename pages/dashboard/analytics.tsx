@@ -44,17 +44,17 @@ const AnalyticsPage: React.FC = () => {
   
       try {
         const [linkRes, socialRes, viewsRes] = await Promise.all([
-          fetch(`https://prettybioo.up.railway.app/analytics/admin/links`, {
+          fetch(`https://prettybioo.up.railway.app/analytics/links`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }),
-          fetch(`https://prettybioo.up.railway.app/analytics/admin/social-links`, {
+          fetch(`https://prettybioo.up.railway.app/analytics/social-links`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }),
-          fetch(`https://prettybioo.up.railway.app/analytics/admin/page-views`, {
+          fetch(`https://prettybioo.up.railway.app/analytics/page-views`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
