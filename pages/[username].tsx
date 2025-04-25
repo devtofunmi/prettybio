@@ -140,6 +140,7 @@ const Profile: React.FC = () => {
           href={social.url}
           target="_blank"
           rel="noreferrer"
+         
           onClick={async () => {
             await fetch(
               `https://prettybioo.up.railway.app/analytics/click/social/${social.id}`,
@@ -148,6 +149,7 @@ const Profile: React.FC = () => {
               }
             );
           }}
+          
           className={`${theme.text} hover:scale-110 transition transform duration-300 text-3xl`}
         >
           {platformIcons[social.platform]}
