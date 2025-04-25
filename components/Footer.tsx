@@ -61,16 +61,16 @@ const Footer: FC = () => {
             {i === 2 && (
               <>
                 <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
-                <div className="flex justify-center md:justify-start space-x-4">
+                <div className="flex justify-center md:justify-start ">
                   <Link href="https://twitter.com/pretttybio" target="_blank" className="text-xl hover:text-blue-500">
                     <FaTwitter />
                   </Link>
-                  <Link href="https://instagram.com" target="_blank" className="text-xl hover:text-pink-500">
+                  {/* <Link href="https://instagram.com" target="_blank" className="text-xl hover:text-pink-500">
                     <FaInstagram />
                   </Link>
                   <Link href="https://facebook.com" target="_blank" className="text-xl hover:text-blue-700">
                     <FaFacebook />
-                  </Link>
+                  </Link> */}
                 </div>
               </>
             )}
