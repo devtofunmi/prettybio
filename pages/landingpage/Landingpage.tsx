@@ -15,10 +15,9 @@ export default function HomePage() {
     slides: { perView: 6, spacing: 16 },
     renderMode: "performance",
     breakpoints: {
-      "(max-width: 1024px)": { slides: { perView: 3 } },
-      
-
-
+      "(max-width: 1024px)": { slides:             { perView: 3 } },   
+"(max-width: 640px)": { slides: { perView: 1.2 } },
+    },
     created(slider) {
       let timeout: NodeJS.Timeout;
       let mouseOver = false;
