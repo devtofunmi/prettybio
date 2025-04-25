@@ -8,7 +8,7 @@ const MobilePreview: React.FC<MobilePreviewProps> = ({ userLinkName }) => {
   return (
     <div className="flex justify-center items-center h-full">
       <div className="bg-gray-200 border-5 border-gray-700 rounded-2xl overflow-hidden 
-        max-w-[250px] h-[50vh] lg:w-[250px] lg:h-[500px] 
+        w-[200px] h-[250px] lg:w-[200px] lg:h-[250px] 
         lg:shadow-lg shadow-none ">
         <iframe
           scrolling="no"
@@ -21,10 +21,3 @@ const MobilePreview: React.FC<MobilePreviewProps> = ({ userLinkName }) => {
 };
 
 export default MobilePreview;
-
-
-  
-  
-  
-  
-  
