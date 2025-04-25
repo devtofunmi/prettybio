@@ -216,7 +216,7 @@ const AccountInfoPage: React.FC = () => {
                 type="text"
                 placeholder="Change username"
                 value={name}
-                onChange={(e) => setUsername(e.target.value.toLowerCase())}
+                onChange={(e) => setUserName(e.target.value.toLowerCase())}
                 className="mt-2 bg-transparent focus:border-[#effbce] border border-gray-400 rounded-md py-4 px-4 block w-full text-black"
               />
             </div>
