@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+PrettyBio
 
-## Getting Started
+PrettyBio is a sleek and customizable link-in-bio tool designed to help creators, developers, and entrepreneurs showcase their most important links, social profiles, and personal branding all in one beautiful page.
 
-First, run the development server:
+Whether you're sharing your portfolio, promoting content, or connecting multiple online profiles, PrettyBio makes it easy to build a mobile friendly landing page that reflects your style.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+What You Can Do with PrettyBio
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add Links: Add unlimited links to your page.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Social Profiles: Display social media icons and links with customizable positioning.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Themes & Styling: Choose from multiple pre built themes and personalize your profile’s look and feel.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Live Mobile Preview: Instantly preview changes as you edit your profile.
 
-## Learn More
+Analytics: Track link clicks, profile views, and see which links are most popular.
 
-To learn more about Next.js, take a look at the following resources:
+Responsive Design: Looks great on any device, especially mobile.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Who It's For
 
-## Deploy on Vercel
+PrettyBio is perfect for:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Indie developers and creators
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Freelancers and entrepreneurs
+
+Influencers and digital professionals
+
+Anyone who wants a clean, modern link-in-bio page
+
+
+Tech Stack
+
+PrettyBio is built with:
+
+Next.js (App Router)
+
+Tailwind CSS for styling
+
+Typescript 
+
+Framer Motion for animations
+
+Hono + Prisma + PostgreSQL on the backend. 
+
